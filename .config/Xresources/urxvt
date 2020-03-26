@@ -1,0 +1,16 @@
+!-- general --!
+URxvt*scrollBar:	false
+URxvt*depth:		85
+URxvt*background:	black
+
+!-- Xft settings -- !
+Xft.dpi:		96
+Xft.antialias:  	true
+Xft.rgba:		rgb
+Xft.hinting:		true
+Xft.hintstyle:		hintfull
+ 
+!-- Fonts --!
+URxvt.font:		xft:MesloLGS NF:style=Regular:pixelsize=14
+URxvt.boldFont:		xft:MesloLGS NF:style=Bold:pixelsize=14
+URxvt.letterSpace:	-1

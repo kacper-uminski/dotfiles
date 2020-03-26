@@ -1,0 +1,56 @@
+/* Rofi Theme */
+
+* {
+	black-transparent:  #1b182c5F;
+	red:                #ff5458;
+	white:              #a6b3cc;
+
+    spacing: 0;
+    background-color: transparent;
+
+    font: "MesloLGS NF 18";
+}
+
+window {
+	transparency: "real";
+	fullscreen: true;
+	background-color: @black-transparent;
+}
+
+mainbox {
+	children: [inputbar, listview];
+	margin: 42%;
+}
+
+inputbar {
+	children: [prompt, textbox-prompt-colon, entry];
+	padding: 5px 0;
+}
+
+prompt {
+	text-color: @white;
+}
+
+textbox-prompt-colon {
+	expand: false;
+	str: ":";
+	margin: 0 1ch 0 0;
+	text-color: @white;
+}
+
+entry {
+	text-color: @white;
+}
+
+
+element {
+	padding: 5px 0;
+}
+
+element normal normal, element normal urgent, element normal active, element alternate normal, element alternate urgent, element alternate active {
+	text-color: @white;
+}
+
+element selected normal, element selected urgent, element selected active {
+	text-color: @red;
+}
