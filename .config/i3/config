@@ -1,0 +1,226 @@
+# Setting variables
+set $mod Mod4
+set $wallpaper /home/kacper/Pictures/Wallpapers/Backdrops/Dazzled-Horizon.png
+
+# Set wallpaper
+exec_always feh --bg-fill $wallpaper
+exec_always picom
+
+# Starting Polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# starting programs
+bindsym $mod+t exec alacritty
+bindsym $mod+b exec brave
+bindsym $mod+e exec emacs
+
+# kill focused window
+bindsym $mod+Shift+x kill
+
+# lock screen
+#bindsym $mod+Shift+q exec i3lock --color "$bg"
+bindsym $mod+Shift+q exec ~/.config/i3/matrixlock.sh
+
+# start rofi
+bindsym $mod+r exec rofi -show run -theme challenger-deep
+
+# start dmenu
+#bindsym $mod+r exec dmenu_run -c -l 10
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# change keyboard layout
+exec_always setxkbmap -layout "us" -variant "dvorak"
+bindsym $mod+Mod1+d exec setxkbmap -layout "us" -variant "dvorak"
+bindsym $mod+Mod1+s exec setxkbmap -layout "se" -variant "dvorak"
+bindsym $mod+Mod1+p exec setxkbmap -layout "pl" -variant "dvorak"
+
+
+# split in horizontal orientation
+bindsym $mod+w split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+#bindsym $mod+e layout stacking
+#bindsym $mod+t layout tabbed
+bindsym $mod+s layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1        "1"
+set $ws2        "2"
+set $ws3        "3"
+set $ws4        "4"
+set $ws5        "5"
+set $ws6        "6"
+set $ws7        "7"
+set $ws8        "8"
+set $ws9        "9"
+set $ws10       "10"
+
+# Gaps
+for_window [class=".*"] border pixel 2
+
+workspace 1 gaps outer 30
+workspace 1 gaps inner 30
+workspace 3 gaps outer 30
+workspace 3 gaps inner 30
+workspace 4 gaps outer 30
+workspace 4 gaps inner 30
+workspace 6 gaps outer 30
+workspace 6 gaps inner 30
+workspace 7 gaps outer 30
+workspace 7 gaps inner 30
+workspace 8 gaps outer 30
+workspace 8 gaps inner 30
+
+# Switching between workspaces
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Force certain programs to launch in certain workspaces
+assign  [class="Alacritty"]             $ws1
+assign  [class="Brave-browser"]         $ws2
+assign  [class="discord"]               $ws4
+assign  [class="flacon"]                $ws6
+assign  [class="Google-chrome"]         $ws2
+assign  [class="minecraft-launcher"]    $ws5
+assign  [class="puddletag"]             $ws6
+assign  [class="qBittorrent"]           $ws7
+assign  [class="Spotify"]               $ws3
+assign  [class="TelegramDesktop"]       $ws4
+
+
+# Resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym h resize shrink   width        10 px or 10 ppt
+        bindsym k resize grow     heigh        10 px or 10 ppt
+        bindsym j resize shrink   heigh        10 px or 10 ppt
+        bindsym l resize grow     width        10 px or 10 ppt
+        
+        # Back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+p mode "resize"
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# Set colors
+
+# Special
+
+set $fg         #cbe3e7
+set $bg         #1b182c
+
+# Black
+
+set $color0     #100e23
+set $color8     #565575
+
+# Red
+
+set $color1     #ff8080
+set $color9     #ff5458
+
+# Green
+
+set $color2     #95ffa4
+set $color10    #62d196
+
+# Yellow
+
+set $color3     #ffe9aa
+set $color11    #ffb378
+
+# Blue
+
+set $color4     #91ddff
+set $color12    #65b2ff
+
+# Magenta
+
+set $color5     #c991e1
+set $color13    #906cff
+
+# Cyan
+
+set $color6     #aaffe4
+set $color14    #63f2f1
+
+# White
+
+set $color7     #cbe3e7
+set $color15    #a6b3cc
+
+# Window colors
+#                               border         background       text       indicator
+client.focused                  $color12       $color12         $fg        $color12
+client.unfocused                $bg            $bg              $fg        $bg
+client.focused_inactive         $color12       $color12         $fg        $color12
+client.urgent                   $color9        $color9          $fg        $color9
+
