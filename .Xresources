@@ -1,2 +1,5 @@
 !-- Colors --!
 #include "/home/kacper/.config/Xresources/themes/challenger-deep"
+
+!-- URXVT --!
+#include "/home/kacper/.config/Xresources/urxvt"

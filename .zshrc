@@ -123,9 +123,12 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-#Aliases
+# Aliases
 alias doom='$HOME/.emacs.d/bin/doom'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/Documents/dotfiles --work-tree=$HOME'
+
+# Variables
+export TERM=xterm-256color
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

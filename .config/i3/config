@@ -22,7 +22,7 @@ floating_modifier $mod
 # starting programs
 bindsym $mod+t exec alacritty
 bindsym $mod+b exec brave
-bindsym $mod+e exec emacs
+bindsym $mod+e exec gvim
 
 # kill focused window
 bindsym $mod+Shift+x kill
@@ -50,10 +50,10 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # change keyboard layout
-exec_always setxkbmap -layout "us" -variant "dvorak"
-bindsym $mod+Mod1+d exec setxkbmap -layout "us" -variant "dvorak"
-bindsym $mod+Mod1+s exec setxkbmap -layout "se" -variant "dvorak"
-bindsym $mod+Mod1+p exec setxkbmap -layout "pl" -variant "dvorak"
+exec_always setxkbmap -layout "us" -variant "dvorak" -option "ctrl:swapcaps"
+bindsym $mod+Mod1+d exec setxkbmap -layout "us" -variant "dvorak" -option "ctrl:swapcaps"
+bindsym $mod+Mod1+s exec setxkbmap -layout "se" -variant "dvorak" -option "ctrl:swapcaps"
+bindsym $mod+Mod1+p exec setxkbmap -layout "pl" -variant "dvorak" -option "ctrl:swapcaps"
 
 
 # split in horizontal orientation
@@ -141,6 +141,7 @@ assign  [class="Brave-browser"]         $ws2
 assign  [class="discord"]               $ws4
 assign  [class="flacon"]                $ws6
 assign  [class="Google-chrome"]         $ws2
+assign	[class="Gvim"]			$ws1
 assign  [class="minecraft-launcher"]    $ws5
 assign  [class="puddletag"]             $ws6
 assign  [class="qBittorrent"]           $ws7
