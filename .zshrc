@@ -126,6 +126,7 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 # Aliases
 alias doom='$HOME/.emacs.d/bin/doom'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/Documents/dotfiles --work-tree=$HOME'
+alias vim='nvim'
 
 # Variables
 export TERM=xterm-256color

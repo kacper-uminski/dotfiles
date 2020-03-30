@@ -22,7 +22,6 @@ floating_modifier $mod
 # starting programs
 bindsym $mod+t exec alacritty
 bindsym $mod+b exec brave
-bindsym $mod+e exec gvim
 
 # kill focused window
 bindsym $mod+Shift+x kill
@@ -32,11 +31,10 @@ bindsym $mod+Shift+x kill
 bindsym $mod+Shift+q exec ~/.config/i3/matrixlock.sh
 
 # start rofi
-bindsym $mod+r exec rofi -show run -theme challenger-deep
+#bindsym $mod+r exec rofi -show run -theme challenger-deep
 
 # start dmenu
-#bindsym $mod+r exec dmenu_run -c -l 10
-
+bindsym $mod+r exec dmenu_run -l 10
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
