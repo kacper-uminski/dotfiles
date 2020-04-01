@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const char  font[]       = "MesloLGS NF:size=14";
+static const char  font[]       = "Roboto Mono Nerd Font:size=14";
 static const char* normbgcolor  = "#1b182c";
 static const char* normfgcolor  = "#cbe3e7";
 static const char* selbgcolor   = "#65b2ff";

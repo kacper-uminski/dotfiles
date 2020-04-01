@@ -4,7 +4,6 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'itchyny/lightline.vim'
-Plug 'vifm/vifm.vim'
 
 call plug#end()
 
@@ -23,7 +22,6 @@ endif
 " Color Scheme
 
 colorscheme challenger_deep
-hi Normal guibg=NONE ctermbg=NONE
 if has('nvim') || has('termguicolors')
   set termguicolors
 endif
