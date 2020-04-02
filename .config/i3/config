@@ -22,6 +22,7 @@ floating_modifier $mod
 # starting programs
 bindsym $mod+t exec alacritty
 bindsym $mod+b exec brave
+bindsym $mod+e exec emacs
 
 # kill focused window
 bindsym $mod+Shift+x kill

@@ -15,7 +15,7 @@ set noshowmode
 let g:lightline = { 'colorscheme': 'challenger_deep'}
 
 if !has('gui_running')
-  set t_Co=256
+	set t_Co=256
 endif
 
 
@@ -23,7 +23,7 @@ endif
 
 colorscheme challenger_deep
 if has('nvim') || has('termguicolors')
-  set termguicolors
+	set termguicolors
 endif
 
 
@@ -37,3 +37,5 @@ syntax on
 set number
 set relativenumber
 
+" Whitespace
+set noet ci pi sts=0 sw=4 ts=4
