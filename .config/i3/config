@@ -36,6 +36,7 @@ bindsym $mod+Shift+q exec ~/.config/i3/matrixlock.sh
 
 # start dmenu
 bindsym $mod+r exec dmenu_run -l 10
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
