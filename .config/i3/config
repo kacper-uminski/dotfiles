@@ -1,6 +1,7 @@
 # Setting variables
 set $mod Mod4
 set $wallpaper /home/kacper/Pictures/Wallpapers/Backdrops/Dazzled-Horizon.png
+font pango:Roboto Mono Nerd Font 12
 
 # Set wallpaper
 exec_always feh --bg-fill $wallpaper
