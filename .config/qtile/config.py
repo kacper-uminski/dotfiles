@@ -1,4 +1,4 @@
-from libqtile.config import Key, Screen, Group, Drag, Click
+from libqtile.config import Click, Drag, Group, Match, Key, Screen
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 from typing import List  # noqa: F401
@@ -11,12 +11,35 @@ def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.call([home])
 
+# Set Colors
+colors = [
+        '#100e23',
+        '#ff8080',
+        '#95ffa4',
+        '#ffe9aa',
+        '#91ddff',
+        '#c991e1',
+        '#aaffe4',
+        '#cbe3e7',
+        '#565575',
+        '#ff5458',
+        '#62d196',
+        '#ffb378',
+        '#65b2ff',
+        '#906cff',
+        '#63f2f1',
+        '#a6b3cc',
+        '#cbe3e7',
+        '#1b182c',
+        '#fbfcfc',
+        ]
+
 # Set Mod Key
 mod = "mod4"
 
 # Key definitions
-
 keys = [
+
     # Switch between windows in current stack pane
     Key([mod], "h", lazy.layout.down()),
     Key([mod], "l", lazy.layout.up()),
@@ -36,28 +59,45 @@ keys = [
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
-    Key([mod], "t", lazy.spawn("alacritty")),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
     Key([mod], "w", lazy.window.kill()),
 
-    Key([mod, "control"], "r", lazy.restart()),
-    Key([mod, "control"], "q", lazy.shutdown()),
-    Key([mod], "r", lazy.spawncmd()),
+    # Exit or restart qtile.
+    Key([mod, "shift"], "r", lazy.restart()),
+    Key([mod, "shift"], "q", lazy.shutdown()),
+
+    # Start dmenu.
+    Key([mod], "r", lazy.spawn("dmenu_run -l 10")),
+
+    # Start rofi.
+    #Key([mod], "r", lazy.spawn("rofi -show run -theme challenger-deep")),
+    
+    # Start programs.
+    Key([mod], "t", lazy.spawn("alacritty")),
+    Key([mod], "b", lazy.spawn("brave")),
+    Key([mod], "e", lazy.spawn("emacs")),
+
+    # Change keyboard loyouts.
+    Key([mod, "mod1"], "d", lazy.spawn("setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps'")),
+    Key([mod, "mod1"], "s", lazy.spawn("setxkbmap -layout 'se' -variant 'dvorak' -option 'ctrl:swapcaps'")),
+    Key([mod, "mod1"], "p", lazy.spawn("setxkbmap -layout 'pl' -variant 'dvorak' -option 'ctrl:swapcaps'")),
+
 ]
 
+# Set groups, group names, and matching windows.
 groups = [
-        Group("1", label="", persist=False),
-        Group("2", label="", persist=False),
-        Group("3", label="", persist=False),
-        Group("4", label="", persist=False),
-        Group("5", label="", persist=False),
-        Group("6", label="", persist=False),
-        Group("7", label="", persist=False),
-        Group("8", label="", persist=False),
-        Group("9", label="", persist=False),
-        Group("0", label="", persist=False),
+        Group("1", label="DEV", layout="monadtall", matches=[Match(wm_class=["Alacritty"])]),
+        Group("2", label="WEB", layout="max", matches=[Match(wm_class=["Brave-browser"])]),
+        Group("3", label="MUSIC",),
+        Group("4", label="CHAT",),
+        Group("5", label="GAME",),
+        Group("6", label="EDIT",),
+        Group("7", label="DOWNLOAD",),
+        Group("8", label="08",),
+        Group("9", label="09",),
+        Group("0", label="10",),
         ]
 
 for i in groups:
@@ -69,40 +109,121 @@ for i in groups:
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
     ])
 
+# Default layout theme.
+layout_theme = {"border_focus": colors[13],
+                "border_normal": colors[17],
+                "border_width": 2,
+                "margin": 35,
+                }
+
 layouts = [
     layout.Max(),
-    layout.Stack(num_stacks=2)
+    layout.MonadTall(**layout_theme),
 ]
 
 widget_defaults = dict(
-    font='Blex Nerd Font',
-    fontsize=14,
-    padding=3,
+    font = 'Blex Mono Nerd Font',
+    fontsize = 16,
+    foreground = colors[16],
+    padding = 3,
 )
+
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        top=bar.Bar(
+        top = bar.Bar(
             [
                 widget.GroupBox(
-                    borderwidth=0,
-                    font='Blex Nerd Font',
-                    fontsize=25,
-                    hide_unused=True,
-                    highlight_method='block',
-                    margin_y=-3,
-                    padding=3,
-                    rounded=False,
+                    active = colors[16],
+                    this_current_screen_border = colors[13],
+                    borderwidth = 0,
+                    foreground = colors[12],
+                    hide_unused = True,
+                    highlight_color = colors[17],
+                    highlight_method = 'block',
+                    margin_y = -2,
+                    rounded = False,
+                    urgent_border = colors[1],
                     ),
-                widget.Prompt(),
-                widget.WindowName(),
+
+                widget.CurrentLayout(
+                    background = colors[13],
+                    padding = 5
+                    ),
+
+                widget.TextBox(
+                    background = colors[17],
+                    foreground = colors[13],
+                    fontsize= 37,
+                    padding= -5,
+                    text= '',
+                    ),
+
+                widget.Spacer(),
+
+                widget.TextBox(
+                    background = colors[17],
+                    foreground = colors[13],
+                    fontsize= 37,
+                    padding= -5,
+                    text= '',
+                    ),
+ 
+#                widget.Net(
+#                    background = colors[13],
+#                    foreground = colors[16],
+#                    interface = 'enp3s0',
+#                    ),
+ 
+                widget.TextBox(
+                    background = colors[13],
+                    foreground = colors[17],
+                    fontsize= 37,
+                    padding= -5,
+                    text= '',
+                    ),
+ 
+                widget.TextBox(
+                        background = colors[17],
+                        fontsize = 24,
+                        foreground = colors[16],
+                        padding = 0,
+                        text="墳 ",
+                        ),
+
+                widget.Volume(
+                        foreground = colors[16],
+                        background = colors[17],
+                        padding = 5
+                        ),
+
+                widget.TextBox(
+                    background = colors[17],
+                    foreground = colors[13],
+                    fontsize= 37,
+                    padding= -5,
+                    text= '',
+                    ),
+
+                widget.Clock(
+                   background = colors[13],
+                   format = "[%m-%d]-[ %H:%M ]",
+                   ),
+ 
+                widget.TextBox(
+                    background = colors[13],
+                    foreground = colors[17],
+                    fontsize= 37,
+                    padding= -5,
+                    text= '',
+                    ),
+
                 widget.Systray(),
-                widget.Clock(format='%Y-%m-%d %a %I:%M'),
             ],
-            30,
-            background='#1b182c',
-            opacity=0.90,
+            25,
+            background = colors[17],
+            opacity = 0.90,
         ),
     ),
 ]
