@@ -33,7 +33,6 @@ intel-ucode
 isync
 jre8-openjdk
 libtool
-lightdm
 linux
 linux-firmware
 linux-headers
@@ -66,6 +65,7 @@ tree
 ttf-font-awesome
 vi
 vifm
+vim
 wget
 which
 xf86-video-vesa

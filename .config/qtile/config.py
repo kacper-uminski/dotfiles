@@ -49,7 +49,7 @@ keys = [
     Key([mod, "control"], "l", lazy.layout.shuffle_up()),
 
     # Switch window focus to other pane(s) of stack
-    Key([mod], "space", lazy.layout.next()),
+    Key([mod], "Tab", lazy.layout.next()),
 
     # Swap panes of split stack
     Key([mod, "shift"], "space", lazy.layout.rotate()),
@@ -61,12 +61,12 @@ keys = [
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
 
     # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout()),
+    Key([mod], "f", lazy.next_layout()),
     Key([mod], "w", lazy.window.kill()),
 
     # Exit or restart qtile.
     Key([mod, "shift"], "r", lazy.restart()),
-    Key([mod, "shift"], "q", lazy.shutdown()),
+    Key([mod, "shift"], "e", lazy.shutdown()),
 
     # Start dmenu.
     Key([mod], "r", lazy.spawn("dmenu_run -l 10")),
@@ -88,16 +88,14 @@ keys = [
 
 # Set groups, group names, and matching windows.
 groups = [
-        Group("1", label="DEV", layout="monadtall", matches=[Match(wm_class=["Alacritty"])]),
-        Group("2", label="WEB", layout="max", matches=[Match(wm_class=["Brave-browser"])]),
-        Group("3", label="MUSIC",),
-        Group("4", label="CHAT",),
-        Group("5", label="GAME",),
-        Group("6", label="EDIT",),
-        Group("7", label="DOWNLOAD",),
-        Group("8", label="08",),
-        Group("9", label="09",),
-        Group("0", label="10",),
+        Group("1", label="DEV",     layout="monadtall",     matches=[Match(wm_class=["Alacritty"])],),
+        Group("2", label="WEB",     layout="max",           matches=[Match(wm_class=["Brave-browser"])],),
+        Group("3", label="CHAT",    layout="monadtall",),
+        Group("4", label="GAME",    layout="max",),
+        Group("5", label="MUSIC",   layout="max",),
+#        Group("6", label="EDIT",),
+#        Group("7", label="DLOAD",),
+        Group("6", label="RAND",    layout="monadtall",),
         ]
 
 for i in groups:
@@ -138,13 +136,12 @@ screens = [
                     active = colors[16],
                     this_current_screen_border = colors[13],
                     borderwidth = 0,
-                    foreground = colors[12],
-                    hide_unused = True,
-                    highlight_color = colors[17],
+                    hide_unused = False,
                     highlight_method = 'block',
                     margin_y = -2,
                     rounded = False,
                     urgent_border = colors[1],
+                    urgent_foregound = colors[16],
                     ),
 
                 widget.CurrentLayout(
@@ -170,11 +167,11 @@ screens = [
                     text= '',
                     ),
  
-#                widget.Net(
-#                    background = colors[13],
-#                    foreground = colors[16],
-#                    interface = 'enp3s0',
-#                    ),
+                widget.Net(
+                    background = colors[13],
+                    foreground = colors[16],
+                    interface = 'enp3s0',
+                    ),
  
                 widget.TextBox(
                     background = colors[13],
@@ -187,13 +184,11 @@ screens = [
                 widget.TextBox(
                         background = colors[17],
                         fontsize = 24,
-                        foreground = colors[16],
                         padding = 0,
                         text="墳 ",
                         ),
 
                 widget.Volume(
-                        foreground = colors[16],
                         background = colors[17],
                         padding = 5
                         ),
@@ -219,7 +214,9 @@ screens = [
                     text= '',
                     ),
 
-                widget.Systray(),
+                widget.Systray(
+                    background = colors[17],
+                    ),
             ],
             25,
             background = colors[17],

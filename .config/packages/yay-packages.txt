@@ -1,6 +1,5 @@
 brave-bin
 flat-remix
-lightdm-mini-greeter-git
 ly-git
 minecraft-launcher
 neovim-plug-git
@@ -8,12 +7,10 @@ nerd-fonts-complete
 no-more-secrets-git
 nordvpn-bin
 nvtop-git
-optimus-manager-git
 polybar
 puddletag-qt5-git
 python-notify2
 spotify
-timeshift
 ttf-ms-fonts
 tty-clock
 unimatrix-git

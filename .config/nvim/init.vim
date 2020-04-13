@@ -39,3 +39,4 @@ set relativenumber
 
 " Whitespace
 set noet ci pi sts=0 sw=4 ts=4
+set listchars=space:_,tab:>~ list

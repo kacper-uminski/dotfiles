@@ -30,7 +30,7 @@ bindsym $mod+Shift+x kill
 
 # lock screen
 #bindsym $mod+Shift+q exec i3lock --color "$bg"
-bindsym $mod+Shift+q exec ~/.config/i3/matrixlock.sh
+bindsym $mod+Shift+q exec ~/.config/matrixlock/matrixlock.sh
 
 # start rofi
 #bindsym $mod+r exec rofi -show run -theme challenger-deep
