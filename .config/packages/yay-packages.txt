@@ -1,14 +1,14 @@
 brave-bin
 flat-remix
-glmark2-git
-hollywood
 lightdm-mini-greeter-git
+ly-git
 minecraft-launcher
 neovim-plug-git
 nerd-fonts-complete
 no-more-secrets-git
 nordvpn-bin
 nvtop-git
+optimus-manager-git
 polybar
 puddletag-qt5-git
 python-notify2
