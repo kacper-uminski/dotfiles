@@ -41,12 +41,12 @@ mod = "mod4"
 keys = [
 
     # Switch between windows in current stack pane
-    Key([mod], "h", lazy.layout.down()),
-    Key([mod], "l", lazy.layout.up()),
+    Key([mod], "l", lazy.layout.down()),
+    Key([mod], "h", lazy.layout.up()),
 
     # Move windows up or down in current stack
-    Key([mod, "control"], "h", lazy.layout.shuffle_down()),
-    Key([mod, "control"], "l", lazy.layout.shuffle_up()),
+    Key([mod, "shift"], "l", lazy.layout.shuffle_down()),
+    Key([mod, "shift"], "h", lazy.layout.shuffle_up()),
 
     # Switch window focus to other pane(s) of stack
     Key([mod], "Tab", lazy.layout.next()),
@@ -90,9 +90,9 @@ keys = [
 groups = [
         Group("1", label="DEV",     layout="monadtall",     matches=[Match(wm_class=["Alacritty"])],),
         Group("2", label="WEB",     layout="max",           matches=[Match(wm_class=["Brave-browser"])],),
-        Group("3", label="CHAT",    layout="monadtall",),
-        Group("4", label="GAME",    layout="max",),
-        Group("5", label="MUSIC",   layout="max",),
+        Group("3", label="CHAT",    layout="monadtall",     matches=[Match(wm_class=["TelegramDesktop"]), Match(wm_class=["discord"])],),
+        Group("4", label="GAME",    layout="max",           matches=[Match(wm_class=["minecraft-launcher"])],),
+        Group("5", label="MUSIC",   layout="max",           matches=[Match(wm_class=["Spotify"])],),
 #        Group("6", label="EDIT",),
 #        Group("7", label="DLOAD",),
         Group("6", label="RAND",    layout="monadtall",),
@@ -138,7 +138,6 @@ screens = [
                     borderwidth = 0,
                     hide_unused = False,
                     highlight_method = 'block',
-                    margin_y = -2,
                     rounded = False,
                     urgent_border = colors[1],
                     urgent_foregound = colors[16],
@@ -169,7 +168,7 @@ screens = [
  
                 widget.Net(
                     background = colors[13],
-                    foreground = colors[16],
+                    format = '{down}  ↓↑{up}',
                     interface = 'enp3s0',
                     ),
  
