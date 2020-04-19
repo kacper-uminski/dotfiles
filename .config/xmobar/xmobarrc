@@ -1,0 +1,17 @@
+Config { font = "xft:Blex Mono Nerd Font:pixelsize=12:antialias=true:hinting=true"
+       , bgColor = "#1b182c"
+       , fgColor = "#cbe3e7"
+       , position = Top
+       , lowerOnStart = True
+       , hideOnStart = False
+       , allDesktops = True
+       , persistent = True
+       , commands = [ Run Cpu ["-L","3","-H","50","--normal","#95ffa4","--high","#ff8080"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Date "%a %b %_d %l:%M" "date" 10
+                    , Run StdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %cpu% | %memory% * <fc=#65b2ff>%date%</fc>"
+       }
