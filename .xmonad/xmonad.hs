@@ -16,12 +16,13 @@ import XMonad.Hooks.SetWMName
 
 -- Layouts
 import XMonad.Layout.Gaps
-import XMonad.Layout.Renamed (renamed, Rename(CutWordsLeft, Replace))
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
 
 -- Utilities
 import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
+import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 
 
@@ -57,10 +58,11 @@ main = do
         , normalBorderColor  = "#1b182c"
         , focusedBorderColor = "#906cff"
         , borderWidth        = myBorderWidth
-        , modMask            = myModMask
-        , terminal           = myTerminal
-        , startupHook        = myStartupHook
         , layoutHook         = myLayoutHook
+        , modMask            = myModMask
+        , startupHook        = myStartupHook
+        , terminal           = myTerminal
+        , workspaces         = myWorkspaces
         } `additionalKeysP` myKeys
 
 
@@ -68,16 +70,26 @@ main = do
 ---KEYBINDINGS
 ------------------------------------------------------------------------
 myKeys = 
-        [ ("M-b",   spawn "brave")
-        , ("M-e",   spawn "emacs")
-        , ("M-f",   sendMessage ToggleStruts)
-        , ("M-r",   spawn "dmenu_run -l 10")
-        , ("M-t",   spawn myTerminal)
-        , ("M-w",   kill1) -- Kills selected window
-        , ("M-S-p", spawn "setxkbmap -layout 'pl' -variant 'dvorak' -option 'ctrl:swapcaps'")
-        , ("M-S-s", spawn "setxkbmap -layout 'se' -variant 'dvorak' -option 'ctrl:swapcaps'")
-        , ("M-S-d", spawn "setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps'")
-        , ("M-S-r", spawn "xmonad --restart")
+-- Xmonad actions
+        [ ("M-S-r",  spawn "xmonad --restart")
+
+-- Spawning and killing windows.
+        , ("M-b",    spawn "brave")
+        , ("M-e",    spawn "emacs")
+        , ("M-r",    spawn "dmenu_run -l 10")
+        , ("M-t",    spawn myTerminal)
+        , ("M-w",    kill1) -- Kills selected window
+
+-- Setting keyboard layouts.
+        , ("M-M1-p", spawn "setxkbmap -layout 'pl' -variant 'dvorak' -option 'ctrl:swapcaps'")
+        , ("M-M1-s", spawn "setxkbmap -layout 'se' -variant 'dvorak' -option 'ctrl:swapcaps'")
+        , ("M-M1-d", spawn "setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps'")
+
+-- Window layouts.
+        , ("M-M1-l", sendMessage NextLayout)
+--        , ("M-M1-h", sendMessage PreviousLayout)
+        , ("M-M1-f", sendMessage ToggleStruts)
+--        , ("M-M1-n", sendMessage ToggleBorder)
         ]
 
 
@@ -87,9 +99,10 @@ myKeys =
 myLayoutHook = avoidStruts $ myDefaultLayout
 
     where
-        myDefaultLayout = tall
+        myDefaultLayout = tall ||| monocle
 
-tall = renamed [Replace "tall"] $ spacing 20 $ gaps [(U,20), (D,20), (L,20), (R,20)] $ Tall 1 (3/100) (1/2)
+tall =    renamed [Replace "Tall"]    $ spacing 20 $ gaps [(U,20), (D,20), (L,20), (R,20)] $ Tall 1 (3/100) (1/2)
+monocle = renamed [Replace "Monocle"] $ Full
 
 
 ------------------------------------------------------------------------
@@ -102,3 +115,13 @@ myStartupHook = do
           spawnOnce "picom &"
           spawnOnce "setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps'" 
           setWMName "LG3D"
+
+------------------------------------------------------------------------
+---WORKSPACES
+------------------------------------------------------------------------
+myWorkspaces = ["DEV","WEB","CHAT","GAME","AUD","RAND"] -- you can customize the names of the default workspaces by changing the list
+
+--myManageHook :: Query (Data.Monoid.Endo WindowSet)
+
+--myManageHook = [ className =? "Alacritty"     --> doShift "<action=xdotool key super+1/action>"
+ --              ]

@@ -76,6 +76,7 @@ keys = [
     
     # Start programs.
     Key([mod], "t", lazy.spawn("alacritty")),
+    Key([mod], "v", lazy.spawn("alacritty -e pulsemixer")),
     Key([mod], "b", lazy.spawn("brave")),
     Key([mod], "e", lazy.spawn("emacs")),
 
@@ -88,7 +89,7 @@ keys = [
 
 # Set groups, group names, and matching windows.
 groups = [
-        Group("1", label="DEV",     layout="monadtall",     matches=[Match(wm_class=["Alacritty"])],),
+        Group("1", label="DEV",     layout="monadtall",     matches=[Match(wm_class=["Alacritty"]), Match(wm_class=["Emacs"])],),
         Group("2", label="WEB",     layout="max",           matches=[Match(wm_class=["Brave-browser"])],),
         Group("3", label="CHAT",    layout="monadtall",     matches=[Match(wm_class=["TelegramDesktop"]), Match(wm_class=["discord"])],),
         Group("4", label="GAME",    layout="max",           matches=[Match(wm_class=["minecraft-launcher"])],),
@@ -180,14 +181,7 @@ screens = [
                     text= '',
                     ),
  
-                widget.TextBox(
-                        background = colors[17],
-                        fontsize = 24,
-                        padding = 0,
-                        text="墳 ",
-                        ),
-
-                widget.Volume(
+                widget.CPU(
                         background = colors[17],
                         padding = 5
                         ),
