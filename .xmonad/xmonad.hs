@@ -3,6 +3,7 @@
 ------------------------------------------------------------------------
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
+import XMonad.Actions.SpawnOn
 
 -- Base
 import XMonad
@@ -16,6 +17,9 @@ import XMonad.Hooks.SetWMName
 
 -- Layouts
 import XMonad.Layout.Gaps
+import XMonad.Layout.Grid
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
@@ -44,7 +48,7 @@ main = do
 
 -- Main config
     xmonad $ docks defaultConfig
-        { manageHook = insertPosition End Newer <+> manageDocks <+> manageHook defaultConfig
+        { manageHook = insertPosition End Newer <+> manageSpawn <+> manageDocks <+> manageHook defaultConfig
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput =          \x -> hPutStrLn xmproc x
                         , ppCurrent =         xmobarColor "#63f2f1" "" . wrap "[" "]"    -- Current workspace in xmobar
@@ -74,11 +78,14 @@ myKeys =
         [ ("M-S-r",  spawn "xmonad --restart")
 
 -- Spawning and killing windows.
-        , ("M-b",    spawn "brave")
-        , ("M-e",    spawn "emacs")
-        , ("M-r",    spawn "dmenu_run -l 10")
-        , ("M-t",    spawn myTerminal)
-        , ("M-w",    kill1) -- Kills selected window
+        , ("M-b",    spawnOn "WEB"  "brave")
+        , ("M-e",    spawnOn "DEV"  "emacs")
+        , ("M-t",    spawnOn "DEV"   myTerminal)
+        , ("M-m",    spawnOn "AUD"  (myTerminal ++ " -e ncspot"))
+        , ("M-v",    spawn          (myTerminal ++ " -e pulsemixer"))
+        , ("M-q",    spawnOn "RAND" "qbittorrent")
+        , ("M-r",    spawn   "dmenu_run -l 0 -h 10")
+        , ("M-w",    kill1)                           -- Kills selected window
 
 -- Setting keyboard layouts.
         , ("M-M1-p", spawn "setxkbmap -layout 'pl' -variant 'dvorak' -option 'ctrl:swapcaps'")
@@ -87,32 +94,33 @@ myKeys =
 
 -- Window layouts.
         , ("M-M1-l", sendMessage NextLayout)
---        , ("M-M1-h", sendMessage PreviousLayout)
         , ("M-M1-f", sendMessage ToggleStruts)
---        , ("M-M1-n", sendMessage ToggleBorder)
+        , ("M-M1-b", sendMessage $ Toggle NOBORDERS)
         ]
 
 
 ------------------------------------------------------------------------
 ---LAYOUTS
 ------------------------------------------------------------------------
-myLayoutHook = avoidStruts $ myDefaultLayout
+myLayoutHook = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ myDefaultLayout
 
     where
-        myDefaultLayout = tall ||| monocle
+        myDefaultLayout = tall ||| noBorders monocle ||| grid 
 
-tall =    renamed [Replace "Tall"]    $ spacing 20 $ gaps [(U,20), (D,20), (L,20), (R,20)] $ Tall 1 (3/100) (1/2)
-monocle = renamed [Replace "Monocle"] $ Full
+grid =      renamed [Replace "Grid"]    $ spacing 15 $ gaps [(U,15), (D,15), (L,15), (R,15)] $ Grid
+monocle =   renamed [Replace "Monocle"] $ Full
+tall =      renamed [Replace "Tall"]    $ spacing 15 $ gaps [(U,15), (D,15), (L,15), (R,15)] $ Tall 1 (3/100) (1/2)
 
 
 ------------------------------------------------------------------------
 ---AUTOSTART
 ------------------------------------------------------------------------
 myStartupHook = do
-          spawnOnce "alacritty &"
+          spawnOnce (myTerminal ++ "&")
           spawnOnce "emacs --daemon &" 
           spawnOnce "feh --bg-fill /home/kacper/Pictures/Wallpapers/Backdrops/Dazzled-Horizon.png &"
           spawnOnce "picom &"
+          spawnOnce "unclutter -display :0.0 -idle 3 &"
           spawnOnce "setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps'" 
           setWMName "LG3D"
 
@@ -121,7 +129,3 @@ myStartupHook = do
 ------------------------------------------------------------------------
 myWorkspaces = ["DEV","WEB","CHAT","GAME","AUD","RAND"] -- you can customize the names of the default workspaces by changing the list
 
---myManageHook :: Query (Data.Monoid.Endo WindowSet)
-
---myManageHook = [ className =? "Alacritty"     --> doShift "<action=xdotool key super+1/action>"
- --              ]
