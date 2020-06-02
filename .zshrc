@@ -17,10 +17,11 @@ source $HOME/.config/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme
 export TERM=xterm-256color
 
 # Aliases
-source $HOME/.config/zsh/aliases.zsh
+source $HOME/.config/zsh/config/aliases.zsh
 
-# Use the vi navigation keys in menu completion
+# Completion
 autoload -Uz compinit && compinit
+# Use the vi navigation keys in menu completion
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 
@@ -30,4 +31,4 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f $HOME/.config/zsh/config/p10k.zsh ]] || source $HOME/.config/zsh/config/p10k.zsh
