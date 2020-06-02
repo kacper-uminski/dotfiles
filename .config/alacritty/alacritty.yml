@@ -104,8 +104,7 @@
 font:
 
   normal:
-      #fabily: Roboto Mono Nerd Font
-    family: Blex Mono Nerd Font
+    family: BlexMono Nerd Font
     style: Regular
 
   size: 12

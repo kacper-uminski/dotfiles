@@ -1,4 +1,4 @@
-Config { font = "xft:Blex Mono Nerd Font:pixelsize=13:antialias=true:hinting=true"
+Config { font = "xft:BlexMono Nerd Font:style=Regular:pixelsize=13:antialias=true:hinting=true"
        , bgColor = "#1b182c"
        , fgColor = "#cbe3e7"
        , position = Top

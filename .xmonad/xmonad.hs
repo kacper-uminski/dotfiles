@@ -3,6 +3,7 @@
 ------------------------------------------------------------------------
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
+import XMonad.Actions.SinkAll
 import XMonad.Actions.SpawnOn
 
 -- Base
@@ -35,7 +36,7 @@ import XMonad.Util.SpawnOnce
 ------------------------------------------------------------------------
 -- Variables
 myBorderWidth   = 2         -- Sets border width for windows
-myFont          = "xft:Blex Mono Nerd Font:regular:pixelsize=12"
+myFont          = "xft:BlexMono Nerd Font Complete:regular:pixelsize=12"
 myModMask       = mod4Mask  -- Sets modkey to super/windows key
 myTerminal      = "alacritty"      -- Sets default terminal
 myTextEditor    = "nvim"     -- Sets default text editor
@@ -76,14 +77,14 @@ main = do
 myKeys = 
 -- Xmonad actions
         [ ("M-S-r",  spawn "xmonad --restart")
+        , ("M-S-f",  sinkAll)
 
 -- Spawning and killing windows.
-        , ("M-b",    spawnOn "WEB"  "brave")
+        , ("M-b",    spawnOn "WEB"  "chromium")
         , ("M-e",    spawnOn "DEV"  "emacs")
         , ("M-t",    spawnOn "DEV"   myTerminal)
         , ("M-m",    spawnOn "AUD"  (myTerminal ++ " -e ncspot"))
         , ("M-v",    spawn          (myTerminal ++ " -e pulsemixer"))
-        , ("M-q",    spawnOn "RAND" "qbittorrent")
         , ("M-r",    spawn   "dmenu_run -l 0 -h 10")
         , ("M-w",    kill1)                           -- Kills selected window
 
