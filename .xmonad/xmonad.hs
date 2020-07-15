@@ -106,9 +106,8 @@ myKeys =
 myLayoutHook = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ myDefaultLayout
 
     where
-        myDefaultLayout = tall ||| noBorders monocle ||| grid 
+        myDefaultLayout = tall ||| noBorders monocle 
 
-grid =      renamed [Replace "Grid"]    $ spacing 15 $ gaps [(U,15), (D,15), (L,15), (R,15)] $ Grid
 monocle =   renamed [Replace "Monocle"] $ Full
 tall =      renamed [Replace "Tall"]    $ spacing 15 $ gaps [(U,15), (D,15), (L,15), (R,15)] $ Tall 1 (3/100) (1/2)
 

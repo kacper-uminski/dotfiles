@@ -9,7 +9,7 @@ Config { font = "xft:BlexMono Nerd Font:style=Regular:pixelsize=13:antialias=tru
        , iconRoot = "/home/kacper/.xmonad/xpm/"  -- default: "."
        , commands = [ Run Date "%a, %b %d %Y, %H:%M:%S" "date" 10
                     , Run Network "enp3s0" ["-t", "<icon=net_up_20.xpm/>up <rxbar> <icon=net_down_20.xpm/>dn <txbar>"] 10
-                    , Run Cpu ["-t", "<icon=cpu_20.xpm/> cpu <bar> (<total>%)","-H","50","--high","#ff5458"] 10
+                    , Run Cpu ["-t", "<icon=cpu_20.xpm/> cpu <bar> (<total>%)"] 10
                     , Run Memory ["-t", "<icon=memory-icon_20.xpm/> mem <usedbar> (<usedratio>%)"] 10
                     , Run DiskU [("/", "<icon=harddisk-icon_20.xpm/> hdd <usedbar> (<used>)")] [] 3600
                     , Run UnsafeStdinReader
