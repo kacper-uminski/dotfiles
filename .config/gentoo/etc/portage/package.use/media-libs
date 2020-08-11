@@ -1,0 +1,4 @@
+media-libs/harfbuzz	icu
+media-libs/libglvnd 	abi_x86_32
+media-libs/libvpx	svc
+media-libs/openal	alsa
