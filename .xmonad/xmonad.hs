@@ -4,11 +4,13 @@
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.SinkAll
-import XMonad.Actions.SpawnOn
 
 -- Base
 import XMonad
 import System.IO
+
+-- Data
+import Data.Monoid
 
 -- Hooks
 import XMonad.Hooks.DynamicLog
@@ -25,6 +27,11 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
 
+-- Prompt
+import XMonad.Prompt
+import XMonad.Prompt.Shell
+import XMonad.Prompt.Ssh
+
 -- Utilities
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.Run
@@ -35,11 +42,11 @@ import XMonad.Util.SpawnOnce
 ---CONFIG
 ------------------------------------------------------------------------
 -- Variables
-myBorderWidth   = 2         -- Sets border width for windows
-myFont          = "xft:BlexMono Nerd Font Complete:regular:pixelsize=12"
-myModMask       = mod4Mask  -- Sets modkey to super/windows key
-myTerminal      = "alacritty"      -- Sets default terminal
-myTextEditor    = "nvim"     -- Sets default text editor
+myBorderWidth   = 2                                                       -- Sets border width for windows
+myFont          = "xft:BlexMono Nerd Font Complete:regular:pixelsize=12"  -- Sets font
+myModMask       = mod4Mask                                                -- Sets modkey to super/windows key
+myTerminal      = "alacritty"                                             -- Sets default terminal
+myTextEditor    = "nvim"                                                  -- Sets default text editor
 
 -- Main config
 main = do
@@ -49,7 +56,7 @@ main = do
 
 -- Main config
     xmonad $ docks defaultConfig
-        { manageHook = insertPosition End Newer <+> manageSpawn <+> manageDocks <+> manageHook defaultConfig
+        { manageHook = insertPosition End Newer <+> manageDocks <+> myManageHook
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput =          \x -> hPutStrLn xmproc x
                         , ppCurrent =         xmobarColor "#63f2f1" "" . wrap "[" "]"    -- Current workspace in xmobar
@@ -75,28 +82,30 @@ main = do
 ---KEYBINDINGS
 ------------------------------------------------------------------------
 myKeys = 
--- Xmonad actions
-        [ ("M-S-r",  spawn "xmonad --restart")
-        , ("M-S-f",  sinkAll)
+-- Prompts
+        [ ("M-r",    shellPrompt myXPConfig)
+        , ("M-s",    sshPrompt   myXPConfig)
 
--- Spawning and killing windows.
-        , ("M-b",    spawnOn "WEB"  "chromium")
-        , ("M-e",    spawnOn "DEV"  "emacs")
-        , ("M-t",    spawnOn "DEV"   myTerminal)
-        , ("M-m",    spawnOn "AUD"  (myTerminal ++ " -e ncspot"))
-        , ("M-v",    spawn          (myTerminal ++ " -e pulsemixer"))
-        , ("M-r",    spawn   "dmenu_run -l 0 -h 10")
-        , ("M-w",    kill1)                           -- Kills selected window
+-- Spawning and killing windows
+        , ("M-b",    spawn  "brave")
+        , ("M-e",    spawn  "emacs")
+        , ("M-t",    spawn   myTerminal)
+        , ("M-m",    spawn  (myTerminal ++ " -e ncspot"))
+        , ("M-v",    spawn  (myTerminal ++ " -e pulsemixer"))
+        , ("M-w",    kill1)                                    -- Kills selected window
 
--- Setting keyboard layouts.
+-- Setting keyboard layouts
         , ("M-M1-p", spawn "setxkbmap -layout 'pl' -variant 'dvorak' -option 'ctrl:swapcaps'")
         , ("M-M1-s", spawn "setxkbmap -layout 'se' -variant 'dvorak' -option 'ctrl:swapcaps'")
         , ("M-M1-d", spawn "setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps'")
 
--- Window layouts.
+-- Window layouts
         , ("M-M1-l", sendMessage NextLayout)
         , ("M-M1-f", sendMessage ToggleStruts)
         , ("M-M1-b", sendMessage $ Toggle NOBORDERS)
+-- Xmonad actions
+        , ("M-S-r",  spawn "xmonad --restart")
+        , ("M-S-f",  sinkAll)
         ]
 
 
@@ -113,6 +122,17 @@ tall =      renamed [Replace "Tall"]    $ spacing 15 $ gaps [(U,15), (D,15), (L,
 
 
 ------------------------------------------------------------------------
+---WORKSPACE PINNING
+------------------------------------------------------------------------
+myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
+myManageHook = composeAll
+     [ className =? "Alacritty"             --> doShift ( myWorkspaces !! 0 )
+     , className =? "Brave-browser"         --> doShift ( myWorkspaces !! 1 )
+     , className =? "TelegramDesktop"       --> doShift ( myWorkspaces !! 2 )
+     ]
+
+
+------------------------------------------------------------------------
 ---AUTOSTART
 ------------------------------------------------------------------------
 myStartupHook = do
@@ -122,10 +142,35 @@ myStartupHook = do
           spawnOnce "picom &"
           spawnOnce "unclutter -display :0.0 -idle 3 &"
           spawnOnce "setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps'" 
+          spawnOnce "xsetroot -cursor_name left_ptr"
           setWMName "LG3D"
 
-------------------------------------------------------------------------
+
+-------------------------------------------------------------------------
 ---WORKSPACES
 ------------------------------------------------------------------------
-myWorkspaces = ["DEV","WEB","CHAT","GAME","AUD","RAND"] -- you can customize the names of the default workspaces by changing the list
+myWorkspaces = ["DEV","WEB","CHAT","GAME","AUD","RAND"]
 
+
+------------------------------------------------------------------------
+---PROMPT
+------------------------------------------------------------------------
+myXPConfig :: XPConfig
+myXPConfig = def
+      { font                = myFont
+      , bgColor             = "#1b182c"
+      , fgColor             = "#cbe3e7"
+      , bgHLight            = "#1b182c"
+      , fgHLight            = "#906cff"
+      , borderColor         = "#906cff"
+      , promptBorderWidth   = 2
+      , position            = Top
+      , height              = 20
+      , historySize         = 256
+      , historyFilter       = id
+      , defaultText         = []
+      , autoComplete        = Nothing
+      , showCompletionOnTab = False
+      , alwaysHighlight     = True
+      , maxComplRows        = Just 1
+      }
