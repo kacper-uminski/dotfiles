@@ -45,7 +45,7 @@ import XMonad.Util.SpawnOnce
 myBorderWidth   = 2                                                       -- Sets border width for windows
 myFont          = "xft:BlexMono Nerd Font Complete:regular:pixelsize=12"  -- Sets font
 myModMask       = mod4Mask                                                -- Sets modkey to super/windows key
-myTerminal      = "alacritty"                                             -- Sets default terminal
+myTerminal      = "st"                                             -- Sets default terminal
 myTextEditor    = "nvim"                                                  -- Sets default text editor
 
 -- Main config

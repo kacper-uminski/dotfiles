@@ -34,9 +34,9 @@
     local LC_ALL=${${(@M)$(locale -a):#*.(utf|UTF)(-|)8}[1]:-en_US.UTF-8}
   fi
 
-  # The list of segments shown on the left. Fill it with the most important segments.
+  # The list of segments shown on the left. Fill it with the mnst important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-    os_icon                 # os identifier
+    #os_icon                # os identifier
     dir                     # current directory
     vcs                     # git status
     # prompt_char           # prompt symbol

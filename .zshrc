@@ -10,17 +10,22 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Theme
-source $HOME/.config/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme
-
-# Variables
-export TERM=xterm-256color
-
 # Aliases
 source $HOME/.config/zsh/config/aliases.zsh
 
 # Completion
 autoload -Uz compinit && compinit
+zstyle ':completion*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# History
+HISTSIZE=5000
+SAVEHIST=5000
+HISTFILE=~/.config/zsh/history/zsh_history
+setopt appendhistory
+
+# Theme
+source $HOME/.config/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme
+
 # Use the vi navigation keys in menu completion
 zstyle ':completion:*' menu select
 zmodload zsh/complist
@@ -29,6 +34,9 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
+
+# Variables
+export TERM=xterm-256color
 
 # To customize prompt, run `p10k configure` or edit $HOME/.config/zsh/config/p10k.zsh.
 [[ ! -f $HOME/.config/zsh/config/p10k.zsh ]] || source $HOME/.config/zsh/config/p10k.zsh
