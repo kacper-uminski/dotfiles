@@ -8,7 +8,7 @@ Config { font = "xft:BlexMono Nerd Font:style=Regular:pixelsize=13:antialias=tru
        , persistent = True
        , iconRoot = "/home/kacper/.xmonad/xpm/"  -- default: "."
        , commands = [ Run Date "%a, %b %d %Y, %H:%M:%S" "date" 10
-                    , Run Network "enp3s0" ["-t", "<icon=net_up_20.xpm/>up <rxbar> <icon=net_down_20.xpm/>dn <txbar>"] 10
+                    , Run Network "wlo1" ["-t", "<icon=net_up_20.xpm/>up <rxbar> <icon=net_down_20.xpm/>dn <txbar>"] 10
                     , Run Cpu ["-t", "<icon=cpu_20.xpm/> cpu <bar> (<total>%)"] 10
                     , Run Memory ["-t", "<icon=memory-icon_20.xpm/> mem <usedbar> (<usedratio>%)"] 10
                     , Run DiskU [("/", "<icon=harddisk-icon_20.xpm/> hdd <usedbar> (<used>)")] [] 3600
@@ -16,5 +16,5 @@ Config { font = "xft:BlexMono Nerd Font:style=Regular:pixelsize=13:antialias=tru
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <icon=haskell_20.xpm/> <fc=#666666>|</fc> %UnsafeStdinReader% }{ <fc=#ffb378>%cpu%</fc> <fc=#ff5458>%memory%</fc> <fc=#65b2ff>%disku%</fc> <fc=#95ffa4>%enp3s0%</fc> <icon=calendar-clock-icon_20.xpm/> <fc=#63f2f1>%date%</fc> "
+       , template = " <icon=haskell_20.xpm/> <fc=#666666>|</fc> %UnsafeStdinReader% }{ <fc=#ffb378>%cpu%</fc> <fc=#ff5458>%memory%</fc> <fc=#65b2ff>%disku%</fc> <fc=#95ffa4>%wlo1%</fc> <icon=calendar-clock-icon_20.xpm/> <fc=#63f2f1>%date%</fc> "
        }

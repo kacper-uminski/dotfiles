@@ -1,4 +1,6 @@
 #!/bin/zsh
+#Execute startx if in tty1
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then exec startx; fi
 
 # Flex on Arch users!
 neofetch
@@ -37,6 +39,7 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Variables
 export TERM=xterm-256color
+export PATH="$HOME/.local/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit $HOME/.config/zsh/config/p10k.zsh.
 [[ ! -f $HOME/.config/zsh/config/p10k.zsh ]] || source $HOME/.config/zsh/config/p10k.zsh

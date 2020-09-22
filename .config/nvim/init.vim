@@ -18,6 +18,7 @@ colorscheme challenger_deep
 if has('nvim') || has('termguicolors')
 	set termguicolors
 endif
+"Also add this to the theme: hi Normal guibg=NONE ctermbg=NONE
 
 "Keymappings
 tnoremap <Esc> <C-\><C-n>

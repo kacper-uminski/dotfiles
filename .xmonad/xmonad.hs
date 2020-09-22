@@ -3,6 +3,7 @@
 ------------------------------------------------------------------------
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
+import XMonad.Actions.CycleWS
 import XMonad.Actions.SinkAll
 
 -- Base
@@ -43,6 +44,7 @@ import XMonad.Util.SpawnOnce
 ------------------------------------------------------------------------
 -- Variables
 myBorderWidth   = 2                                                       -- Sets border width for windows
+myBrowser       = "firefox"
 myFont          = "xft:BlexMono Nerd Font Complete:regular:pixelsize=12"  -- Sets font
 myModMask       = mod4Mask                                                -- Sets modkey to super/windows key
 myTerminal      = "st"                                             -- Sets default terminal
@@ -52,13 +54,14 @@ myTextEditor    = "nvim"                                                  -- Set
 main = do
 
 -- Spawn xmobar
-    xmproc <- spawnPipe "/usr/bin/xmobar /home/kacper/.config/xmobar/xmobarrc"
+    xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/xmobarrc"
+    xmproc1 <- spawnPipe "xmobar -x 1 $HOME/.config/xmobar/xmobarrc"
 
 -- Main config
     xmonad $ docks defaultConfig
         { manageHook = insertPosition End Newer <+> manageDocks <+> myManageHook
         , logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput =          \x -> hPutStrLn xmproc x
+                        { ppOutput =          \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x
                         , ppCurrent =         xmobarColor "#63f2f1" "" . wrap "[" "]"    -- Current workspace in xmobar
                         , ppVisible =         xmobarColor "#65b2ff" ""                   -- Visible but not current workspace
                         , ppHidden =          xmobarColor "#65b2ff" "" . wrap "*" ""     -- Hidden workspaces in xmobar
@@ -87,12 +90,11 @@ myKeys =
         , ("M-s",    sshPrompt   myXPConfig)
 
 -- Spawning and killing windows
-        , ("M-b",    spawn  "brave")
-        , ("M-e",    spawn  "emacs")
+        , ("M-b",    spawn  myBrowser)
         , ("M-t",    spawn   myTerminal)
         , ("M-m",    spawn  (myTerminal ++ " -e ncspot"))
         , ("M-v",    spawn  (myTerminal ++ " -e pulsemixer"))
-        , ("M-w",    kill1)                                    -- Kills selected window
+        , ("M-c",    kill1)                                    -- Kills selected window
 
 -- Setting keyboard layouts
         , ("M-M1-p", spawn "setxkbmap -layout 'pl' -variant 'dvorak' -option 'ctrl:swapcaps'")
@@ -103,6 +105,10 @@ myKeys =
         , ("M-M1-l", sendMessage NextLayout)
         , ("M-M1-f", sendMessage ToggleStruts)
         , ("M-M1-b", sendMessage $ Toggle NOBORDERS)
+
+-- Workspaces
+        , ("M-.",    nextScreen)
+        , ("M-,",    prevScreen)
 -- Xmonad actions
         , ("M-S-r",  spawn "xmonad --restart")
         , ("M-S-f",  sinkAll)
@@ -126,9 +132,11 @@ tall =      renamed [Replace "Tall"]    $ spacing 15 $ gaps [(U,15), (D,15), (L,
 ------------------------------------------------------------------------
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
-     [ className =? "Alacritty"             --> doShift ( myWorkspaces !! 0 )
-     , className =? "Brave-browser"         --> doShift ( myWorkspaces !! 1 )
-     , className =? "TelegramDesktop"       --> doShift ( myWorkspaces !! 2 )
+     [ className =? "Alacritty"          --> doShift ( myWorkspaces !! 0 )
+     , className =? "Brave-browser"      --> doShift ( myWorkspaces !! 1 )
+     , className =? "Firefox"            --> doShift ( myWorkspaces !! 1 )
+     , className =? "st-256color"        --> doShift ( myWorkspaces !! 0 )
+     , className =? "TelegramDesktop"    --> doShift ( myWorkspaces !! 2 )
      ]
 
 
@@ -137,13 +145,13 @@ myManageHook = composeAll
 ------------------------------------------------------------------------
 myStartupHook = do
           spawnOnce (myTerminal ++ "&")
-          spawnOnce "emacs --daemon &" 
-          spawnOnce "feh --bg-fill /home/kacper/Pictures/Wallpapers/Backdrops/Dazzled-Horizon.png &"
+--          spawnOnce "emacs --daemon &" 
+          spawnOnce "feh --bg-fill /home/kacper/pictures/wallpapers/backdrops/dazzled-horizon.png &"
           spawnOnce "picom &"
           spawnOnce "unclutter -display :0.0 -idle 3 &"
           spawnOnce "setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps'" 
           spawnOnce "xsetroot -cursor_name left_ptr"
-          setWMName "LG3D"
+          setWMName "XMonad"
 
 
 -------------------------------------------------------------------------
