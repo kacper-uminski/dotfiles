@@ -94,7 +94,7 @@ myKeys =
         , ("M-t",    spawn   myTerminal)
         , ("M-m",    spawn  (myTerminal ++ " -e ncspot"))
         , ("M-v",    spawn  (myTerminal ++ " -e pulsemixer"))
-        , ("M-c",    kill1)                                    -- Kills selected window
+        , ("M-w",    kill1)                                    -- Kills selected window
 
 -- Setting keyboard layouts
         , ("M-M1-p", spawn "setxkbmap -layout 'pl' -variant 'dvorak' -option 'ctrl:swapcaps'")

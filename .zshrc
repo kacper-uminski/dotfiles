@@ -1,5 +1,5 @@
 #!/bin/zsh
-#Execute startx if in tty1
+# Execute startx if in tty1
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then exec startx; fi
 
 # Flex on Arch users!
