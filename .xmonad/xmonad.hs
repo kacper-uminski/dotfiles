@@ -58,7 +58,7 @@ main = do
     xmproc1 <- spawnPipe "xmobar -x 1 $HOME/.config/xmobar/xmobarrc"
 
 -- Main config
-    xmonad $ docks defaultConfig
+    xmonad $ docks def
         { manageHook = insertPosition End Newer <+> manageDocks <+> myManageHook
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput =          \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x
@@ -92,7 +92,6 @@ myKeys =
 -- Spawning and killing windows
         , ("M-b",    spawn  myBrowser)
         , ("M-t",    spawn   myTerminal)
-        , ("M-m",    spawn  (myTerminal ++ " -e ncspot"))
         , ("M-v",    spawn  (myTerminal ++ " -e pulsemixer"))
         , ("M-w",    kill1)                                    -- Kills selected window
 
@@ -104,7 +103,6 @@ myKeys =
 -- Window layouts
         , ("M-M1-l", sendMessage NextLayout)
         , ("M-M1-f", sendMessage ToggleStruts)
-        , ("M-M1-b", sendMessage $ Toggle NOBORDERS)
 
 -- Workspaces
         , ("M-.",    nextScreen)
@@ -124,7 +122,7 @@ myLayoutHook = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ myDefaultLa
         myDefaultLayout = tall ||| noBorders monocle 
 
 monocle =   renamed [Replace "Monocle"] $ Full
-tall =      renamed [Replace "Tall"]    $ spacing 15 $ gaps [(U,15), (D,15), (L,15), (R,15)] $ Tall 1 (3/100) (1/2)
+tall =      renamed [Replace "Tall"]    $ spacingRaw False (Border 15 15 15 15) True (Border 15 15 15 15) True $ Tall 1 (3/100) (1/2)
 
 
 ------------------------------------------------------------------------
@@ -135,6 +133,7 @@ myManageHook = composeAll
      [ className =? "Alacritty"          --> doShift ( myWorkspaces !! 0 )
      , className =? "Brave-browser"      --> doShift ( myWorkspaces !! 1 )
      , className =? "Firefox"            --> doShift ( myWorkspaces !! 1 )
+     , className =? "Hiro"               --> doShift ( myWorkspaces !! 3 )
      , className =? "st-256color"        --> doShift ( myWorkspaces !! 0 )
      , className =? "TelegramDesktop"    --> doShift ( myWorkspaces !! 2 )
      ]
@@ -145,7 +144,6 @@ myManageHook = composeAll
 ------------------------------------------------------------------------
 myStartupHook = do
           spawnOnce (myTerminal ++ "&")
---          spawnOnce "emacs --daemon &" 
           spawnOnce "feh --bg-fill /home/kacper/pictures/wallpapers/backdrops/dazzled-horizon.png &"
           spawnOnce "picom &"
           spawnOnce "unclutter -display :0.0 -idle 3 &"
