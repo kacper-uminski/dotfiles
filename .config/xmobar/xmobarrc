@@ -1,17 +1,17 @@
 Config { font = "xft:JetBrains Mono:style=Regular:pixelsize=13:antialias=true:hinting=true"
        , bgColor = "#1b182c"
        , fgColor = "#cbe3e7"
-       , position = Top
+       , position = TopP 0 0
        , lowerOnStart = True
        , hideOnStart = False
        , allDesktops = True
        , persistent = True
        , iconRoot = "/home/kacper/.xmonad/xpm/"  -- default: "."
        , commands = [ Run Date "%a, %b %d %Y, %H:%M:%S" "date" 10
-                    , Run Network "wlo1" ["-t", "<icon=net_up_20.xpm/>up <rxbar> <icon=net_down_20.xpm/>dn <txbar>"] 10
-                    , Run Cpu ["-t", "<icon=cpu_20.xpm/> cpu <bar> (<total>%)"] 10
-                    , Run Memory ["-t", "<icon=memory-icon_20.xpm/> mem <usedbar> (<usedratio>%)"] 10
-                    , Run DiskU [("/", "<icon=harddisk-icon_20.xpm/> hdd <usedbar> (<used>)")] [] 60
+                    , Run Network "wlo1" ["-t", "<icon=net_up_20.xpm/>UP <rx>kb/s <icon=net_down_20.xpm/>DN <tx>kb/s"] 10
+                    , Run Cpu ["-t", "<icon=cpu_20.xpm/> CPU <bar> (<total>%)"] 10
+                    , Run Memory ["-t", "<icon=memory-icon_20.xpm/> RAM <usedbar> (<usedratio>%)"] 10
+                    , Run DiskU [("/", "<icon=harddisk-icon_20.xpm/> HDD <usedbar> (<used>)")] [] 600
                     , Run UnsafeStdinReader
                     ]
        , sepChar = "%"

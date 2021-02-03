@@ -3,26 +3,24 @@
 ------------------------------------------------------------------------
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
-import XMonad.Actions.CycleWS
+import XMonad.Actions.CycleWS (nextScreen, prevScreen)
 import XMonad.Actions.SinkAll
 
 -- Base
 import XMonad
-import System.IO
+import System.IO (hPutStrLn)
 
 -- Data
 import Data.Monoid
 
 -- Hooks
-import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarColor, xmobarPP, PP(..))
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 
 -- Layouts
-import XMonad.Layout.Gaps
-import XMonad.Layout.Grid
-import XMonad.Layout.MultiToggle
+import XMonad.Layout.MultiToggle (mkToggle, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
@@ -30,27 +28,38 @@ import XMonad.Layout.Spacing
 
 -- Prompt
 import XMonad.Prompt
-import XMonad.Prompt.Shell
-import XMonad.Prompt.Ssh
+import XMonad.Prompt.Shell (shellPrompt)
 
 -- Utilities
 import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.Run
-import XMonad.Util.SpawnOnce
+import XMonad.Util.Run (spawnPipe)
+import XMonad.Util.SpawnOnce (spawnOnce)
 
 
 ------------------------------------------------------------------------
 ---CONFIG
 ------------------------------------------------------------------------
 -- Variables
-myBorderWidth   = 2                                                       -- Sets border width for windows
-myBrowser       = "firefox"
-myFont          = "xft:BlexMono Nerd Font Complete:regular:pixelsize=12"  -- Sets font
-myModMask       = mod4Mask                                                -- Sets modkey to super/windows key
-myTerminal      = "st"                                             -- Sets default terminal
-myTextEditor    = "nvim"                                                  -- Sets default text editor
+myBorderWidth :: Dimension
+myBorderWidth = 2
 
--- Main config
+myBrowser :: String
+myBrowser = "firefox"
+
+myFont :: String
+myFont = "xft:BlexMono Nerd Font Complete:regular:pixelsize=12"
+
+myModMask :: KeyMask
+myModMask = mod4Mask
+
+myTerminal :: String
+myTerminal = "st"
+
+myTextEditor :: String
+myTextEditor = "nvim"
+
+-- Main Function
+main :: IO ()
 main = do
 
 -- Spawn xmobar
@@ -84,10 +93,10 @@ main = do
 ------------------------------------------------------------------------
 ---KEYBINDINGS
 ------------------------------------------------------------------------
+myKeys :: [(String, X ())]
 myKeys = 
 -- Prompts
         [ ("M-r",    shellPrompt myXPConfig)
-        , ("M-s",    sshPrompt   myXPConfig)
 
 -- Spawning and killing windows
         , ("M-b",    spawn  myBrowser)
@@ -116,13 +125,9 @@ myKeys =
 ------------------------------------------------------------------------
 ---LAYOUTS
 ------------------------------------------------------------------------
-myLayoutHook = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ myDefaultLayout
-
-    where
-        myDefaultLayout = tall ||| noBorders monocle 
-
-monocle =   renamed [Replace "Monocle"] $ Full
-tall =      renamed [Replace "Tall"]    $ spacingRaw False (Border 15 15 15 15) True (Border 15 15 15 15) True $ Tall 1 (3/100) (1/2)
+myLayoutHook = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ tall ||| noBorders monocle
+    where   monocle =   renamed [Replace "Monocle"] $ Full
+            tall =      renamed [Replace "Tall"]    $ spacingRaw False (Border 15 15 15 15) True (Border 15 15 15 15) True $ Tall 1 (3/100) (1/2)
 
 
 ------------------------------------------------------------------------
@@ -130,26 +135,30 @@ tall =      renamed [Replace "Tall"]    $ spacingRaw False (Border 15 15 15 15) 
 ------------------------------------------------------------------------
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
-     [ className =? "Alacritty"          --> doShift ( myWorkspaces !! 0 )
-     , className =? "Brave-browser"      --> doShift ( myWorkspaces !! 1 )
-     , className =? "Firefox"            --> doShift ( myWorkspaces !! 1 )
-     , className =? "Hiro"               --> doShift ( myWorkspaces !! 3 )
-     , className =? "st-256color"        --> doShift ( myWorkspaces !! 0 )
-     , className =? "TelegramDesktop"    --> doShift ( myWorkspaces !! 2 )
+     [ className =? "Alacritty"                 --> doShift (myWorkspaces !! 0)
+     , className =? "Firefox"                   --> doShift (myWorkspaces !! 1)
+     , className =? "Hiro"                      --> doShift (myWorkspaces !! 3)
+     , className =? "Microsoft Teams - Preview" --> doShift (myWorkspaces !! 2)
+     , className =? "Robocraft.x86_64"          --> doShift (myWorkspaces !! 3)
+     , className =? "st-256color"               --> doShift (myWorkspaces !! 0)
+     , className =? "Steam"                     --> doShift (myWorkspaces !! 3)
+     , className =? "TelegramDesktop"           --> doShift (myWorkspaces !! 2)
      ]
 
 
 ------------------------------------------------------------------------
 ---AUTOSTART
 ------------------------------------------------------------------------
+myStartupHook :: X ()
 myStartupHook = do
-          spawnOnce (myTerminal ++ "&")
-          spawnOnce "feh --bg-fill /home/kacper/pictures/wallpapers/backdrops/dazzled-horizon.png &"
-          spawnOnce "picom &"
-          spawnOnce "unclutter -display :0.0 -idle 3 &"
-          spawnOnce "setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps'" 
-          spawnOnce "xsetroot -cursor_name left_ptr"
-          setWMName "XMonad"
+        mapM_ spawnOnce [(myTerminal ++ " &")
+                        ,"feh --bg-fill /home/kacper/pictures/wallpapers/backdrops/dazzled-horizon.png &"
+                        ,"picom &"
+                        ,"setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps'" 
+                        ,"unclutter -display :0.0 -idle 3 &"
+                        ,"xsetroot -cursor_name left_ptr"
+                        ]
+        setWMName "XMonad"
 
 
 -------------------------------------------------------------------------
