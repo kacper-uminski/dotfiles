@@ -96,29 +96,36 @@ main = do
 myKeys :: [(String, X ())]
 myKeys = 
 -- Prompts
-        [ ("M-r",    shellPrompt myXPConfig)
+        [ ("M-r",                       shellPrompt myXPConfig)
 
 -- Spawning and killing windows
-        , ("M-b",    spawn  myBrowser)
-        , ("M-t",    spawn   myTerminal)
-        , ("M-v",    spawn  (myTerminal ++ " -e pulsemixer"))
-        , ("M-w",    kill1)                                    -- Kills selected window
+        , ("M-b",                       spawn  myBrowser)
+        , ("M-t",                       spawn   myTerminal)
+        , ("M-v",                       spawn  (myTerminal ++ " -e pulsemixer"))
+        , ("M-w",                       kill1)
 
 -- Setting keyboard layouts
-        , ("M-M1-p", spawn "setxkbmap -layout 'pl' -variant 'dvorak' -option 'ctrl:swapcaps'")
-        , ("M-M1-s", spawn "setxkbmap -layout 'se' -variant 'dvorak' -option 'ctrl:swapcaps'")
-        , ("M-M1-d", spawn "setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps'")
+        , ("M-M1-p",                    spawn "setxkbmap -layout 'pl' -variant 'dvorak' -option 'ctrl:swapcaps'")
+        , ("M-M1-s",                    spawn "setxkbmap -layout 'se' -variant 'dvorak' -option 'ctrl:swapcaps'")
+        , ("M-M1-d",                    spawn "setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps'")
+
+-- Setting Volume
+        , ("<XF86AudioMute>",           spawn "pactl set-sink-mute 0 toggle")
+        , ("<XF86AudioLowerVolume>",    spawn "pactl set-sink-volume 0 -1%")
+        , ("<XF86AudioRaiseVolume>",    spawn "pactl set-sink-volume 0 +1%")
 
 -- Window layouts
-        , ("M-M1-l", sendMessage NextLayout)
-        , ("M-M1-f", sendMessage ToggleStruts)
+        , ("M-M1-l",                    sendMessage NextLayout)
+        , ("M-M1-f",                    sendMessage ToggleStruts)
 
 -- Workspaces
-        , ("M-.",    nextScreen)
-        , ("M-,",    prevScreen)
+        , ("M-.",                       nextScreen)
+        , ("M-,",                       prevScreen)
+        , ("M-ö",                       nextScreen)
+        , ("M-ä",                       prevScreen)
 -- Xmonad actions
-        , ("M-S-r",  spawn "xmonad --restart")
-        , ("M-S-f",  sinkAll)
+        , ("M-S-r",                     spawn "xmonad --restart")
+        , ("M-S-f",                     sinkAll)
         ]
 
 
@@ -154,9 +161,9 @@ myStartupHook = do
         mapM_ spawnOnce [(myTerminal ++ " &")
                         ,"feh --bg-fill /home/kacper/pictures/wallpapers/backdrops/dazzled-horizon.png &"
                         ,"picom &"
-                        ,"setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps'" 
+                        ,"setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps' &" 
                         ,"unclutter -display :0.0 -idle 3 &"
-                        ,"xsetroot -cursor_name left_ptr"
+                        ,"xsetroot -cursor_name left_ptr &"
                         ]
         setWMName "XMonad"
 
