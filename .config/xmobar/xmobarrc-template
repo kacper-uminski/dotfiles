@@ -1,6 +1,6 @@
 Config { font = "xft:JetBrains Mono:style=Regular:pixelsize=13:antialias=true:hinting=true"
-       , fgColor = "#9ec2bd"
-       , bgColor = "#00121C"
+       , fgColor = "FGCOLOR"
+       , bgColor = "BGCOLOR"
        , position = TopP 0 0
        , lowerOnStart = True
        , hideOnStart = False
@@ -16,5 +16,5 @@ Config { font = "xft:JetBrains Mono:style=Regular:pixelsize=13:antialias=true:hi
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <icon=haskell_20.xpm/> <fc=#9ec2bd>|</fc> %UnsafeStdinReader% }{ <fc=#D4B703>%cpu%</fc> <fc=#B6351E>%memory%</fc> <fc=#3A8B84>%disku%</fc> <fc=#3A8B84>%wlan0%</fc> <icon=calendar-clock-icon_20.xpm/> <fc=#6e8784>%date%</fc> "
+       , template = " <icon=haskell_20.xpm/> <fc=FGCOLOR>|</fc> %UnsafeStdinReader% }{ <fc=COLOR5>%cpu%</fc> <fc=COLOR1>%memory%</fc> <fc=COLOR6>%disku%</fc> <fc=COLOR6>%wlan0%</fc> <icon=calendar-clock-icon_20.xpm/> <fc=COLOR8>%date%</fc> "
        }

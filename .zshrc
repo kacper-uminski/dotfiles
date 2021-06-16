@@ -2,6 +2,9 @@
 # Execute startx if in tty1
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then exec startx; fi
 
+# Pywal
+(cat ~/.cache/wal/sequences &)
+
 # Flex on Arch users!
 neofetch
 

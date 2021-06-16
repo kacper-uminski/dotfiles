@@ -2,7 +2,7 @@
 static char * net_down_20_xpm[] = {
 "20 20 2 1",
 " 	c None",
-".	c #62d196",
+".	c #3A8B84",
 "                    ",
 "                    ",
 "         .          ",

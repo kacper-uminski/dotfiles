@@ -1,6 +1,6 @@
 "Vim-Plug
 call plug#begin('~/.config/nvim/plugged')
-Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+Plug 'dylanaraps/wal.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovimhaskell/haskell-vim'
@@ -10,16 +10,10 @@ call plug#end()
 "Lightline
 set laststatus=2
 set noshowmode
-let g:lightline = { 'colorscheme': 'challenger_deep'}
-if !has('gui_running')
-	set t_Co=256
-endif
+let g:lightline = {'colorscheme': 'wal'}
 
 "Color Scheme
-colorscheme challenger_deep
-if has('nvim') || has('termguicolors')
-	set termguicolors
-endif
+colorscheme wal
 "Also add this to the theme: hi Normal guibg=NONE ctermbg=NONE
 
 "Keymappings
