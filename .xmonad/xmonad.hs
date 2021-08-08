@@ -47,7 +47,7 @@ myBrowser :: String
 myBrowser = "firefox"
 
 myFont :: String
-myFont = "xft:BlexMono Nerd Font Complete:regular:pixelsize=12"
+myFont = "xft:Fira Code:regular:pixelsize=12"
 
 myModMask :: KeyMask
 myModMask = mod4Mask
@@ -56,7 +56,7 @@ myTerminal :: String
 myTerminal = "alacritty"
 
 myTextEditor :: String
-myTextEditor = "nvim"
+myTextEditor = "emacsclient"
 
 -- Main Function
 main :: IO ()
@@ -71,16 +71,16 @@ main = do
         { manageHook = insertPosition End Newer <+> manageDocks <+> myManageHook
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput =          \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x
-                        , ppCurrent =         xmobarColor "#D4B703" "" . wrap "[" "]"    -- Current workspace in xmobar
-                        , ppVisible =         xmobarColor "#428677" ""                   -- Visible but not current workspace
-                        , ppHidden =          xmobarColor "#428677" "" . wrap "*" ""     -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#428677" ""                   -- Hidden workspaces (no windows)
+                        , ppCurrent =         xmobarColor "#906cff" "" . wrap "[" "]"    -- Current workspace in xmobar
+                        , ppVisible =         xmobarColor "#62d196" ""                   -- Visible but not current workspace
+                        , ppHidden =          xmobarColor "#65b2ff" "" . wrap "*" ""     -- Hidden workspaces in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#65b2ff" ""                   -- Hidden workspaces (no windows)
                         , ppSep =             " : "                                      -- Separators in xmobar
-                        , ppUrgent =          xmobarColor "#B6351E" "" . wrap "!" "!"    -- Urgent workspace
+                        , ppUrgent =          xmobarColor "#ff8080" "" . wrap "!" "!"    -- Urgent workspace
                         , ppOrder  =          \(ws:l:t:ex) -> [ws,l]++ex
                         }
-        , normalBorderColor  = "#000000"
-        , focusedBorderColor = "#428677"
+        , normalBorderColor  = "#1b182c"
+        , focusedBorderColor = "#906cff"
         , borderWidth        = myBorderWidth
         , layoutHook         = myLayoutHook
         , modMask            = myModMask
@@ -144,12 +144,6 @@ myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
      [ className =? "Alacritty"                 --> doShift (myWorkspaces !! 0)
      , className =? "Firefox"                   --> doShift (myWorkspaces !! 1)
-     , className =? "Hiro"                      --> doShift (myWorkspaces !! 3)
-     , className =? "Microsoft Teams - Preview" --> doShift (myWorkspaces !! 2)
-     , className =? "Robocraft.x86_64"          --> doShift (myWorkspaces !! 3)
-     , className =? "st-256color"               --> doShift (myWorkspaces !! 0)
-     , className =? "Steam"                     --> doShift (myWorkspaces !! 3)
-     , className =? "TelegramDesktop"           --> doShift (myWorkspaces !! 2)
      ]
 
 
@@ -160,7 +154,8 @@ myStartupHook :: X ()
 myStartupHook = do
         mapM_ spawnOnce [(myTerminal ++ " &")
                         ,"xrandr --output DP-2 --primary"
-                        ,"feh --bg-fill /home/kacper/pictures/wallpapers/gnome/93_nologo.jpg &"
+                        ,"emacs --daemon &"
+                        ,"feh --bg-fill /home/kacper/pictures/wallpapers/backdrops/dazzled-horizon.png &"
                         ,"picom &"
                         ,"setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps' &" 
                         ,"unclutter -display :0.0 -idle 3 &"
@@ -181,11 +176,11 @@ myWorkspaces = ["DEV","WEB","CHAT","GAME","AUD","RAND"]
 myXPConfig :: XPConfig
 myXPConfig = def
       { font                = myFont
-      , bgColor             = "#00121C"
-      , fgColor             = "#9ec2bd"
-      , bgHLight            = "#9ec2bd"
-      , fgHLight            = "#00121C"
-      , borderColor         = "#428677"
+      , bgColor             = "#1b182c"
+      , fgColor             = "#cbe3e7"
+      , bgHLight            = "#1b182c"
+      , fgHLight            = "#906cff"
+      , borderColor         = "#1b182c"
       , promptBorderWidth   = 2
       , position            = Top
       , height              = 20

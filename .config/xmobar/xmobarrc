@@ -1,7 +1,7 @@
-Config { font = "xft:JetBrains Mono:style=Regular:pixelsize=13:antialias=true:hinting=true"
-       , fgColor = "#9ec2bd"
-       , bgColor = "#00121C"
-       , position = TopP 0 0
+Config { font = "xft:Fira Code:style=Regular:pixelsize=13:antialias=true:hinting=true"
+       , fgColor = "#cbe3e7"
+       , bgColor = "#1b182c"
+       , position = Top
        , lowerOnStart = True
        , hideOnStart = False
        , allDesktops = True
@@ -11,10 +11,10 @@ Config { font = "xft:JetBrains Mono:style=Regular:pixelsize=13:antialias=true:hi
                     , Run Network "wlan0" ["-t", "<icon=net_up_20.xpm/>UP <tx>kb/s <icon=net_down_20.xpm/>DN <rx>kb/s"] 10
                     , Run Cpu ["-t", "<icon=cpu_20.xpm/> CPU <bar> (<total>%)"] 10
                     , Run Memory ["-t", "<icon=memory-icon_20.xpm/> RAM <usedbar> (<usedratio>%)"] 10
-                    , Run DiskU [("/", "<icon=harddisk-icon_20.xpm/> HDD <usedbar> (<used>)")] [] 600
+                    , Run DiskU [("/", "<icon=harddisk-icon_20.xpm/> HDD <usedbar> (<used>)")] [] 60
                     , Run UnsafeStdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <icon=haskell_20.xpm/> <fc=#9ec2bd>|</fc> %UnsafeStdinReader% }{ <fc=#D4B703>%cpu%</fc> <fc=#B6351E>%memory%</fc> <fc=#3A8B84>%disku%</fc> <fc=#3A8B84>%wlan0%</fc> <icon=calendar-clock-icon_20.xpm/> <fc=#6e8784>%date%</fc> "
+       , template = " <icon=haskell_20.xpm/> <fc=#65b2ff>|</fc> %UnsafeStdinReader% }{ <fc=#ffb378>%cpu%</fc> <fc=#ff5458>%memory%</fc> <fc=#91ddff>%disku%</fc> <fc=#95ffa4>%wlan0%</fc> <icon=calendar-clock-icon_20.xpm/> <fc=#65b2ff>%date%</fc> "
        }
