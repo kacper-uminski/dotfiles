@@ -64,13 +64,12 @@ main = do
 
 -- Spawn xmobar
     xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/xmobarrc"
-    xmproc1 <- spawnPipe "xmobar -x 1 $HOME/.config/xmobar/xmobarrc"
 
 -- Main config
     xmonad $ docks def
         { manageHook = insertPosition End Newer <+> manageDocks <+> myManageHook
         , logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput =          \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x
+                        { ppOutput =          \x -> hPutStrLn xmproc0 x
                         , ppCurrent =         xmobarColor "#906cff" "" . wrap "[" "]"    -- Current workspace in xmobar
                         , ppVisible =         xmobarColor "#62d196" ""                   -- Visible but not current workspace
                         , ppHidden =          xmobarColor "#65b2ff" "" . wrap "*" ""     -- Hidden workspaces in xmobar
@@ -152,14 +151,14 @@ myManageHook = composeAll
 ------------------------------------------------------------------------
 myStartupHook :: X ()
 myStartupHook = do
-        mapM_ spawnOnce [(myTerminal ++ " &")
-                        ,"xrandr --output DP-2 --primary"
-                        ,"emacs --daemon &"
+        mapM_ spawnOnce ["xrandr --output DisplayPort1 --right-of DVI-1 &"
                         ,"feh --bg-fill /home/kacper/pictures/wallpapers/backdrops/dazzled-horizon.png &"
-                        ,"picom &"
-                        ,"setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps' &" 
-                        ,"unclutter -display :0.0 -idle 3 &"
                         ,"xsetroot -cursor_name left_ptr &"
+                        ,"picom --experimental-backend &"
+                        ,"setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps' &" 
+                        ,"alacritty &"
+                        ,"emacs --daemon &"
+                        ,"unclutter -display :0.0 -idle 3 &"
                         ]
         setWMName "XMonad"
 
