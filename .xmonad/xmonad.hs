@@ -131,9 +131,10 @@ myKeys =
 ------------------------------------------------------------------------
 ---LAYOUTS
 ------------------------------------------------------------------------
-myLayoutHook = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ tall ||| noBorders monocle
-    where   monocle =   renamed [Replace "Monocle"] $ Full
-            tall =      renamed [Replace "Tall"]    $ spacingRaw False (Border 15 15 15 15) True (Border 15 15 15 15) True $ Tall 1 (3/100) (1/2)
+myLayoutHook = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ tall ||| wide ||| noBorders monocle
+    where   monocle = renamed [Replace "Monocle"] $ Full
+            wide =    renamed [Replace "Wide"]    $ spacingRaw False (Border 15 15 15 15) True (Border 15 15 15 15) True $ Tall 1 (3/100) (1/2)
+            tall =    renamed [Replace "Tall"]    $ spacingRaw False (Border 15 15 15 15) True (Border 15 15 15 15) True $ Mirror (Tall 1 (3/100) (1/2))
 
 
 ------------------------------------------------------------------------

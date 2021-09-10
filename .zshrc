@@ -38,8 +38,10 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Variables
-export TERM=xterm-256color
+export ALTERNATE_EDITOR=""
+export EDITOR="emacsclient -t"
 export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
+export TERM=xterm-256color
 
 # To customize prompt, run `p10k configure` or edit $HOME/.config/zsh/config/p10k.zsh.
 [[ ! -f $HOME/.config/zsh/config/p10k.zsh ]] || source $HOME/.config/zsh/config/p10k.zsh
