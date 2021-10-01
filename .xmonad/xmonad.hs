@@ -53,7 +53,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 myTerminal :: String
-myTerminal = "alacritty"
+myTerminal = "st"
 
 myTextEditor :: String
 myTextEditor = "emacsclient"
@@ -144,6 +144,7 @@ myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
      [ className =? "Alacritty"                 --> doShift (myWorkspaces !! 0)
      , className =? "Firefox"                   --> doShift (myWorkspaces !! 1)
+     , className =? "st-256color"               --> doShift (myWorkspaces !! 0)
      ]
 
 
@@ -152,12 +153,11 @@ myManageHook = composeAll
 ------------------------------------------------------------------------
 myStartupHook :: X ()
 myStartupHook = do
-        mapM_ spawnOnce ["xrandr --output DisplayPort1 --right-of DVI-1 &"
-                        ,"feh --bg-fill /home/kacper/pictures/wallpapers/backdrops/dazzled-horizon.png &"
+        mapM_ spawnOnce ["feh --bg-fill /home/kacper/pictures/wallpapers/backdrops/dazzled-horizon.png &"
                         ,"xsetroot -cursor_name left_ptr &"
                         ,"picom --experimental-backend &"
                         ,"setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps' &" 
-                        ,"alacritty &"
+                        ,"st &"
                         ,"emacs --daemon &"
                         ,"unclutter -display :0.0 -idle 3 &"
                         ]
