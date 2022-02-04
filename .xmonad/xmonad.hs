@@ -53,7 +53,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 myTerminal :: String
-myTerminal = "st"
+myTerminal = "alacritty"
 
 myTextEditor :: String
 myTextEditor = "emacsclient"
@@ -63,7 +63,7 @@ main :: IO ()
 main = do
 
 -- Spawn xmobar
-    xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/xmobarrc"
+    xmproc0 <- spawnPipe "xmobar -x 0"
 
 -- Main config
     xmonad $ docks def
@@ -98,7 +98,8 @@ myKeys =
         [ ("M-r",                       shellPrompt myXPConfig)
 
 -- Spawning and killing windows
-        , ("M-b",                       spawn  myBrowser)
+        , ("M-b",                       spawn   myBrowser)
+        , ("M-e",                       spawn   "emacs")
         , ("M-t",                       spawn   myTerminal)
         , ("M-v",                       spawn  (myTerminal ++ " -e pulsemixer"))
         , ("M-w",                       kill1)
@@ -112,6 +113,9 @@ myKeys =
         , ("<XF86AudioMute>",           spawn "pactl set-sink-mute 0 toggle")
         , ("<XF86AudioLowerVolume>",    spawn "pactl set-sink-volume 0 -1%")
         , ("<XF86AudioRaiseVolume>",    spawn "pactl set-sink-volume 0 +1%")
+
+-- Screenshots
+        , ("M-s",                       spawn "flameshot gui")
 
 -- Window layouts
         , ("M-M1-l",                    sendMessage NextLayout)
@@ -142,9 +146,14 @@ myLayoutHook = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ tall ||| wi
 ------------------------------------------------------------------------
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
-     [ className =? "Alacritty"                 --> doShift (myWorkspaces !! 0)
-     , className =? "Firefox"                   --> doShift (myWorkspaces !! 1)
-     , className =? "st-256color"               --> doShift (myWorkspaces !! 0)
+     [ className =? "Alacritty"   --> doShift (myWorkspaces !! 0)
+     , className =? "Darktable"   --> doShift (myWorkspaces !! 4)
+     , className =? "Emacs"       --> doShift (myWorkspaces !! 0)
+     , className =? "Firefox"     --> doShift (myWorkspaces !! 1)
+     , className =? "retroarch"   --> doShift (myWorkspaces !! 3)
+     , className =? "Skype"       --> doShift (myWorkspaces !! 2)
+     , className =? "st-256color" --> doShift (myWorkspaces !! 0)
+     , className =? "zoom"        --> doShift (myWorkspaces !! 2)
      ]
 
 
@@ -157,9 +166,10 @@ myStartupHook = do
                         ,"xsetroot -cursor_name left_ptr &"
                         ,"picom --experimental-backend &"
                         ,"setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps' &" 
-                        ,"st &"
+                        , myTerminal ++ " &"
                         ,"emacs --daemon &"
                         ,"unclutter -display :0.0 -idle 3 &"
+                        ,"flameshot &"
                         ]
         setWMName "XMonad"
 
@@ -167,7 +177,7 @@ myStartupHook = do
 -------------------------------------------------------------------------
 ---WORKSPACES
 ------------------------------------------------------------------------
-myWorkspaces = ["DEV","WEB","CHAT","GAME","AUD","RAND"]
+myWorkspaces = ["DEV","WEB","CHAT","GAME","AV","RAND"]
 
 
 ------------------------------------------------------------------------
