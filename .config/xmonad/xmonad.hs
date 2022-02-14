@@ -4,7 +4,7 @@
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.CycleWS (nextScreen, prevScreen)
-import XMonad.Actions.SinkAll
+import XMonad.Actions.WithAll
 
 -- Base
 import XMonad
@@ -18,6 +18,7 @@ import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarColor, xmobarPP, P
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
+import XMonad.Hooks.WindowSwallowing (swallowEventHook)
 
 -- Layouts
 import XMonad.Layout.MultiToggle (mkToggle, EOT(EOT), (??))
@@ -82,12 +83,17 @@ main = do
         , focusedBorderColor = "#906cff"
         , borderWidth        = myBorderWidth
         , layoutHook         = myLayoutHook
+--        , handleEventHook    = myHandleEventHook
         , modMask            = myModMask
         , startupHook        = myStartupHook
         , terminal           = myTerminal
         , workspaces         = myWorkspaces
         } `additionalKeysP` myKeys
 
+------------------------------------------------------------------------
+---Eventhooks
+------------------------------------------------------------------------
+--myHandleEventHook = swallowEventHook (className =? "Alacritty" <||> className =? "zoom") (return True)
 
 ------------------------------------------------------------------------
 ---KEYBINDINGS
@@ -118,8 +124,10 @@ myKeys =
         , ("M-s",                       spawn "flameshot gui")
 
 -- Window layouts
-        , ("M-M1-l",                    sendMessage NextLayout)
-        , ("M-M1-f",                    sendMessage ToggleStruts)
+        , ("M-M1-m",                    sendMessage $ JumpToLayout "Monocle")
+        , ("M-M1-t",                    sendMessage $ JumpToLayout "Tall")
+        , ("M-M1-w",                    sendMessage $ JumpToLayout "Wide")
+        , ("M-M1-f",                    sendMessage $ ToggleStrut U)
 
 -- Workspaces
         , ("M-.",                       nextScreen)
@@ -137,8 +145,8 @@ myKeys =
 ------------------------------------------------------------------------
 myLayoutHook = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ tall ||| wide ||| noBorders monocle
     where   monocle = renamed [Replace "Monocle"] $ Full
-            wide =    renamed [Replace "Wide"]    $ spacingRaw False (Border 15 15 15 15) True (Border 15 15 15 15) True $ Tall 1 (3/100) (1/2)
             tall =    renamed [Replace "Tall"]    $ spacingRaw False (Border 15 15 15 15) True (Border 15 15 15 15) True $ Mirror (Tall 1 (3/100) (1/2))
+            wide =    renamed [Replace "Wide"]    $ spacingRaw False (Border 15 15 15 15) True (Border 15 15 15 15) True $ Tall 1 (3/100) (1/2)
 
 
 ------------------------------------------------------------------------
@@ -165,10 +173,10 @@ myStartupHook = do
         mapM_ spawnOnce ["feh --bg-fill /home/kacper/pictures/wallpapers/backdrops/dazzled-horizon.png &"
                         ,"xsetroot -cursor_name left_ptr &"
                         ,"picom --experimental-backend &"
-                        ,"setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps' &" 
                         , myTerminal ++ " &"
-                        ,"emacs --daemon &"
-                        ,"unclutter -display :0.0 -idle 3 &"
+--                        ,"setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps' &" 
+--                        , "emacs --daemon &"
+--                        ,"unclutter -display :0.0 -idle 3 &"
                         ,"flameshot &"
                         ]
         setWMName "XMonad"

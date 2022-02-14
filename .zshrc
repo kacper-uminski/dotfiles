@@ -3,7 +3,7 @@
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then exec startx; fi
 
 # Flex on Arch users!
-neofetch
+neofetch --disable font icons packages resolution term theme
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -39,7 +39,6 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Variables
 export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -t"
 export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 export TERM=xterm-256color
 
