@@ -1,0 +1,14 @@
+Config { font = "xft:Fira Code:pixelsize=13,FontAwesome:pixelsize=13"
+       , fgColor = "#d8dee9"
+       , bgColor = "#1B1F26"
+       , position = TopW L 90
+       , lowerOnStart = True
+       , hideOnStart = False
+       , allDesktops = True
+       , persistent = True
+       , iconRoot = "$HOME/.config/xmonad/xpm/"  -- default: "."
+       , commands = [Run XPropertyLog "_XMONAD_LOG_2"]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " <icon=haskell_20.xpm/> %_XMONAD_LOG_2% }{"
+       }
