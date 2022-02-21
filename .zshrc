@@ -12,6 +12,15 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+if [ ! -f "$HOME/.config/zsh/history" ]; then
+   touch $HOME/.config/zsh/history
+fi 
+
+if [ ! -d "$HOME/.config/zsh/plugins/powerlevel10k" ]; then
+    mkdir $HOME/.config/zsh/plugins/
+    git clone https://github.com/romkatv/powerlevel10k $HOME/.config/zsh/plugins/powerlevel10k
+fi
+   
 # Aliases
 source $HOME/.config/zsh/config/aliases.zsh
 
@@ -22,7 +31,7 @@ zstyle ':completion*' matcher-list 'm:{a-z}={A-Za-z}'
 # History
 HISTSIZE=5000
 SAVEHIST=5000
-HISTFILE=~/.config/zsh/history/zsh_history
+HISTFILE=~/.config/zsh/history
 setopt appendhistory
 
 # Theme
@@ -39,7 +48,7 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Variables
 export ALTERNATE_EDITOR=""
-export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
+#export PATH="$PATH:$HOME/software/sacd_extract"
 export TERM=xterm-256color
 
 # To customize prompt, run `p10k configure` or edit $HOME/.config/zsh/config/p10k.zsh.
