@@ -43,7 +43,7 @@ import XMonad.Util.SpawnOnce (spawnOnce)
 -- HANDLE EVENT HOOK
 --------------------------------------------------------------------------------
 myHandleEventHook :: Event -> X All
-myHandleEventHook = swallowEventHook (className =? "Alacritty" <||> className =? "zoom") (return True)
+myHandleEventHook = swallowEventHook (className =? "Alacritty" <||> className =? "st-256color") (return True)
 
 --------------------------------------------------------------------------------
 -- KEYBINDINGS
@@ -121,11 +121,14 @@ myManageHook = insertPosition End Newer <+> composeAll
      , className =? "Darktable"       --> doShift (myWorkspaces !! 4)
      , className =? "Emacs"           --> doShift (myWorkspaces !! 0)
      , className =? "Firefox"         --> doShift (myWorkspaces !! 1)
+     , className =? "firefox"         --> doShift (myWorkspaces !! 1)
      , className =? "puddletag"       --> doShift (myWorkspaces !! 4)
+     , className =? "qBittorrent"     --> doShift (myWorkspaces !! 5)
      , className =? "retroarch"       --> doShift (myWorkspaces !! 3)
      , className =? "Skype"           --> doShift (myWorkspaces !! 2)
+     , className =? "Steam"           --> doShift (myWorkspaces !! 3)
      , className =? "TelegramDesktop" --> doShift (myWorkspaces !! 2)
---     , className =? "st-256color"     --> doShift (myWorkspaces !! 0)
+     , className =? "st-256color"     --> doShift (myWorkspaces !! 0)
      , className =? "zoom"            --> doShift (myWorkspaces !! 2)
      ]
 
@@ -166,8 +169,9 @@ myStartupHook = do
                         ,"picom &"
                         , myTerminal ++ " &"
                         ,"setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps' &" 
---                        , "emacs --daemon &"
---                        , "unclutter -display :0.0 -idle 3 &"
+                        ,"emacs --daemon &"
+                        ,"unclutter -display :0.0 -idle 3 &"
+                        ,"firefox &"
                         ,"flameshot &"
                         ,"telegram-desktop &"
                         ]
@@ -212,12 +216,13 @@ myBorderWidth :: Dimension
 myBorderWidth = 2
 
 myTerminal :: String
-myTerminal = "alacritty"
+--myTerminal = "alacritty"
+myTerminal = "st"
 
 --------------------------------------------------------------------------------
 -- WORKSPACES
 --------------------------------------------------------------------------------
-myWorkspaces = ["DEV","WEB","CHAT","GAME","AV","RAND"]
+myWorkspaces = ["DEV","WEB","CHAT","GAME","AV","DLD","RAND"]
 
 --------------------------------------------------------------------------------
 -- XMOBAR
@@ -294,6 +299,7 @@ main = xmonad
 myConfig = def
   { handleEventHook    = myHandleEventHook
   , layoutHook         = myLayoutHook
+--  , logHook            = myLogHook
   , manageHook         = myManageHook
   , startupHook        = myStartupHook
   , normalBorderColor  = myNormalColor

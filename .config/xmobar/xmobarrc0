@@ -4,16 +4,14 @@ Config { font = "xft:Fira Code:pixelsize=13,FontAwesome:pixelsize=13"
        , position = Top
        , iconRoot = "$HOME/.config/xmonad/xpm/"  -- default: "."
        , commands = [
-                      Run Cpu ["-t", "<fc=#bf616a> CPU <bar> (<total>%)</fc>"] 10
+                      Run Cpu ["-w", "3", "-t", "<fc=#bf616a> CPU <bar> (<total>%)</fc>"] 10
                     , Run Date "<fc=#b48ead> %a, %b %d %Y | %H:%M:%S</fc>" "date" 10
-                    , Run DiskU [("/", "<fc=#ebcb8b> HDD <usedbar> (<used>)</fc>")] [] 60
-                    , Run Memory ["-t", "<fc=#d08770> RAM <usedbar> (<usedratio>%)</fc>"] 10
-                    , Run Network "eno2" ["-t", "<fc=#a3be8c> <tx>kb/s <rx>kb/s</fc>"] 10
+                    , Run DiskU [("/home", "<fc=#ebcb8b> HDD <usedbar> (<used>)</fc>")] [] 60
+                    , Run Memory ["-w", "3", "-t", "<fc=#d08770> RAM <usedbar> (<usedratio>%)</fc>"] 10
+                    , Run Network "eno2" ["-w", "7", "-S", "True", "-t", "<fc=#a3be8c><tx> <rx></fc>"] 10
                     , Run XPropertyLog "_XMONAD_LOG_1"
---                    , Run XPropertyLog "XMonadLog"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
        , template = " <icon=haskell_20.xpm/> %_XMONAD_LOG_1% }{ %cpu% %memory% %disku% %eno2% %date% "
---       , template = " <icon=haskell_20.xpm/> %XMonadLog% }{ %cpu% %memory% %disku% %eno2% %date% "
        }

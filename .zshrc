@@ -1,9 +1,15 @@
 #!/bin/zsh
-# Execute startx if in tty1
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then exec startx; fi
 
-# Flex on Arch users!
-neofetch --disable font icons packages resolution term theme
+# Variables
+export EDITOR="emacsclient"
+export PATH=$PATH:$HOME/.local/bin
+export TERM=xterm-256color
+
+# Startx when on TTY1
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then startx; fi
+
+# Flex on Ubuntu users
+neofetch --disable font icons packages resolution theme
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -45,11 +51,6 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
-
-# Variables
-export ALTERNATE_EDITOR=""
-#export PATH="$PATH:$HOME/software/sacd_extract"
-export TERM=xterm-256color
 
 # To customize prompt, run `p10k configure` or edit $HOME/.config/zsh/config/p10k.zsh.
 [[ ! -f $HOME/.config/zsh/config/p10k.zsh ]] || source $HOME/.config/zsh/config/p10k.zsh

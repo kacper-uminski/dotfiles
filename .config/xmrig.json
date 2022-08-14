@@ -39,6 +39,7 @@
         "astrobwt-avx2": false,
         "argon2": [0, 4, 1, 5, 2, 6, 3, 7],
         "astrobwt": [0, 4, 1, 5, 2, 6, 3, 7],
+        "astrobwt/v2": [0, 4, 1, 5, 2, 6, 3, 7],
         "cn": [
             [1, 0],
             [1, 1],
@@ -85,7 +86,7 @@
             [8, 2],
             [8, 3]
         ],
-        "rx": [0, 1, 2, 3],
+        "rx": [0, 1, 2, 3, 4, 5, 6, 7],
         "rx/wow": [0, 4, 1, 5, 2, 6, 3, 7],
         "cn-lite/0": false,
         "cn/0": false,
@@ -119,6 +120,7 @@
             "keepalive": true,
             "enabled": true,
             "tls": true,
+            "wss": false,
             "tls-fingerprint": null,
             "daemon": false,
             "socks5": null,

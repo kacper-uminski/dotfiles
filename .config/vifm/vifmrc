@@ -226,14 +226,16 @@ filetype *.[1-8] man ./%c
 fileviewer *.[1-8] man ./%c | col -b
 
 " Images
-filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.tiff
         \ {View in sxiv}
         \ sxiv %f,
         \ {View in gpicview}
         \ gpicview %c,
         \ {View in shotwell}
         \ shotwell,
-fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+	\ {View in feh}
+        \ feh --scale-down,
+fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.tiff
          \ identify %f
 
 " OpenRaster
