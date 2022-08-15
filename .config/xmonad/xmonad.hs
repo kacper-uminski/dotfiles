@@ -216,8 +216,8 @@ myBorderWidth :: Dimension
 myBorderWidth = 2
 
 myTerminal :: String
---myTerminal = "alacritty"
-myTerminal = "st"
+myTerminal = "alacritty"
+--myTerminal = "st"
 
 --------------------------------------------------------------------------------
 -- WORKSPACES

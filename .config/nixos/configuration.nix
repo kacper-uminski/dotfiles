@@ -4,9 +4,7 @@
 
 { config, pkgs, ... }:
 
-let
-  stable = import <nixos-stable> { config = { allowUnfree = true; }; };
-in {
+{
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -16,31 +14,11 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };
-  hardware.opengl = {
-    enable = true;
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
-  };
-
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
   networking = {
-    useDHCP = false;
+    hostName = "nixos";
     defaultGateway = "192.168.50.1";
     nameservers = ["192.168.50.200"];
     interfaces.eno2.ipv4.addresses = [{
@@ -49,13 +27,8 @@ in {
     }];
   };
 
-  # Mount network drives.
-  fileSystems."/home/kacper/media/music" = {
-    device = "192.168.50.200:/mnt/Tank/Music";
-    fsType = "nfs";
-  };
-  fileSystems."/home/kacper/media/movies" = {
-    device = "192.168.50.200:/mnt/Tank/Movies";
+  fileSystems."/home/kacper/media" = {
+    device = "192.168.50.200:/mnt/Tank/Media";
     fsType = "nfs";
   };
 
@@ -70,6 +43,7 @@ in {
     keyMap = "dvorak";
   };
 
+  # X11
   services.xserver = {
     # Enable the X11 windowing system.
     enable = true;
@@ -105,11 +79,6 @@ in {
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
-      extraPackages = haskellPackages: [
-        haskellPackages.xmonad_0_17_0
-        haskellPackages.xmonad-contrib_0_17_0
-        haskellPackages.xmonad-extras_0_17_0
-      ];
     };
   
     # Configure keymap in X11
@@ -139,25 +108,23 @@ in {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    afetch
     alacritty
-    brave
+    chromium
     cifs-utils
     darktable
     emacs
     exa
+    feh
     ffmpeg
     firefox
-    flac
+    flameshot
     flameshot
     ghc
     git
     haskellPackages.xmobar
-    hdparm
     htop
     imagemagick
     libsForQt5.qtstyleplugin-kvantum
-    lm_sensors
     lxappearance
     minecraft
     mpv
@@ -165,16 +132,13 @@ in {
     neofetch
     nitrogen
     picom
-    pstree
-    stable.puddletag
+    puddletag
     pulsemixer
     qbittorrent
     retroarchFull
     shntool
     skypeforlinux
-    sxiv
     tdesktop
-    texlive.combined.scheme-full
     trayer
     unclutter
     unzip
@@ -183,15 +147,17 @@ in {
     wget
     xmrig
     xorg.xinit
-    zoom-us
   ];
-  
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "python3.9-mistune-0.8.4"
+  ];
 
   # Set system fonts.
   fonts.fonts = with pkgs; [
-  fira
-  fira-code
-  font-awesome
+    fira
+    fira-code
+    font-awesome
   ];
 
   # Allow non-free packages.
@@ -200,23 +166,19 @@ in {
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
 
   programs = {
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    }; 
-
-    java.enable = true;
-
     steam.enable = true;
   };
 
-
-  # List services that you want to enable:
+  # List of services that you want to enable.
   services = {
-
-    # Enable Emacs for users.
+   
+  # Enable Emacs for all users.
     emacs = {
       enable = true;
       defaultEditor = true;
@@ -253,13 +215,18 @@ in {
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
+  # Copy the NixOS configuration file and link it from the resulting system
+  # (/run/current-system/configuration.nix). This is useful in case you
+  # accidentally delete configuration.nix.
+  # system.copySystemConfiguration = true;
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.11"; # Did you read the comment?
+  system.stateVersion = "22.05"; # Did you read the comment?
 
 }
 
