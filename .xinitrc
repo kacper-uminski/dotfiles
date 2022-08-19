@@ -1,4 +1,4 @@
-#eval $(gnome-keyring-daemon --start)
+eval $(gnome-keyring-daemon --start)
 #export SSH_AUTH_LOCK
 #export MESA_LOADER_DRIVER_OVERRIDE=i965
 #export QT_QPA_PLATFORMTHEME=qt5ct
