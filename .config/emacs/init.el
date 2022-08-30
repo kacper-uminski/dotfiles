@@ -18,26 +18,34 @@
 
 ;; Disable line numbers for some modes
 (dolist (mode '(eshell-mode-hook
-		org-mode-hook
-		shell-mode-hook
-		term-mode-hook))
+                org-mode-hook
+                shell-mode-hook
+                term-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;;;; Set Whitespace
+;;(require 'whitespace)
+;;(add-hook 'python-mode
+;;          (lambda ()
+;;	    (setq whitespace-style '(face empty tabs lines-tail trailing))
+;;            (setq whitespace-line-column 80)
+;;            (global-whitespace-mode t)))
 
 ;; Enable Color Hex Code rendering for some modes
 (defvar hexcolour-keywords
   '(("#[abcdef[:digit:]]\\{6\\}"
      (0 (put-text-property (match-beginning 0)
                            (match-end 0)
-			   'face (list :background 
-				       (match-string-no-properties 0)))))))
+                           'face (list :background 
+                                       (match-string-no-properties 0)))))))
 
 (defun hexcolour-add-to-font-lock ()
   (font-lock-add-keywords nil hexcolour-keywords))
 
 (dolist (mode '(elisp-mode-hook
-		haskell-mode-hook
-		org-mode-hook
-		fundamental-mode-hook))
+                haskell-mode-hook
+                org-mode-hook
+                fundamental-mode-hook))
   (add-hook mode (lambda () (hexcolour-add-to-font-lock))))
 
 ;; Set font
@@ -111,8 +119,8 @@
 ; Initialize package sources 
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-			  ("org" . "https://orgmode.org/elpa/")
-			  ("elpa" . "https://elpa.gnu.org/packages/")))
+                          ("org" . "https://orgmode.org/elpa/")
+                          ("elpa" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
@@ -129,10 +137,10 @@
 ;; Counsel
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
-	 ("C-x b" . counsel-switch-buffer)
-	 ("C-x C-f" . counsel-find-file)
-	 :map minibuffer-local-map
-	 ("C-r" . 'counsel-minibuffer-history))
+         ("C-x b" . counsel-switch-buffer)
+         ("C-x C-f" . counsel-find-file)
+         :map minibuffer-local-map
+         ("C-r" . 'counsel-minibuffer-history))
   :config (setq ivy-initial-inputs-alist nil)) ;; Don't start searches with "^"
 
 ;; Doom modeline
@@ -191,27 +199,27 @@
   :bind
   ([remap describe-command] . helpful-command)
   ([remap describe-function] . counsel-describe-function)
-  ([remap describe-key] . helpful-key)	      
+  ([remap describe-key] . helpful-key)        
   ([remap describe-variable] . counsel-describe-variable))
-  					      
+                                              
 (use-package impatient-mode)
-					      
-;; Ivy					      
+                                              
+;; Ivy                                        
 (use-package ivy
   :diminish
   :bind (("C-s" . swiper)
-	 :map ivy-minibuffer-map
-	 ("TAB" . ivy-alt-done)
-	 ("C-l" . ivy-alt-done)
-	 ("C-j" . ivy-next-line)
-	 ("C-k" . ivy-previous-line)
-	 :map ivy-switch-buffer-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-l" . ivy-done)
-	 ("C-d" . ivy-switch-buffer-kill)
-	 :map ivy-reverse-i-search-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-d" . ivy-reverse-i-search-kill))
+         :map ivy-minibuffer-map
+         ("TAB" . ivy-alt-done)
+         ("C-l" . ivy-alt-done)
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
+         :map ivy-switch-buffer-map
+         ("C-k" . ivy-previous-line)
+         ("C-l" . ivy-done)
+         ("C-d" . ivy-switch-buffer-kill)
+         :map ivy-reverse-i-search-map
+         ("C-k" . ivy-previous-line)
+         ("C-d" . ivy-reverse-i-search-kill))
   :config (ivy-mode 1))
 
 ;; Ivy Rich
@@ -224,7 +232,7 @@
 ;;  ;; Set prefix for lsp-command-keycap (few alternatives - "C-l", "C-c l")
 ;;  (setq lsp-keymap-prefix "C-c l")
 ;;  :hook ((haskell-mode . lsp)
-;;	 (lsp-mode . lsp-enable-which-key-integration))
+;;       (lsp-mode . lsp-enable-which-key-integration))
 ;;  :commands lsp)
 ;;
 ;;;; Install for Haskell
@@ -241,13 +249,13 @@
 (use-package org
   :init (require 'org-indent)
   :hook (org-mode . (lambda () (org-indent-mode)
-		               (variable-pitch-mode 1)
-		               (auto-fill-mode 0)
-		               (visual-line-mode 1)
-		               (setq evil-auto-indent nil)))
+                               (variable-pitch-mode 1)
+                               (auto-fill-mode 0)
+                               (visual-line-mode 1)
+                               (setq evil-auto-indent nil)))
   :config
   (setq org-ellipsis " ▾"
-	org-hide-emphasis-markers t)
+        org-hide-emphasis-markers t)
 
   (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.1)

@@ -90,10 +90,6 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
@@ -131,9 +127,11 @@
     mupdf
     neofetch
     nitrogen
+    p7zip
     picom
     puddletag
     pulsemixer
+    python3
     qbittorrent
     retroarchFull
     shntool
@@ -149,16 +147,21 @@
     xorg.xinit
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "python3.9-mistune-0.8.4"
-  ];
-
   # Set system fonts.
   fonts.fonts = with pkgs; [
+    cascadia-code
     fira
     fira-code
     font-awesome
+    ibm-plex
+    jetbrains-mono
+    julia-mono
+    victor-mono
   ];
+
+#  nixpkgs.config.permittedInsecurePackages = [
+#    "python3.9-mistune-0.8.4"
+#  ];
 
   # Allow non-free packages.
   nixpkgs.config.allowUnfree = true;
@@ -195,6 +198,14 @@
 #      enable = false;
 #    };
 
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = false;
+    };
+
     # Enable Roon Server
     roon-server = {
       enable = true;
@@ -208,6 +219,8 @@
     };
 
   }; # End Services
+
+  security.rtkit.enable = true; # Optional, but recommended, for pipewire.
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

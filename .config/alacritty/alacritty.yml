@@ -1,7 +1,11 @@
 # Font configuration
 font:
   normal:
+#    family: Cascadia Code
     family: Fira Code
+#    family: IBM Plex Mono
+#    family: JetBrains Mono
+#    family: Victor Mono
   glyphs:
     family: Font Awesome
   size: 12
