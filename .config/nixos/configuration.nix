@@ -101,9 +101,17 @@
     shell = pkgs.zsh;
   };
 
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    (let
+      my-python-packages = python-packages: with python-packages; [
+        opencv4
+      ];
+      python-with-my-packages = python3.withPackages my-python-packages;
+    in
+    python-with-my-packages)
     alacritty
     chromium
     cifs-utils
@@ -131,7 +139,6 @@
     picom
     puddletag
     pulsemixer
-    python3
     qbittorrent
     retroarchFull
     shntool
@@ -145,6 +152,7 @@
     wget
     xmrig
     xorg.xinit
+    zathura
   ];
 
   # Set system fonts.
