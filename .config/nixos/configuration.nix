@@ -107,7 +107,7 @@
   environment.systemPackages = with pkgs; [
     (let
       my-python-packages = python-packages: with python-packages; [
-        opencv4
+        (opencv4.override { enableGtk2 = true; })
       ];
       python-with-my-packages = python3.withPackages my-python-packages;
     in
