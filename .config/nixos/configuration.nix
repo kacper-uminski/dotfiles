@@ -51,8 +51,9 @@
     # Set drivers and enable "TearFree"
     videoDrivers = [ "intel" ];
     deviceSection = ''
-      Option "DRI" "2"
+      Option "AccelMethod" "sna"
       Option "TearFree" "true"
+      Option "DRI" "3"
     ''; 
 
     # Monitor configuration.
@@ -90,6 +91,9 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
+  # Enable SANE to scan documents.
+  hardware.sane.enable = true;
+
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
@@ -97,7 +101,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kacper = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "lp" "scanner" "wheel" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 
@@ -121,8 +125,9 @@
     feh
     ffmpeg
     firefox
+    fish
     flameshot
-    flameshot
+    flatpak
     ghc
     git
     haskellPackages.xmobar
@@ -144,9 +149,11 @@
     shntool
     skypeforlinux
     tdesktop
+    texlive.combined.scheme-full
     trayer
     unclutter
     unzip
+    usbutils
     vifm
     vim
     wget

@@ -290,6 +290,9 @@
 ;; Set Org LaTeX margins to 2cm
 (setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
 
+;;PDF tools
+(use-package pdf-tools)
+
 ;; Rainbow delimiters (parentheses highlighting)
 (use-package rainbow-delimiters
   :hook (emacs-lisp-mode . rainbow-delimiters-mode))
@@ -303,6 +306,10 @@
   :diminish which-key-mode
   :config (setq which-key-idle-delay 1))
 
+;;AUCTeX
+(use-package tex
+  :ensure auctex)
+
 ;; Self-generated stuff below
 
 (custom-set-variables
@@ -313,7 +320,7 @@
  '(custom-safe-themes
    '("1704976a1797342a1b4ea7a75bdbb3be1569f4619134341bd5a4c1cfb16abad4" "7eea50883f10e5c6ad6f81e153c640b3a288cd8dc1d26e4696f7d40f754cc703" "745d03d647c4b118f671c49214420639cb3af7152e81f132478ed1c649d4597d" "97db542a8a1731ef44b60bc97406c1eb7ed4528b0d7296997cbb53969df852d6" "cbdf8c2e1b2b5c15b34ddb5063f1b21514c7169ff20e081d39cf57ffee89bc1e" "7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" "a82ab9f1308b4e10684815b08c9cac6b07d5ccb12491f44a942d845b406b0296" "6b1abd26f3e38be1823bd151a96117b288062c6cde5253823539c6926c3bb178" default))
  '(package-selected-packages
-   '(markdown-mode lsp-mode nix-mode org-bullets impatient-mode which-key rainbow-delimiters ivy-rich helpful haskell-mode evil-collection evil doom-themes doom-modeline counsel use-package)))
+   '(pdf-tools markdown-mode lsp-mode nix-mode org-bullets impatient-mode which-key rainbow-delimiters ivy-rich helpful haskell-mode evil-collection evil doom-themes doom-modeline counsel use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
