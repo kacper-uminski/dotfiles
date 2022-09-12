@@ -8,9 +8,9 @@
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
 
-  environment.variables = {
-    QT_STYLE_OVERRIDE="kvantum";
-  };
+#  environment.variables = {
+#    QT_STYLE_OVERRIDE="kvantum";
+#  };
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -36,6 +36,17 @@
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
+
+  # Pipewire
+  hardware.pulseaudio.enable = false;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = false;
+  };
+  security.rtkit.enable = true; # Optional, but recommended, for pipewire.
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kacper = {
@@ -83,14 +94,6 @@
 #      enable = false;
 #    };
 
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = false;
-    };
-
     # Enable Unclutter
     unclutter = {
       enable = true;
@@ -98,8 +101,6 @@
     };
 
   }; # End Services
-
-  security.rtkit.enable = true; # Optional, but recommended, for pipewire.
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
