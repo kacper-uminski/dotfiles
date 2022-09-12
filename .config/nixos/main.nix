@@ -8,10 +8,6 @@
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
 
-#  environment.variables = {
-#    QT_STYLE_OVERRIDE="kvantum";
-#  };
-
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {

@@ -61,6 +61,10 @@
     extraGroups = [ "lp" "scanner" "wheel" ];
   };
 
+  environment.variables = {
+    QT_STYLE_OVERRIDE="kvantum";
+  };
+
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     (let
