@@ -2,8 +2,9 @@
 
 {
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.efiSysMountPoint = "/efi";
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
@@ -47,6 +48,7 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kacper = {
+    description = "Kacper Uminski";
     isNormalUser = true;
     shell = pkgs.zsh;
   };

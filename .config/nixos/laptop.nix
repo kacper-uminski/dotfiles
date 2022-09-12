@@ -2,7 +2,7 @@
 
 {
   # Bootloader.
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader.efi.efiSysMountPoint = "/efi";
 
   # Configure networking.
   networking = {
@@ -12,7 +12,6 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kacper = {
-    description = "Kacper Uminski";
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
