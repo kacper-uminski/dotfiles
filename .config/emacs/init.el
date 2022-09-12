@@ -1,11 +1,35 @@
+;; Move customization variables to a separate file and load it
+(setq custom-file (locate-user-emacs-file "custom-vars.el"))
+(load custom-file 'noerror 'nomessage)
+
+;; Set backup directory
+(setq backup-directory-alist
+          `(("." . ,(concat user-emacs-directory "backups"))))
+
+;; Revert buffers when the underlying file has changed
+(global-auto-revert-mode 1)
+;; Revert Dired and other buffers
+(setq global-auto-revert-non-file-buffers t)
+
 ;; Disable bars and startup message
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (setq inhibit-startup-message t)
 
+;; Prompts:
 ;; Replace yes-no prompts with y-n
 (defalias 'yes-or-no-p 'y-or-n-p)
+;; Don't pop up UI dialogs when prompting
+(setq use-dialog-box nil)
+
+;; Set theme
+(load-theme 'modus-vivendi t)
+
+;; Set font
+(set-face-attribute 'default nil :font "Fira Code")
+(set-face-attribute 'default nil :height 110)
+(set-frame-font "Fira Code" nil t)
 
 ;; Enable transparency
 (set-frame-parameter (selected-frame) 'alpha '(85 85))
@@ -14,7 +38,7 @@
 ;; Enable line numbers
 (column-number-mode)
 (global-display-line-numbers-mode t)
-(setq display-line-numbers-type 'relative)
+;(setq display-line-numbers-type 'relative)
 
 ;; Disable line numbers for some modes
 (dolist (mode '(eshell-mode-hook
@@ -23,99 +47,13 @@
                 term-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-;;;; Set Whitespace
-;;(require 'whitespace)
-;;(add-hook 'python-mode
-;;          (lambda ()
-;;	    (setq whitespace-style '(face empty tabs lines-tail trailing))
-;;            (setq whitespace-line-column 80)
-;;            (global-whitespace-mode t)))
-
-;; Enable Color Hex Code rendering for some modes
-(defvar hexcolour-keywords
-  '(("#[abcdef[:digit:]]\\{6\\}"
-     (0 (put-text-property (match-beginning 0)
-                           (match-end 0)
-                           'face (list :background 
-                                       (match-string-no-properties 0)))))))
-
-(defun hexcolour-add-to-font-lock ()
-  (font-lock-add-keywords nil hexcolour-keywords))
-
-(dolist (mode '(elisp-mode-hook
-                haskell-mode-hook
-                org-mode-hook
-                fundamental-mode-hook))
-  (add-hook mode (lambda () (hexcolour-add-to-font-lock))))
-
-;; Set font
-(set-face-attribute 'default nil :font "Fira Code")
-(set-face-attribute 'default nil :height 110)
-(set-frame-font "Fira Code" nil t)
-
 ;; Cua
 (setq cua-enable-cua-keys nil)
 (cua-mode 1)
 
 ;; Electric pair mode (completes parentheses, quotes, etc.)
 (electric-pair-mode 1)
-
-;; Bind greek alphabet to "M-g"
-(global-set-key (kbd "M-g a") "α")
-(global-set-key (kbd "M-g b") "β")
-(global-set-key (kbd "M-g g") "γ")
-(global-set-key (kbd "M-g d") "δ")
-(global-set-key (kbd "M-g e") "ε")
-(global-set-key (kbd "M-g z") "ζ")
-(global-set-key (kbd "M-g h") "η")
-(global-set-key (kbd "M-g q") "θ")
-(global-set-key (kbd "M-g i") "ι")
-(global-set-key (kbd "M-g k") "κ")
-(global-set-key (kbd "M-g l") "λ")
-(global-set-key (kbd "M-g m") "μ")
-(global-set-key (kbd "M-g n") "ν")
-(global-set-key (kbd "M-g x") "ξ")
-(global-set-key (kbd "M-g o") "ο")
-(global-set-key (kbd "M-g p") "π")
-(global-set-key (kbd "M-g r") "ρ")
-(global-set-key (kbd "M-g s") "σ")
-(global-set-key (kbd "M-g t") "τ")
-(global-set-key (kbd "M-g u") "υ")
-(global-set-key (kbd "M-g f") "ϕ")
-(global-set-key (kbd "M-g j") "φ")
-(global-set-key (kbd "M-g c") "χ")
-(global-set-key (kbd "M-g y") "ψ")
-(global-set-key (kbd "M-g w") "ω")
-(global-set-key (kbd "M-g A") "Α")
-(global-set-key (kbd "M-g B") "Β")
-(global-set-key (kbd "M-g G") "Γ")
-(global-set-key (kbd "M-g D") "Δ")
-(global-set-key (kbd "M-g E") "Ε")
-(global-set-key (kbd "M-g Z") "Ζ")
-(global-set-key (kbd "M-g H") "Η")
-(global-set-key (kbd "M-g Q") "Θ")
-(global-set-key (kbd "M-g I") "Ι")
-(global-set-key (kbd "M-g K") "Κ")
-(global-set-key (kbd "M-g L") "Λ")
-(global-set-key (kbd "M-g M") "Μ")
-(global-set-key (kbd "M-g N") "Ν")
-(global-set-key (kbd "M-g X") "Ξ")
-(global-set-key (kbd "M-g O") "Ο")
-(global-set-key (kbd "M-g P") "Π")
-(global-set-key (kbd "M-g R") "Ρ")
-(global-set-key (kbd "M-g S") "Σ")
-(global-set-key (kbd "M-g T") "Τ")
-(global-set-key (kbd "M-g U") "Υ")
-(global-set-key (kbd "M-g F") "Φ")
-(global-set-key (kbd "M-g J") "Φ")
-(global-set-key (kbd "M-g C") "Χ")
-(global-set-key (kbd "M-g Y") "Ψ")
-(global-set-key (kbd "M-g W") "Ω")
-
-;; Set backup directory
-(setq backup-directory-alist
-          `(("." . ,(concat user-emacs-directory "backups"))))
-
+ 
 ; Initialize package sources 
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -134,6 +72,9 @@
 
 ;; Packages
 
+;; All The Icons - For Doom Modeline
+(use-package all-the-icons)
+
 ;; Counsel
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
@@ -146,17 +87,6 @@
 ;; Doom modeline
 (use-package doom-modeline
   :init (doom-modeline-mode 1))
-
-;; Doom themes
-(use-package doom-themes
-  :config
-  (load-theme 'doom-nord t)
-  (set-background-color "#1b1f26")
-  
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
 
 ;; Evil mode
 (use-package evil
@@ -202,7 +132,8 @@
   ([remap describe-key] . helpful-key)        
   ([remap describe-variable] . counsel-describe-variable))
                                               
-(use-package impatient-mode)
+;; Impatient mode - Web development via local http server
+;;(use-package impatient-mode)
                                               
 ;; Ivy                                        
 (use-package ivy
@@ -290,7 +221,7 @@
 ;; Set Org LaTeX margins to 2cm
 (setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
 
-;;PDF tools
+;;PDF tools 
 (use-package pdf-tools)
 
 ;; Rainbow delimiters (parentheses highlighting)
@@ -309,21 +240,3 @@
 ;;AUCTeX
 (use-package tex
   :ensure auctex)
-
-;; Self-generated stuff below
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("1704976a1797342a1b4ea7a75bdbb3be1569f4619134341bd5a4c1cfb16abad4" "7eea50883f10e5c6ad6f81e153c640b3a288cd8dc1d26e4696f7d40f754cc703" "745d03d647c4b118f671c49214420639cb3af7152e81f132478ed1c649d4597d" "97db542a8a1731ef44b60bc97406c1eb7ed4528b0d7296997cbb53969df852d6" "cbdf8c2e1b2b5c15b34ddb5063f1b21514c7169ff20e081d39cf57ffee89bc1e" "7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" "a82ab9f1308b4e10684815b08c9cac6b07d5ccb12491f44a942d845b406b0296" "6b1abd26f3e38be1823bd151a96117b288062c6cde5253823539c6926c3bb178" default))
- '(package-selected-packages
-   '(pdf-tools markdown-mode lsp-mode nix-mode org-bullets impatient-mode which-key rainbow-delimiters ivy-rich helpful haskell-mode evil-collection evil doom-themes doom-modeline counsel use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
