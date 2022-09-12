@@ -1,9 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  # Bootloader.
-  boot.loader.efi.efiSysMountPoint = "/efi";
-
   # Configure networking.
   networking = {
     hostName = "nixos";

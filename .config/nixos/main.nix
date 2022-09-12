@@ -85,6 +85,9 @@
       defaultEditor = true;
     };
 
+    # Enable Gnome Keyring
+    gnome.gnome-keyring.enable = true;
+
     # Enable the OpenSSH daemon.
     openssh.enable = true;
 
