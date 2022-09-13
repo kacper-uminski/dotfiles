@@ -19,17 +19,18 @@
   services.xserver = {
     
     # Set drivers and enable "TearFree"
-    videoDrivers = [ "intel" ];
-    deviceSection = ''
-      Option "AccelMethod" "sna"
-      Option "TearFree" "true"
-      Option "DRI" "3"
-    ''; 
+    videoDrivers = [ "modesetting" ];
+    useGlamor = true;
+#    deviceSection = ''
+#      Option "AccelMethod" "sna"
+#      Option "TearFree" "true"
+#      Option "DRI" "3"
+#    ''; 
 
     # Monitor configuration.
     xrandrHeads = [
       {
-        output = "DP2";
+        output = "DP-2";
 	      primary = true;
         monitorConfig = ''
 	  Option "Rotate" "Right"
@@ -37,7 +38,7 @@
 	'';
       }
       {
-        output = "DP1";
+        output = "DP-1";
 	monitorConfig = ''
 	  Option "PreferredMode" "2560x1440"
 	'';
@@ -61,64 +62,66 @@
     extraGroups = [ "lp" "scanner" "wheel" ];
   };
 
-  environment.variables = {
-    QT_STYLE_OVERRIDE="kvantum";
-  };
+  environment = {
 
-  # List packages installed in system profile.
-  environment.systemPackages = with pkgs; [
-    (let
-      my-python-packages = python-packages: with python-packages; [
-        (opencv4.override { enableGtk2 = true; })
-      ];
-      python-with-my-packages = python3.withPackages my-python-packages;
-    in
-    python-with-my-packages)
-    alacritty
-    chromium
-    cifs-utils
-    darktable
-    emacs
-    exa
-    feh
-    ffmpeg
-    firefox
-    fish
-    flameshot
-    flatpak
-    ghc
-    git
-    haskellPackages.xmobar
-    htop
-    imagemagick
-    libsForQt5.qtstyleplugin-kvantum
-    lxappearance
-    minecraft
-    mpv
-    mupdf
-    neofetch
-    nitrogen
-    p7zip
-    picom
-    puddletag
-    pulsemixer
-    qbittorrent
-    retroarchFull
-    shntool
-    skypeforlinux
-    tdesktop
-    texlive.combined.scheme-full
-    trayer
-    unclutter
-    unzip
-    usbutils
-    vifm
-    vim
-    wget
-    xmrig
-    xorg.xinit
-    zathura
-  ];
+    variables = {
+      QT_STYLE_OVERRIDE="kvantum";
+    };
+
+    # List packages installed in system profile.
+    systemPackages = with pkgs; [
+      (let
+        my-python-packages = python-packages: with python-packages; [
+          (opencv4.override { enableGtk2 = true; })
+        ];
+        python-with-my-packages = python3.withPackages my-python-packages;
+      in
+        python-with-my-packages)
+      alacritty
+      chromium
+      cifs-utils
+      darktable
+      emacs
+      exa
+      feh
+      ffmpeg
+      firefox
+      fish
+      flameshot
+      flatpak
+      ghc
+      git
+      haskellPackages.xmobar
+      htop
+      imagemagick
+      libsForQt5.qtstyleplugin-kvantum
+      lxappearance
+      minecraft
+      mpv
+      mupdf
+      neofetch
+      nitrogen
+      p7zip
+      picom
+      puddletag
+      pulsemixer
+      qbittorrent
+      retroarchFull
+      shntool
+      skypeforlinux
+      tdesktop
+      texlive.combined.scheme-full
+      trayer
+      unclutter
+      unzip
+      usbutils
+      vifm
+      vim
+      wget
+      xmrig
+      xorg.xinit
+    ];
+  }; # End Environment
 
   services = {
 

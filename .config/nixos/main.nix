@@ -73,7 +73,19 @@
   # };
 
   programs = {
+
     steam.enable = true;
+
+    zsh = {
+      enable = true;
+
+      shellAliases = {
+        dotfiles = "git --git-dir=$HOME/software/dotfiles --work-tree=$HOME";
+        emc = "emacsclient";
+        ls = "exa -al";
+        mupdf = "mupdf-x11";
+      };
+    };
   };
 
   # List of services that you want to enable.

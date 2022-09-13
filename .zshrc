@@ -27,9 +27,6 @@ if [ ! -d "$HOME/.config/zsh/plugins/powerlevel10k" ]; then
     git clone https://github.com/romkatv/powerlevel10k $HOME/.config/zsh/plugins/powerlevel10k
 fi
    
-# Aliases
-source $HOME/.config/zsh/config/aliases.zsh
-
 # Completion
 autoload -Uz compinit && compinit
 zstyle ':completion*' matcher-list 'm:{a-z}={A-Za-z}'
