@@ -23,44 +23,78 @@
   };
 
   # List packages installed in system profile.
-  environment.systemPackages = with pkgs; [
-    (let
-      my-python-packages = python-packages: with python-packages; [
-        (opencv4.override { enableGtk2 = true; })
-      ];
-      python-with-my-packages = python3.withPackages my-python-packages;
-    in
-    python-with-my-packages)
-    chromium
-    darktable
-    emacs
-    exa
-    feh
-    ffmpeg
-    firefox
-    ghc
-    git
-    gnome.gnome-tweaks
-    htop
-    imagemagick
-    libsForQt5.qtstyleplugin-kvantum
-    # minecraft
-    mpv
-    mupdf
-    neofetch
-    p7zip
-    puddletag
-    qbittorrent
-    retroarchFull
-    shntool
-    tdesktop
-    texlive.combined.scheme-full
-    unclutter
-    unzip
-    vifm
-    vim
-    wget
-    xmrig
-    zathura
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      (let
+        my-python-packages = python-packages: with python-packages; [
+          (opencv4.override { enableGtk2 = true; })
+        ];
+        python-with-my-packages = python3.withPackages my-python-packages;
+      in
+        python-with-my-packages)
+      chromium
+      darktable
+      emacs
+      exa
+      feh
+      ffmpeg
+      firefox
+      ghc
+      git
+      gnome.gnome-tweaks
+      htop
+      imagemagick
+      libsForQt5.qtstyleplugin-kvantum
+      neofetch
+      p7zip
+      retroarchFull
+      shntool
+      tdesktop
+      texlive.combined.scheme-full
+      unclutter
+      unzip
+      vifm
+      vim
+      wget
+      xmrig
+    ];
+
+    gnome.excludePackages = (with pkgs; [
+      baobab
+      gnome-connections
+      gnome-photos
+      gnome-text-editor
+      gnome-tour
+    ]) ++ (with pkgs.gnome; [
+      cheese # webcam tool
+      epiphany # web browser
+      #evince # document viewer
+      geary # email reader
+      gedit # text editor
+      #gnome-calculator
+      gnome-calendar
+      gnome-characters
+      gnome-clocks
+      gnome-contacts
+      gnome-disk-utility
+      gnome-font-viewer
+      gnome-logs
+      gnome-maps
+      gnome-music
+      gnome-screenshot
+      gnome-system-monitor
+      #gnome-terminal
+      gnome-weather
+      simple-scan
+      #totem # video player
+      yelp # help viewer
+
+      # Games
+      atomix # puzzle game
+      hitori # sudoku game
+      iagno # go game
+      tali # poker game
+    ]);
+
+  };
 }
