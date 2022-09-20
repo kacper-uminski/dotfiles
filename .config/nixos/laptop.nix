@@ -34,7 +34,6 @@
         python-with-my-packages)
       chromium
       darktable
-      emacs
       exa
       feh
       ffmpeg
