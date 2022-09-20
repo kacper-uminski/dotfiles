@@ -19,18 +19,18 @@
   services.xserver = {
     
     # Set drivers and enable "TearFree"
-    videoDrivers = [ "modesetting" ];
-    useGlamor = true;
-#    deviceSection = ''
-#      Option "AccelMethod" "sna"
-#      Option "TearFree" "true"
-#      Option "DRI" "3"
-#    ''; 
+    videoDrivers = [ "intel" ];
+#    useGlamor = true;
+    deviceSection = ''
+      Option "AccelMethod" "sna"
+      Option "TearFree" "true"
+      Option "DRI" "3"
+    ''; 
 
     # Monitor configuration.
     xrandrHeads = [
       {
-        output = "DP-2";
+        output = "DP2";
 	      primary = true;
         monitorConfig = ''
 	  Option "Rotate" "Right"
@@ -38,7 +38,7 @@
 	'';
       }
       {
-        output = "DP-1";
+        output = "DP1";
 	monitorConfig = ''
 	  Option "PreferredMode" "2560x1440"
 	'';
@@ -73,6 +73,7 @@
       (let
         my-python-packages = python-packages: with python-packages; [
           (opencv4.override { enableGtk2 = true; })
+          python-lsp-server
         ];
         python-with-my-packages = python3.withPackages my-python-packages;
       in
@@ -81,7 +82,6 @@
       chromium
       cifs-utils
       darktable
-      emacs
       exa
       feh
       ffmpeg
@@ -89,6 +89,7 @@
       fish
       flameshot
       flatpak
+      gcc
       ghc
       git
       haskellPackages.xmobar
@@ -107,6 +108,7 @@
       pulsemixer
       qbittorrent
       retroarchFull
+      rustc
       shntool
       skypeforlinux
       tdesktop

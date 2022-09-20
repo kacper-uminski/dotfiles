@@ -174,8 +174,9 @@ myStartupHook = do
                         ,"firefox &"
                         ,"flameshot &"
                         ,"telegram-desktop &"
+                        ,"skypeforlinux &"
                         ]
-        setWMName "XMonad"
+        setWMName "LG3D"
 
 --------------------------------------------------------------------------------
 -- VARIABLES

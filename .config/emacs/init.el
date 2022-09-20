@@ -158,14 +158,18 @@
   :init (ivy-rich-mode 1))
 
 ;; Language Server Protocol
-;;(use-package lsp-mode
-;;  :init
-;;  ;; Set prefix for lsp-command-keycap (few alternatives - "C-l", "C-c l")
-;;  (setq lsp-keymap-prefix "C-c l")
-;;  :hook ((haskell-mode . lsp)
-;;       (lsp-mode . lsp-enable-which-key-integration))
-;;  :commands lsp)
-;;
+(use-package lsp-mode
+  :init
+  ;; Set prefix for lsp-command-keycap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook ((python-mode . lsp)
+;;	 (hasekll-mode . lsp)
+	 (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+
 ;;;; Install for Haskell
 ;;(add-hook 'haskell-mode-hook #'lsp)
 ;;(add-hook 'haskell-literate-mode-hook #'lsp)
@@ -227,6 +231,9 @@
 ;; Rainbow delimiters (parentheses highlighting)
 (use-package rainbow-delimiters
   :hook (emacs-lisp-mode . rainbow-delimiters-mode))
+
+;; Rust
+(use-package rust-mode)
 
 ;; Swiper
 (use-package swiper)

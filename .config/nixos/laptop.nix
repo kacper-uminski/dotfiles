@@ -33,7 +33,6 @@
     python-with-my-packages)
     chromium
     darktable
-    emacs
     exa
     feh
     ffmpeg
@@ -44,7 +43,6 @@
     htop
     imagemagick
     libsForQt5.qtstyleplugin-kvantum
-    # minecraft
     mpv
     mupdf
     neofetch
