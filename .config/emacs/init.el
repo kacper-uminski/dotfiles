@@ -177,6 +177,13 @@
 ;;(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 ;;(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 
+;; LaTeX
+;; AUCTeX
+(use-package tex
+  :ensure auctex)
+;; Latex Preview Pane
+(use-package latex-preview-pane)
+
 ;; Nix Mode
 (use-package nix-mode)
 
@@ -243,7 +250,3 @@
   :init (which-key-mode 1)
   :diminish which-key-mode
   :config (setq which-key-idle-delay 1))
-
-;;AUCTeX
-(use-package tex
-  :ensure auctex)
