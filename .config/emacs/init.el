@@ -43,6 +43,7 @@
 ;; Disable line numbers for some modes
 (dolist (mode '(eshell-mode-hook
                 org-mode-hook
+		doc-view-mode-hook
                 shell-mode-hook
                 term-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
