@@ -171,7 +171,7 @@ command! reload :write | restart
 " program.
 
 " Pdf
-filextype *.pdf zathura %c %i &, mupdf %c, xpdf %c
+filextype *.pdf zathura %c %i &, mupdf-x11 %c, xpdf %c
 fileviewer *.pdf pdftotext -nopgbrk %c -
 
 " PostScript
@@ -226,7 +226,7 @@ filetype *.[1-8] man ./%c
 fileviewer *.[1-8] man ./%c | col -b
 
 " Images
-filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.tiff
+filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.tiff,*tif
         \ {View in sxiv}
         \ sxiv %f,
         \ {View in gpicview}

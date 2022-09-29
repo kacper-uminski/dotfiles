@@ -132,7 +132,7 @@
 
     # Enable Roon Server
     roon-server = {
-      enable = true;
+      enable = false;
       user = "kacper";
     };
   }; # End Services.
