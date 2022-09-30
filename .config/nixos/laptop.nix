@@ -28,6 +28,7 @@
       (let
         my-python-packages = python-packages: with python-packages; [
           (opencv4.override { enableGtk2 = true; })
+          python-lsp-server
         ];
         python-with-my-packages = python3.withPackages my-python-packages;
       in
