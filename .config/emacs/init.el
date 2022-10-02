@@ -76,6 +76,22 @@
 ;; All The Icons - For Doom Modeline
 (use-package all-the-icons)
 
+;; Company - For autocomplete
+(use-package company
+  :after lsp-mode
+  :hook (prog-mode . company-mode)
+  :bind
+  (:map company-active-map
+	("<tab>" . company-complete-selection))
+  (:map lsp-mode-map
+	("<tab>" . company-indent-or-complete-common))
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0))
+
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+
 ;; Counsel
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
@@ -160,13 +176,17 @@
 
 ;; Language Server Protocol
 (use-package lsp-mode
+  :commands (lsp lsp-deferred)
   :init
   ;; Set prefix for lsp-command-keycap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
-  :hook ((python-mode . lsp)
-;;	 (hasekll-mode . lsp)
-	 (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
+  (setq lsp-ui-doc-position 'bottom)
+  :bind-keymap ("C-c l" . lsp-command-map)
+  :hook
+  ((python-mode . lsp))
+;;  (hasekll-mode . lsp)
+  :config
+  (lsp-enable-which-key-integration t))
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
