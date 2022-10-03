@@ -33,12 +33,14 @@
         python-with-my-packages = python3.withPackages my-python-packages;
       in
         python-with-my-packages)
+      cargo
       chromium
       darktable
       exa
       feh
       ffmpeg
       firefox
+      gcc
       ghc
       git
       gnome.gnome-tweaks
@@ -49,6 +51,7 @@
       neofetch
       p7zip
       retroarchFull
+      rustc
       shntool
       tdesktop
       texlive.combined.scheme-full
