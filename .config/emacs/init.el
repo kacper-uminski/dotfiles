@@ -135,6 +135,11 @@
   :after evil
   :config (evil-collection-init))
 
+;; Flycheck (auto complete)
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
 ; Haskell mode
 (use-package haskell-mode)
 
@@ -183,27 +188,30 @@
   (setq lsp-ui-doc-position 'bottom)
   :bind-keymap ("C-c l" . lsp-command-map)
   :hook
-  ((python-mode . lsp))
-;;  (hasekll-mode . lsp)
+  ((python-mode . lsp)
+   (haskell-mode . lsp))
   :config
   (lsp-enable-which-key-integration t))
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
 
-;;;; Install for Haskell
-;;(add-hook 'haskell-mode-hook #'lsp)
-;;(add-hook 'haskell-literate-mode-hook #'lsp)
-;;
-;;(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
-;;(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+;; Install for Haskell
+(use-package lsp-haskell)
+
+;; Install for Ivy
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 
 ;; LaTeX
 ;; AUCTeX
 (use-package tex
   :ensure auctex)
+
 ;; Latex Preview Pane
 (use-package latex-preview-pane)
+
+;; Enable Auto-complete
+(setq LaTeX-electric-left-right-brace t)
 
 ;; Nix Mode
 (use-package nix-mode)

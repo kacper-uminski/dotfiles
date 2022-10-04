@@ -92,6 +92,7 @@
       gcc
       ghc
       git
+      haskell-language-server
       haskellPackages.xmobar
       htop
       imagemagick
