@@ -112,6 +112,8 @@
       rustc
       shntool
       skypeforlinux
+      slack
+      slack-term
       tdesktop
       texlive.combined.scheme-full
       trayer

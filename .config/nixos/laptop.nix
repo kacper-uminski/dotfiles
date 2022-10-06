@@ -53,6 +53,8 @@
       retroarchFull
       rustc
       shntool
+      slack
+      slack-term
       tdesktop
       texlive.combined.scheme-full
       unclutter
