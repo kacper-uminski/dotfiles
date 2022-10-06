@@ -122,6 +122,7 @@
       vim
       wget
       xmrig
+      xorg.xkill
       xorg.xinit
     ];
   }; # End Environment
