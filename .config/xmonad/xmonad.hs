@@ -128,6 +128,7 @@ myManageHook = insertPosition End Newer <+> composeAll
      , className =? "Skype"           --> doShift (myWorkspaces !! 2)
      , className =? "Steam"           --> doShift (myWorkspaces !! 3)
      , className =? "TelegramDesktop" --> doShift (myWorkspaces !! 2)
+     , className =? "Slack"           --> doShift (myWorkspaces !! 2)
      , className =? "st-256color"     --> doShift (myWorkspaces !! 0)
      , className =? "zoom"            --> doShift (myWorkspaces !! 2)
      ]

@@ -55,7 +55,7 @@
 ;; Electric pair mode (completes parentheses, quotes, etc.)
 (electric-pair-mode 1)
  
-; Initialize package sources 
+;; Initialize package sources
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                           ("org" . "https://orgmode.org/elpa/")
@@ -73,8 +73,10 @@
 
 ;; Packages
 
-;; All The Icons - For Doom Modeline
+;; All The Icons - For Doom Modeline and Dired
 (use-package all-the-icons)
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
 
 ;; Company - For autocomplete
 (use-package company
@@ -212,6 +214,10 @@
 
 ;; Enable Auto-complete
 (setq LaTeX-electric-left-right-brace t)
+
+;; Magit
+(use-package magit
+  :ensure t)
 
 ;; Nix Mode
 (use-package nix-mode)
