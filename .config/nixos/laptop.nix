@@ -45,6 +45,7 @@
       git
       gnome.gnome-tweaks
       gnomeExtensions.blur-my-shell
+      haskell-language-server
       htop
       imagemagick
       libsForQt5.qtstyleplugin-kvantum
