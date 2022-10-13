@@ -176,6 +176,8 @@ myStartupHook = do
                         ,"flameshot &"
                         ,"telegram-desktop &"
                         ,"skypeforlinux &"
+                        ,"slack &"
+                        ,"steam &"
                         ]
         setWMName "LG3D"
 

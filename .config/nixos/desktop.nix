@@ -108,6 +108,7 @@
       puddletag
       pulsemixer
       qbittorrent
+      rar
       retroarchFull
       rustc
       shntool

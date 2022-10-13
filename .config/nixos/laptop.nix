@@ -51,6 +51,7 @@
       libsForQt5.qtstyleplugin-kvantum
       neofetch
       p7zip
+      rar
       retroarchFull
       rustc
       shntool
