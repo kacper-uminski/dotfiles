@@ -232,8 +232,11 @@
                                (setq evil-auto-indent nil)))
   :config
   (setq org-ellipsis " ▾"
-        org-hide-emphasis-markers t)
+        org-hide-emphasis-markers t
 
+	;; Set Org LaTeX margins to 2cm
+	org-latex-packages-alist '(("margin=2cm" "geometry" nil))
+	org-format-latex-options (plist-put org-format-latex-options :scale 2.5))
   (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.1)
                   (org-level-3 . 1.05)
@@ -264,8 +267,21 @@
                         '(("^ *\\([-]\\) "
                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
-;; Set Org LaTeX margins to 2cm
-(setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
+;; Org Roam
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory "~/documents/wiki")
+  (org-roam-completions-everywhere t)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+	 ("C-c n f" . org-roam-node-find)
+	 ("C-c n i" . org-roam-node-insert)
+	 :map org-mode-map
+	 ("C-M-i"   . completion-at-pont))
+  :config
+  (org-roam-setup))
+;  :hook ('org-roam-buffer-postrender-functions
+;	 . (lambda () (org--latex-preview-region (point-min) (point-max)))))
 
 ;;PDF tools 
 (use-package pdf-tools)
