@@ -78,6 +78,10 @@
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
 
+;; BQN - https://github.com/museoa/bqn-mode
+;;(add-to-list 'load-path "~/.config/emacs/bqn-mode")
+(require 'bqn-mode)
+
 ;; Company - For autocomplete
 (use-package company
   :after lsp-mode
@@ -142,7 +146,11 @@
   :ensure t
   :init (global-flycheck-mode))
 
-; Haskell mode
+;; APL
+(use-package gnu-apl-mode
+  :ensure t)
+
+;; Haskell mode
 (use-package haskell-mode)
 
 ;; Helpful (better help menus)
@@ -191,7 +199,8 @@
   :bind-keymap ("C-c l" . lsp-command-map)
   :hook
   ((python-mode . lsp)
-   (haskell-mode . lsp))
+   (haskell-mode . lsp)
+   (java-mode . lsp))
   :config
   (lsp-enable-which-key-integration t))
 
@@ -203,6 +212,9 @@
 
 ;; Install for Ivy
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+
+;; Install for Java
+(use-package lsp-java)
 
 ;; LaTeX
 ;; AUCTeX
@@ -236,7 +248,7 @@
 
 	;; Set Org LaTeX margins to 2cm
 	org-latex-packages-alist '(("margin=2cm" "geometry" nil))
-	org-format-latex-options (plist-put org-format-latex-options :scale 2.5))
+	org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
   (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.1)
                   (org-level-3 . 1.05)

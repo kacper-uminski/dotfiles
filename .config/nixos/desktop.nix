@@ -72,16 +72,19 @@
     systemPackages = with pkgs; [
       (let
         my-python-packages = python-packages: with python-packages; [
-          (opencv4.override { enableGtk2 = true; })
+          #(opencv4.override { enableGtk2 = true; })
           python-lsp-server
         ];
         python-with-my-packages = python3.withPackages my-python-packages;
       in
         python-with-my-packages)
       alacritty
+      cargo
+      cbqn
       chromium
       cifs-utils
       darktable
+      emacs28Packages.bqn-mode
       exa
       feh
       ffmpeg
@@ -92,10 +95,12 @@
       gcc
       ghc
       git
+      gnuapl
       haskell-language-server
       haskellPackages.xmobar
       htop
       imagemagick
+      jdk
       libsForQt5.qtstyleplugin-kvantum
       lxappearance
       minecraft
@@ -110,7 +115,6 @@
       qbittorrent
       rar
       retroarchFull
-      rustc
       shntool
       skypeforlinux
       slack

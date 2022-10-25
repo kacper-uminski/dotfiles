@@ -27,15 +27,17 @@
     systemPackages = with pkgs; [
       (let
         my-python-packages = python-packages: with python-packages; [
-          (opencv4.override { enableGtk2 = true; })
+          #(opencv4.override { enableGtk2 = true; })
           python-lsp-server
         ];
         python-with-my-packages = python3.withPackages my-python-packages;
       in
         python-with-my-packages)
       cargo
+      cbqn
       chromium
       darktable
+      emacs28Packages.bqn-mode
       exa
       feh
       ffmpeg
@@ -45,9 +47,11 @@
       git
       gnome.gnome-tweaks
       gnomeExtensions.blur-my-shell
+      gnuapl
       haskell-language-server
       htop
       imagemagick
+      jdk
       libsForQt5.qtstyleplugin-kvantum
       neofetch
       p7zip
@@ -56,7 +60,6 @@
       rustc
       shntool
       slack
-      slack-term
       tdesktop
       texlive.combined.scheme-full
       unclutter
@@ -65,6 +68,7 @@
       vim
       wget
       xmrig
+      xorg.xkill
     ];
 
     gnome.excludePackages = (with pkgs; [
