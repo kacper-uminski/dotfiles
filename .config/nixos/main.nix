@@ -55,10 +55,15 @@
 
   # Set system fonts.
   fonts.fonts = with pkgs; [
+    _3270font
     fira
     fira-code
     font-awesome
+    ibm-plex
+    iosevka
     jetbrains-mono
+    julia-mono
+    victor-mono
   ];
 
   # Allow non-free packages.

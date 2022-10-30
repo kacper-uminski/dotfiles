@@ -1,10 +1,12 @@
 # Font configuration
 font:
   normal:
-#    family: Cascadia Code
-    family: Fira Code
-#    family: IBM Plex Mono
+#    family: Fira Code
+#    family: IBM 3270
+    family: IBM Plex Mono
+#    family: Iosevka Extended
 #    family: JetBrains Mono
+#    family: JuliaMono
 #    family: Victor Mono
   glyphs:
     family: Font Awesome

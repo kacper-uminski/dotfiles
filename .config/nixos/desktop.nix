@@ -72,7 +72,12 @@
     systemPackages = with pkgs; [
       (let
         my-python-packages = python-packages: with python-packages; [
+          flake8
+          mypy
           #(opencv4.override { enableGtk2 = true; })
+          pygame
+          pylsp-mypy
+          pymunk
           python-lsp-server
         ];
         python-with-my-packages = python3.withPackages my-python-packages;
@@ -119,6 +124,7 @@
       skypeforlinux
       slack
       slack-term
+      swiProlog
       tdesktop
       texlive.combined.scheme-full
       trayer

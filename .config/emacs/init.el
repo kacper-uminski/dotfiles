@@ -17,6 +17,9 @@
 (tool-bar-mode -1)
 (setq inhibit-startup-message t)
 
+;; Blink cursor
+(blink-cursor-mode -1)
+
 ;; Prompts:
 ;; Replace yes-no prompts with y-n
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -27,9 +30,8 @@
 (load-theme 'modus-vivendi t)
 
 ;; Set font
-(set-face-attribute 'default nil :font "Fira Code")
-(set-face-attribute 'default nil :height 110)
-(set-frame-font "Fira Code" nil t)
+(set-face-attribute 'default nil :font "IBM Plex Mono" :height 120)
+;;(set-frame-font "Iosevka Extended" nil t)
 
 ;; Enable transparency
 (set-frame-parameter (selected-frame) 'alpha '(85 85))
@@ -41,9 +43,11 @@
 ;(setq display-line-numbers-type 'relative)
 
 ;; Disable line numbers for some modes
-(dolist (mode '(eshell-mode-hook
+(dolist (mode '(doc-view-mode-hook
+		eshell-mode-hook
+		comint-mode-hook
+		inferior-python-mode-hook
                 org-mode-hook
-		doc-view-mode-hook
                 shell-mode-hook
                 term-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
@@ -257,7 +261,7 @@
                   (org-level-6 . 1.1)
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "FiraSans" :weight 'regular :height (cdr face)))
+    (set-face-attribute (car face) nil :font "IBM Plex Serif" :weight 'regular :height (cdr face)))
 
   (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
