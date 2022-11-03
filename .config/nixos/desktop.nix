@@ -93,6 +93,7 @@
       exa
       feh
       ffmpeg
+      file
       firefox
       fish
       flameshot
