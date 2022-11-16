@@ -304,7 +304,7 @@
 
 ;; Rainbow delimiters (parentheses highlighting)
 (use-package rainbow-delimiters
-  :hook (emacs-lisp-mode . rainbow-delimiters-mode))
+  :hook ((emacs-lisp-mode python-mode) . rainbow-delimiters-mode))
 
 ;; Rust
 (use-package rust-mode)
