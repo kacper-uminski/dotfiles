@@ -27,6 +27,16 @@
 (setq use-dialog-box nil)
 
 ;; Set theme
+(setq modus-themes-bold-constructs t
+      modus-themes-completions 'opinionated
+      modus-themes-headings '((1 . (rainbow bold 1.4))
+			      (2 . (rainbow semibold 1.3))
+			      (3 . (rainbow 1.2))
+			      (t . (semilight 1.1)))
+      modus-themes-italic-constructs t
+      modus-themes-mode-line 'borderless
+      modus-themes-paren-match '(bold intense)
+      modus-themes-region '(bg-only))
 (load-theme 'modus-vivendi t)
 
 ;; Set font
@@ -43,7 +53,8 @@
 ;(setq display-line-numbers-type 'relative)
 
 ;; Disable line numbers for some modes
-(dolist (mode '(doc-view-mode-hook
+(dolist (mode '(dired-mode-hook
+		doc-view-mode-hook
 		eshell-mode-hook
 		comint-mode-hook
 		inferior-python-mode-hook
@@ -118,19 +129,19 @@
 ;; Evil mode
 (use-package evil
   :init
-  (setq evil-want-C-i-jump nil)
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-integration t) 
-  (setq evil-want-keybinding nil)
+  (setq evil-want-C-i-jump nil
+	evil-want-C-u-scroll t
+	evil-want-integration t
+	evil-want-keybinding nil)
   :config
   (evil-mode 1)
   (define-key evil-visual-state-map (kbd "C-g") 'evil-normal-state)
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
   (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
   ;; Use visual line motions even outside of visual line mode buffers
-  (evil-global-set-key 'motion "j" 'evil-next-visual-line) 
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-  (evil-set-initial-state 'messages-buffer-mode 'normal) 
+  (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
   ;; Prevent Cua from conflicting with org mode
   (evil-define-key 'emacs org-mode-map (kbd "<C-return>") 'org-insert-heading-respect-content)
@@ -198,13 +209,12 @@
   :commands (lsp lsp-deferred)
   :init
   ;; Set prefix for lsp-command-keycap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l")
-  (setq lsp-ui-doc-position 'bottom)
+  (setq lsp-keymap-prefix "C-c l"
+	lsp-ui-doc-position 'bottom)
   :bind-keymap ("C-c l" . lsp-command-map)
-  :hook
-  ((python-mode . lsp)
-   (haskell-mode . lsp)
-   (java-mode . lsp))
+  :hook ((python-mode
+	  haskell-mode
+	  java-mode) . lsp)
   :config
   (lsp-enable-which-key-integration t))
 
@@ -302,9 +312,13 @@
 ;;PDF tools 
 (use-package pdf-tools)
 
+;; Rainbow mode (visualize color codes.)
+(use-package rainbow-mode
+  :hook (prog-mode . rainbow-mode))
+
 ;; Rainbow delimiters (parentheses highlighting)
 (use-package rainbow-delimiters
-  :hook ((emacs-lisp-mode python-mode) . rainbow-delimiters-mode))
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; Rust
 (use-package rust-mode)
@@ -317,3 +331,6 @@
   :init (which-key-mode 1)
   :diminish which-key-mode
   :config (setq which-key-idle-delay 1))
+
+(provide 'init)
+;;; init.el ends here

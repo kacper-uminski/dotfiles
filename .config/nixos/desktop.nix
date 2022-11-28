@@ -59,7 +59,7 @@
   hardware.sane.enable = true;
 
   users.users.kacper = {
-    extraGroups = [ "lp" "scanner" "wheel" ];
+    extraGroups = [ "libvirtd" "lp" "scanner" "wheel" ];
   };
 
   environment = {
@@ -134,6 +134,7 @@
       usbutils
       vifm
       vim
+      virt-manager
       wget
       xmrig
       xorg.xkill
@@ -152,5 +153,12 @@
       user = "kacper";
     };
   }; # End Services.
+
+  # Virtualization
+  virtualisation = {
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
+  };
+  programs.dconf.enable = true;
 
 }
