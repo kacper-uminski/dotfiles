@@ -119,6 +119,7 @@
       puddletag
       pulsemixer
       qbittorrent
+      ranger
       rar
       retroarchFull
       shntool

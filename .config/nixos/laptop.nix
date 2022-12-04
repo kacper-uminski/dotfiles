@@ -60,6 +60,7 @@
       jdk
       libsForQt5.qtstyleplugin-kvantum
       neofetch
+      ranger
       rar
       retroarchFull
       rustc

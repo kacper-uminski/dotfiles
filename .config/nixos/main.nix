@@ -86,9 +86,10 @@
 
       shellAliases = {
         dotfiles = "git --git-dir=$HOME/software/dotfiles --work-tree=$HOME";
-        emc = "emacsclient";
+        emc = "emacsclient -nw";
         ls = "exa -al";
         mupdf = "mupdf-x11";
+        sacd_extract = "$HOME/software/sacd_extract/result/bin/sacd_extract";
       };
     };
   };

@@ -1,4 +1,4 @@
-;; Move customization variables to a separate file and load it
+;; Move customization variables to a separate file and load it.
 (setq custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
 
@@ -332,5 +332,5 @@
   :diminish which-key-mode
   :config (setq which-key-idle-delay 1))
 
-(provide 'init)
+;(provide 'init)
 ;;; init.el ends here

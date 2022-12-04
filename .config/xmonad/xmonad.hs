@@ -162,9 +162,9 @@ myXPConfig = def
 myStartupHook :: X ()
 myStartupHook = do
         mapM_ spawnOnce [
-                         "xmobar -x 0 $HOME/.config/xmobar/xmobarrc0 &"
+                        "xmobar -x 0 $HOME/.config/xmobar/xmobarrc0 &"
                         ,"xmobar -x 1 $HOME/.config/xmobar/xmobarrc1 &"
-                        ,"trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --height 20 --width 10 --transparent true --alpha 0 --tint 0xFF1b1f26 &"
+                        ,"trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --height 16 --width 10 --transparent true --alpha 0 --tint 0xFF1b1f26 &"
                         ,"nitrogen --restore &"
                         ,"xsetroot -cursor_name left_ptr &"
                         ,"picom &"

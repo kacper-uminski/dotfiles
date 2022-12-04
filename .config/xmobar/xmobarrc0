@@ -1,4 +1,4 @@
-Config { font = "xft:Fira Code:pixelsize=13,FontAwesome:pixelsize=13"
+Config { font = "IBM Plex Mono 10"
        , fgColor = "#d8dee9"
        , bgColor = "#1B1F26"
        , position = Top
