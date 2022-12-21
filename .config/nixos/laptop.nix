@@ -12,14 +12,19 @@
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-  # X11
-  services.xserver = {
-    # Enable the GNOME Desktop Environment.
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+  services = {
+    # Flatpak
+    flatpak.enable = true;
 
-    # Enable touchpad support (enabled default in most desktopManager).
-    libinput.enable = true;
+    # X11
+    xserver = {
+      # Enable the GNOME Desktop Environment.
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+
+      # Enable touchpad support (enabled default in most desktopManager).
+      libinput.enable = true;
+    };
   };
 
   # List packages installed in system profile.
