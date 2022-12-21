@@ -1,6 +1,6 @@
 Config { font = "IBM Plex Mono 10"
-       , fgColor = "#d8dee9"
-       , bgColor = "#1B1F26"
+       , fgColor = "#FFFFFF"
+       , bgColor = "#000000"
        , position = Top
        , iconRoot = "$HOME/.config/xmonad/xpm/"  -- default: "."
        , commands = [

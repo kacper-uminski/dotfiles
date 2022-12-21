@@ -79,6 +79,8 @@
 
   programs = {
 
+    adb.enable = true;
+
     steam.enable = true;
 
     zsh = {
@@ -97,7 +99,7 @@
   # List of services that you want to enable.
   services = {
    
-  # Enable Emacs for all users.
+    # Enable Emacs for all users.
     emacs = {
       enable = true;
       defaultEditor = true;

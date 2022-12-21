@@ -1,6 +1,6 @@
 Config { font = "IBM Plex Mono 9"
-       , fgColor = "#d8dee9"
-       , bgColor = "#1B1F26"
+       , fgColor = "#ffffff"
+       , bgColor = "#000000"
        , position = TopW L 90
        , lowerOnStart = True
        , hideOnStart = False

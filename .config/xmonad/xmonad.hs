@@ -164,7 +164,7 @@ myStartupHook = do
         mapM_ spawnOnce [
                         "xmobar -x 0 $HOME/.config/xmobar/xmobarrc0 &"
                         ,"xmobar -x 1 $HOME/.config/xmobar/xmobarrc1 &"
-                        ,"trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --height 16 --width 10 --transparent true --alpha 0 --tint 0xFF1b1f26 &"
+                        ,"trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --height 17 --width 10 --transparent true --alpha 0 --tint 0xFF000000 &"
                         ,"nitrogen --restore &"
                         ,"xsetroot -cursor_name left_ptr &"
                         ,"picom &"
@@ -188,8 +188,8 @@ myStartupHook = do
 -- Colors
 
 background, foreground :: String
-foreground = "#d8dee9"
-background = "#1b1f26"
+foreground = "#ffffff"
+background = "#000000"
 
 black, red, orange, green, yellow, blue, magenta, cyan, white :: String
 black = "#3b4252"
@@ -222,6 +222,7 @@ myBorderWidth = 2
 myTerminal :: String
 myTerminal = "alacritty"
 --myTerminal = "st"
+--myTerminal = "urxvtc"
 
 --------------------------------------------------------------------------------
 -- WORKSPACES
