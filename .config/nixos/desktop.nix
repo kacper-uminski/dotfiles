@@ -74,9 +74,9 @@
           flake8
           mypy
           #(opencv4.override { enableGtk2 = true; })
-          pygame
+          #pygame
           pylsp-mypy
-          pymunk
+          #pymunk
           python-lsp-server
         ];
         python-with-my-packages = python3.withPackages my-python-packages;
@@ -107,6 +107,7 @@
       htop
       imagemagick
       jdk
+      jetbrains.idea-community
       libsForQt5.qtstyleplugin-kvantum
       lxappearance
       minecraft

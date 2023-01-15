@@ -94,7 +94,7 @@ myKeys = [
 --------------------------------------------------------------------------------
 -- LAYOUT HOOK
 --------------------------------------------------------------------------------
-myLayoutHook = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ tall ||| wide ||| monocle
+myLayoutHook = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ monocle ||| tall ||| wide
   where
     monocle = noBorders $ renamed [Replace "Monocle"] $ Full
     tall    = renamed [Replace "Tall"]    $ gaps $ Mirror $ Tall nmaster delta ratio
@@ -104,13 +104,6 @@ myLayoutHook = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ tall ||| wi
     nmaster = 1     -- Default number of windows in the master pane
     delta   = 3/100 -- Default proportion of screen occupied by master pane
     ratio   = 1/2   -- Percentage of screen to increment by when resizing panes
-
---------------------------------------------------------------------------------
--- LOG HOOK
---------------------------------------------------------------------------------
---myLogHook = do
---  xmonadPropLog' "_XMONAD_LOG_1" =<< dynamicLogString myXmobarPP0
---  xmonadPropLog' "_XMONAD_LOG_2" =<< dynamicLogString myXmobarPP1
 
 --------------------------------------------------------------------------------
 -- MANAGE HOOK
@@ -304,7 +297,6 @@ main = xmonad
 myConfig = def
   { handleEventHook    = myHandleEventHook
   , layoutHook         = myLayoutHook
---  , logHook            = myLogHook
   , manageHook         = myManageHook
   , startupHook        = myStartupHook
   , normalBorderColor  = myNormalColor

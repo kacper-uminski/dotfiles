@@ -62,6 +62,7 @@
       haskell-language-server
       htop
       imagemagick
+      jetbrains.idea-community
       jdk
       libsForQt5.qtstyleplugin-kvantum
       neofetch
