@@ -1,10 +1,19 @@
 { config, pkgs, ... }:
 
 {
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.enable = true;
+  boot = {
+    # Enable splash-screen
+    plymouth.enable = true;
+
+    # Use the systemd-boot EFI boot loader.
+    loader = {
+      systemd-boot.enable = true;
+      efi = {
+        efiSysMountPoint = "/efi";
+        canTouchEfiVariables = true;
+      };
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";

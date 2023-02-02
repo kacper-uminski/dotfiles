@@ -332,5 +332,13 @@
   :diminish which-key-mode
   :config (setq which-key-idle-delay 1))
 
-;(provide 'init)
+;; Yasnippet - Function templates
+(use-package yasnippet
+  :ensure t
+  :hook ((java-mode) . yas-minor-mode-on)
+  :init (setq yas-snippet-dir (concat user-emacs-directory "snippets"))
+  :bind ("M-z" . yas-expand))
+
+(use-package yasnippet-snippets)
+
 ;;; init.el ends here
