@@ -10,6 +10,10 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kacper = {
     extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+      gnome.gnome-tweaks
+      gnomeExtensions.blur-my-shell
+    ];
   };
 
   services = {
@@ -27,64 +31,8 @@
     };
   };
 
-  # List packages installed in system profile.
-  environment = {
-    systemPackages = with pkgs; [
-      (let
-        my-python-packages = python-packages: with python-packages; [
-          flake8
-          mypy
-          #(opencv4.override { enableGtk2 = true; })
-          pygame
-          pylsp-mypy
-          pymunk
-          python-lsp-server
-        ];
-        python-with-my-packages = python3.withPackages my-python-packages;
-      in
-        python-with-my-packages)
-      cargo
-      cbqn
-      chromium
-      darktable
-      emacs28Packages.bqn-mode
-      exa
-      feh
-      ffmpeg
-      file
-      firefox
-      gcc
-      ghc
-      git
-      gnome.gnome-tweaks
-      gnomeExtensions.blur-my-shell
-      gnuapl
-      haskell-language-server
-      htop
-      imagemagick
-      jetbrains.idea-community
-      jdk
-      libsForQt5.qtstyleplugin-kvantum
-      neofetch
-      ranger
-      rar
-      retroarchFull
-      rustc
-      shntool
-      slack
-      swiProlog
-      tdesktop
-      texlive.combined.scheme-full
-      unclutter
-      unzip
-      vifm
-      vim
-      wget
-      xmrig
-      xorg.xkill
-    ];
-
-    gnome.excludePackages = (with pkgs; [
+  # Excluded packages from gnome.
+  environment.gnome.excludePackages = (with pkgs; [
       baobab
       gnome-connections
       gnome-photos
@@ -120,6 +68,4 @@
       iagno # go game
       tali # poker game
     ]);
-
-  };
 }

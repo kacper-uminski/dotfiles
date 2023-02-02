@@ -2,7 +2,7 @@
 
 {
   # Use the systemd-boot EFI boot loader.
-  boot.loader.efi.efiSysMountPoint = "/efi";
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
 
@@ -27,9 +27,20 @@
     xkbOptions = "ctrl:swapcaps";
   };
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  # Hardware video acceleration.
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
 
+  };
+    
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
@@ -76,6 +87,67 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  environment = {
+
+#    variables = {
+#      QT_STYLE_OVERRIDE="kvantum";
+#    };
+
+    # List packages installed in system profile.
+    systemPackages = with pkgs; [
+      (let
+        my-python-packages = python-packages: with python-packages; [
+          flake8
+          mypy
+          #(opencv4.override { enableGtk2 = true; })
+          #pygame
+          pylsp-mypy
+          #pymunk
+          python-lsp-server
+        ];
+        python-with-my-packages = python3.withPackages my-python-packages;
+      in
+        python-with-my-packages)
+      appimage-run
+      cargo
+      cbqn
+      chromium
+      cifs-utils
+      clang_15
+      darktable
+      emacs28Packages.bqn-mode
+      exa
+      ffmpeg
+      file
+      firefox
+      flameshot
+      flatpak
+      gcc
+      ghc
+      git
+      gnuapl
+      haskell-language-server
+      htop
+      imagemagick
+      jdk
+      jetbrains.idea-community
+      libsForQt5.qtstyleplugin-kvantum
+      neofetch
+      p7zip
+      rar
+      swiProlog
+      tdesktop
+      texlive.combined.scheme-full
+      unzip
+      usbutils
+      vifm
+      vim
+      wget
+      xmrig
+      xorg.xkill
+    ];
+  }; # End Environment
 
   programs = {
 
@@ -141,6 +213,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
+  system.stateVersion = "22.11"; # Did you read the comment?
 
 }
