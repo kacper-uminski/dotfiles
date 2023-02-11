@@ -98,6 +98,14 @@
 ;;(add-to-list 'load-path "~/.config/emacs/bqn-mode")
 (require 'bqn-mode)
 
+;; Cider - Clojure Interactive Development Environment that Rocks
+(use-package cider
+  :ensure t)
+
+;; Clojure Mode
+(use-package clojure-mode)
+
+
 ;; Company - For autocomplete
 (use-package company
   :after lsp-mode

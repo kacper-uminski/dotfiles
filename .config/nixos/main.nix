@@ -141,6 +141,7 @@
       imagemagick
       jdk
       jetbrains.idea-community
+      leiningen
       libsForQt5.qtstyleplugin-kvantum
       neofetch
       p7zip
@@ -183,6 +184,7 @@
     # Enable Emacs for all users.
     emacs = {
       enable = true;
+      package = pkgs.emacs;
       defaultEditor = true;
     };
 
