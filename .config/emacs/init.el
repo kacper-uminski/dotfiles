@@ -69,6 +69,7 @@
 
 ;; Electric pair mode (completes parentheses, quotes, etc.)
 (electric-pair-mode 1)
+(add-hook 'vhdl-mode-hook (lambda () (electric-pair-mode -1)))
  
 ;; Initialize package sources
 (require 'package)
@@ -257,12 +258,15 @@
                                (visual-line-mode 1)
                                (setq evil-auto-indent nil)))
   :config
+  (add-to-list 'org-latex-packages-alist '("" "tikz" t))
+  (eval-after-load "preview"
+    '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
   (setq org-ellipsis " ▾"
         org-hide-emphasis-markers t
 
 	;; Set Org LaTeX margins to 2cm
 	org-latex-packages-alist '(("margin=2cm" "geometry" nil))
-	org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+	org-format-latex-options (plist-put org-format-latex-options :scale 3))
   (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.1)
                   (org-level-3 . 1.05)
