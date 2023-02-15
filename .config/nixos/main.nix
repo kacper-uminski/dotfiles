@@ -130,7 +130,6 @@
       ffmpeg
       file
       firefox
-      flameshot
       flatpak
       gcc
       ghc
@@ -144,6 +143,7 @@
       leiningen
       libsForQt5.qtstyleplugin-kvantum
       neofetch
+      nvc
       p7zip
       rar
       swiProlog

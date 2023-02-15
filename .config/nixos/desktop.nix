@@ -49,6 +49,7 @@
     packages = with pkgs; [
       alacritty
       feh
+      flameshot
       lxappearance
       minecraft
       mpv
