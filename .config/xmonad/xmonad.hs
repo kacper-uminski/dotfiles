@@ -149,7 +149,6 @@ myStartupHook :: X ()
 myStartupHook = do
         mapM_ spawnOnce [
                         "xsetroot -cursor_name left_ptr &"
-                        ,"picom &"
                         , myTerminal ++ " &"
                         ,"setxkbmap -layout 'us' -variant 'dvorak' -option 'ctrl:swapcaps' &" 
                         ,"unclutter -display :0.0 -idle 3 &"

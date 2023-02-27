@@ -191,6 +191,15 @@
         };
       };
 
+      services = {
+        picom = {
+          enable = false;
+          fade = true;
+          fadeDelta = 3;
+          fadeSteps = [0.03 0.03];
+        };
+      };
+        
       home.stateVersion = "22.11";
     };
   };
