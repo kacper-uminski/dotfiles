@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   boot = {
@@ -70,7 +70,129 @@
   users.users.kacper = {
     description = "Kacper Uminski";
     isNormalUser = true;
-    shell = pkgs.zsh;
+    shell = pkgs.nushell;
+  };
+
+  # Home Manager
+  home-manager = {
+    useGlobalPkgs = true;
+    users.kacper = {pkgs, ...}: {
+      home.username = "kacper";
+      home.homeDirectory = "/home/kacper";
+
+      programs = {
+
+        alacritty = {
+          enable = true;
+
+          settings = {
+
+            colors = {
+              primary = {
+                background = "#000000";
+                foreground = "#d8dee9";
+                dim_foreground = "#a5abb6";
+              };
+              cursor = {
+                text = "#2e3440";
+                background = "#d8dee9";
+              };
+              selection = {
+                text = "#000000";
+                background = "#d8dee9";
+              };
+              search = {
+                matches = {
+                  text = "#000000";
+                  background = "#d8dee9";
+                };
+                footer_bar = {
+                  foreground = "#d8dee9";
+                  background = "#434c5e";
+                };
+              };
+              normal = {
+                black = "#000000";
+                red = "#bf616a";
+                green = "#a3be8c";
+                yellow = "#ebcb8b";
+                blue = "#81a1c1";
+                magenta = "#b48ead";
+                cyan = "#88c0d0";
+                white = "#e5e9f0";
+              };
+              bright = {
+                black = "#4c566a";
+                red = "#bf616a";
+                green = "#a3be8c";
+                yellow = "#ebcb8b";
+                blue = "#81a1c1";
+                magenta = "#b48ead";
+                cyan = "#88c0d0";
+                white = "#e5e9f0";
+              };
+              dim = {
+                black = "#000000";
+                red = "#94545d";
+                green = "#809575";
+                yellow = "#b29e75";
+                blue = "#68809a";
+                magenta = "#8c738c";
+                cyan = "#6d96a5";
+                white = "#aeb3bb";
+              };
+            };
+
+            font = {
+              normal.family = "IBM Plex Mono";
+              glyphs.family = "Font Awesome";
+              size = 12;
+            };
+
+            window.padding = {
+              x = 20;
+              y = 20;
+            };
+          };
+        };
+
+        # Enable emacs daemon.
+        emacs.enable = true;
+
+        git = {
+          enable = true;
+          userName = "kacper-uminski";
+          userEmail = "kacperum@gmail.com";
+        };
+
+        mpv = {
+          enable = true;
+          config = {
+            hwdec = "auto-safe";
+            vo = "gpu";
+            profile = "gpu-hq";
+          };
+        };
+
+        nushell = {
+          enable = true;
+        };
+
+        starship = {
+          enable = true;
+          settings = {
+            add_newline = false;
+            format = lib.concatStrings [
+              "$all"
+              "$directory"
+              "$character"
+            ];
+          };
+        };
+      };
+
+      home.stateVersion = "22.11";
+    };
   };
 
   # Set system fonts.
@@ -119,13 +241,14 @@
       in
         python-with-my-packages)
       appimage-run
+      bat
       cargo
       cbqn
       chromium
       cifs-utils
       clang_15
       darktable
-      emacs28Packages.bqn-mode
+      du-dust
       exa
       ffmpeg
       file
@@ -143,17 +266,22 @@
       leiningen
       libsForQt5.qtstyleplugin-kvantum
       neofetch
+      nushell
       nvc
       p7zip
       rar
+      ripgrep
+      speedtest-cli
       swiProlog
       tdesktop
       texlive.combined.scheme-full
       unzip
       usbutils
+      uutils-coreutils
       vifm
       vim
       wget
+      wiki-tui
       xmrig
       xorg.xkill
     ];
@@ -181,12 +309,6 @@
   # List of services that you want to enable.
   services = {
    
-    # Enable Emacs for all users.
-    emacs = {
-      enable = true;
-      package = pkgs.emacs;
-      defaultEditor = true;
-    };
 
     # Enable Gnome Keyring
     gnome.gnome-keyring.enable = true;

@@ -96,7 +96,7 @@
 
 ;; BQN - https://github.com/museoa/bqn-mode
 ;;(add-to-list 'load-path "~/.config/emacs/bqn-mode")
-(require 'bqn-mode)
+(use-package bqn-mode)
 
 ;; Cider - Clojure Interactive Development Environment that Rocks
 (use-package cider

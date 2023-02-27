@@ -7,8 +7,8 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      #<nixos-hardware/microsoft/surface>
       ./hardware-configuration.nix
+      <home-manager/nixos>
       /home/kacper/.config/nixos/main.nix
       /home/kacper/.config/nixos/desktop.nix
       #/home/kacper/.config/nixos/laptop.nix

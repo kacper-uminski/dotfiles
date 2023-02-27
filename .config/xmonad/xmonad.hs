@@ -209,7 +209,6 @@ myWorkspaces = ["DEV","WEB","CHAT","GAME","AV","DLD","RAND"]
 
 main :: IO ()
 main = xmonad
-  . ewmhFullscreen
   . ewmh
   . docks
   $ def { handleEventHook    = myHandleEventHook
