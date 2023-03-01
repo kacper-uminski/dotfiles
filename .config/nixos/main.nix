@@ -172,11 +172,13 @@
       cbqn
       chromium
       cifs-utils
-      clang_15
+      clojure-lsp
       darktable
       du-dust
       elixir
+      elixir_ls
       erlang
+      erlang-ls
       exa
       exercism
       ffmpeg
