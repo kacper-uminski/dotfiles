@@ -89,6 +89,9 @@
 
 ;; Packages
 
+;; Alchemist - Tooling integration for elixir
+(use-package alchemist)
+
 ;; All The Icons - For Doom Modeline and Dired
 (use-package all-the-icons)
 (use-package all-the-icons-dired
@@ -134,6 +137,9 @@
 ;; Doom modeline
 (use-package doom-modeline
   :init (doom-modeline-mode 1))
+
+;; Elixir
+(use-package elixir-mode)
 
 ;; Evil mode
 (use-package evil
@@ -221,7 +227,9 @@
   (setq lsp-keymap-prefix "C-c l"
 	lsp-ui-doc-position 'bottom)
   :bind-keymap ("C-c l" . lsp-command-map)
-  :hook ((python-mode
+  :hook ((clojure-mode
+	  elixir-mode
+	  python-mode
 	  haskell-mode
 	  java-mode) . lsp)
   :config
