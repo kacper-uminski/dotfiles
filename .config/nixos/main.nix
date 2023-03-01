@@ -5,7 +5,7 @@
     # Enable splash-screen
     plymouth.enable = true;
 
-    # Use the systemd-boot EFI boot loader.
+    # Use the systemd-boot EFI boot loader
     loader = {
       systemd-boot.enable = true;
       efi = {
@@ -15,146 +15,26 @@
     };
   };
 
-  # Set your time zone.
+  # Set your time zone
   time.timeZone = "Europe/Stockholm";
 
-  # Select internationalisation properties.
+  # Select internationalisation properties
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
     keyMap = "dvorak";
   };
 
-  # X11
-  services.xserver = {
-    # Enable the X11 windowing system.
-    enable = true;
-  
-    # Configure keymap in X11
-    layout = "us";
-    xkbVariant = "dvorak";
-    xkbOptions = "ctrl:swapcaps";
-  };
-
-  # Hardware video acceleration.
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };
-  hardware.opengl = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
-
-  };
-    
-  # Enable Bluetooth
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
-
-  # Pipewire
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = false;
-  };
-  security.rtkit.enable = true; # Optional, but recommended, for pipewire.
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kacper = {
-    description = "Kacper Uminski";
-    isNormalUser = true;
-    shell = pkgs.nushell;
-  };
-
   # Home Manager
   home-manager = {
     useGlobalPkgs = true;
     users.kacper = {pkgs, ...}: {
-      home.username = "kacper";
-      home.homeDirectory = "/home/kacper";
-
+      home = {
+        username = "kacper";
+        homeDirectory = "/home/kacper";
+        stateVersion = "22.11";
+      };
       programs = {
-
-        alacritty = {
-          enable = true;
-
-          settings = {
-
-            colors = {
-              primary = {
-                background = "#000000";
-                foreground = "#d8dee9";
-                dim_foreground = "#a5abb6";
-              };
-              cursor = {
-                text = "#2e3440";
-                background = "#d8dee9";
-              };
-              selection = {
-                text = "#000000";
-                background = "#d8dee9";
-              };
-              search = {
-                matches = {
-                  text = "#000000";
-                  background = "#d8dee9";
-                };
-                footer_bar = {
-                  foreground = "#d8dee9";
-                  background = "#434c5e";
-                };
-              };
-              normal = {
-                black = "#000000";
-                red = "#bf616a";
-                green = "#a3be8c";
-                yellow = "#ebcb8b";
-                blue = "#81a1c1";
-                magenta = "#b48ead";
-                cyan = "#88c0d0";
-                white = "#e5e9f0";
-              };
-              bright = {
-                black = "#4c566a";
-                red = "#bf616a";
-                green = "#a3be8c";
-                yellow = "#ebcb8b";
-                blue = "#81a1c1";
-                magenta = "#b48ead";
-                cyan = "#88c0d0";
-                white = "#e5e9f0";
-              };
-              dim = {
-                black = "#000000";
-                red = "#94545d";
-                green = "#809575";
-                yellow = "#b29e75";
-                blue = "#68809a";
-                magenta = "#8c738c";
-                cyan = "#6d96a5";
-                white = "#aeb3bb";
-              };
-            };
-
-            font = {
-              normal.family = "IBM Plex Mono";
-              glyphs.family = "Font Awesome";
-              size = 12;
-            };
-
-            window.padding = {
-              x = 20;
-              y = 20;
-            };
-          };
-        };
 
         # Enable emacs daemon.
         emacs.enable = true;
@@ -190,18 +70,55 @@
           };
         };
       };
-
-      services = {
-        picom = {
-          enable = false;
-          fade = true;
-          fadeDelta = 3;
-          fadeSteps = [0.03 0.03];
-        };
-      };
-        
-      home.stateVersion = "22.11";
     };
+  };
+
+  # X11
+  services.xserver = {
+    # Enable the X11 windowing system
+    enable = true;
+  
+    # Configure keymap in X11
+    layout = "us";
+    xkbVariant = "dvorak";
+    xkbOptions = "ctrl:swapcaps";
+  };
+
+  # Hardware video acceleration
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+
+  };
+    
+  # Enable Bluetooth
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
+  # Pipewire
+  sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = false;
+  };
+  security.rtkit.enable = true; # Optional, but recommended, for pipewire.
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.kacper = {
+    description = "Kacper Uminski";
+    isNormalUser = true;
+    shell = pkgs.nushell;
   };
 
   # Set system fonts.
@@ -258,7 +175,10 @@
       clang_15
       darktable
       du-dust
+      elixir
+      erlang
       exa
+      exercism
       ffmpeg
       file
       firefox
