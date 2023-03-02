@@ -143,39 +143,6 @@
           };
         };
 
-        # Enable emacs daemon.
-        emacs.enable = true;
-
-        git = {
-          enable = true;
-          userName = "kacper-uminski";
-          userEmail = "kacperum@gmail.com";
-        };
-
-        mpv = {
-          enable = true;
-          config = {
-            hwdec = "auto-safe";
-            vo = "gpu";
-            profile = "gpu-hq";
-          };
-        };
-
-        nushell = {
-          enable = true;
-        };
-
-        starship = {
-          enable = true;
-          settings = {
-            add_newline = false;
-            format = lib.concatStrings [
-              "$all"
-              "$directory"
-              "$character"
-            ];
-          };
-        };
       };
 
       services = {
@@ -187,7 +154,6 @@
         };
       };
         
-      home.stateVersion = "22.11";
     };
   };
 

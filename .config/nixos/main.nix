@@ -157,10 +157,7 @@
         my-python-packages = python-packages: with python-packages; [
           flake8
           mypy
-          #(opencv4.override { enableGtk2 = true; })
-          #pygame
           pylsp-mypy
-          #pymunk
           python-lsp-server
         ];
         python-with-my-packages = python3.withPackages my-python-packages;
@@ -176,7 +173,6 @@
       darktable
       du-dust
       elixir
-      elixir_ls
       erlang
       erlang-ls
       exa
@@ -202,6 +198,8 @@
       p7zip
       rar
       ripgrep
+      rustc
+      rustfmt
       speedtest-cli
       swiProlog
       tdesktop
