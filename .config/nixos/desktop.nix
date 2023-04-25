@@ -27,7 +27,7 @@
     deviceSection = ''
       Option "AccelMethod" "sna"
       Option "TearFree" "true"
-      Option "DRI" "3"
+      Option "DRI" "2"
     ''; 
 
     # Enable XMonad.
@@ -172,6 +172,7 @@
 
   # Virtualization
   virtualisation = {
+    anbox.enable = true;
     libvirtd.enable = true;
     spiceUSBRedirection.enable = true;
   };

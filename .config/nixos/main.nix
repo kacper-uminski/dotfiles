@@ -169,6 +169,8 @@
       cbqn
       chromium
       cifs-utils
+      clang_15
+      clang-tools_15
       clojure-lsp
       darktable
       du-dust
@@ -181,21 +183,26 @@
       file
       firefox
       flatpak
-      gcc
+      gcc12
       ghc
       git
       gnuapl
+      gnumake
       haskell-language-server
       htop
       imagemagick
       jdk
       jetbrains.idea-community
       leiningen
+      libGL
       libsForQt5.qtstyleplugin-kvantum
+      llvmPackages_15.bintools
       neofetch
       nushell
       nvc
       p7zip
+      qt6.full
+      qtcreator
       rar
       ripgrep
       rustc
