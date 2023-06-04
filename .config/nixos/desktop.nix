@@ -172,9 +172,9 @@
 
   # Virtualization
   virtualisation = {
-    anbox.enable = true;
-    libvirtd.enable = true;
-    spiceUSBRedirection.enable = true;
+    anbox.enable = false;
+    libvirtd.enable = false;
+    spiceUSBRedirection.enable = false;
   };
   programs.dconf.enable = true;
 

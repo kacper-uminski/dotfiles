@@ -169,8 +169,7 @@
       cbqn
       chromium
       cifs-utils
-      clang_15
-      clang-tools_15
+      clang_16
       clojure-lsp
       darktable
       du-dust
@@ -265,6 +264,12 @@
 
   }; # End Services
 
+  
+  nixpkgs.overlays = [
+    (self: super: {
+      fcitx-engines = pkgs.fcitx5;
+    })
+  ];
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
