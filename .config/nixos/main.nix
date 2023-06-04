@@ -9,7 +9,7 @@
     loader = {
       systemd-boot.enable = true;
       efi = {
-        efiSysMountPoint = "/efi";
+        efiSysMountPoint = "/boot";
         canTouchEfiVariables = true;
       };
     };
@@ -18,8 +18,22 @@
   # Set your time zone
   time.timeZone = "Europe/Stockholm";
 
-  # Select internationalisation properties
-  i18n.defaultLocale = "en_US.UTF-8";
+  # Select internationalisation properties.
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "sv_SE.UTF-8";
+      LC_IDENTIFICATION = "sv_SE.UTF-8";
+      LC_MEASUREMENT = "sv_SE.UTF-8";
+      LC_MONETARY = "sv_SE.UTF-8";
+      LC_NAME = "sv_SE.UTF-8";
+      LC_NUMERIC = "sv_SE.UTF-8";
+      LC_PAPER = "sv_SE.UTF-8";
+      LC_TELEPHONE = "sv_SE.UTF-8";
+      LC_TIME = "sv_SE.UTF-8";
+    };
+  };
+
   console = {
     font = "Lat2-Terminus16";
     keyMap = "dvorak";
@@ -85,9 +99,15 @@
   };
 
   # Hardware video acceleration
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  nixpkgs.config = { 
+    packageOverrides = pkgs: {
+      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+    };
+    permittedInsecurePackages = [
+      "openssl-1.1.1u"
+    ];
   };
+
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
@@ -209,7 +229,7 @@
       speedtest-cli
       swiProlog
       tdesktop
-      texlive.combined.scheme-full
+      #texlive.combined.scheme-full
       unzip
       usbutils
       uutils-coreutils
@@ -251,10 +271,6 @@
     # Enable the OpenSSH daemon.
     openssh.enable = true;
 
-#    # Enable Picom
-#    picom = {
-#      enable = false;
-#    };
 
     # Enable Unclutter
     unclutter = {
@@ -265,11 +281,6 @@
   }; # End Services
 
   
-  nixpkgs.overlays = [
-    (self: super: {
-      fcitx-engines = pkgs.fcitx5;
-    })
-  ];
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -280,13 +291,4 @@
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
   # system.copySystemConfiguration = true;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
-
 }
