@@ -244,9 +244,7 @@
 
   programs = {
 
-    adb.enable = true;
-
-    steam.enable = true;
+    adb.enable = false;
 
     zsh = {
       enable = true;
