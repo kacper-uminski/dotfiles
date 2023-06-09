@@ -317,17 +317,16 @@
 (use-package org-roam
   :ensure t
   :custom
-  (org-roam-directory "~/documents/wiki")
+  (org-roam-directory "/home/kacper/documents/wiki")
   (org-roam-completions-everywhere t)
   :bind (("C-c n l" . org-roam-buffer-toggle)
 	 ("C-c n f" . org-roam-node-find)
 	 ("C-c n i" . org-roam-node-insert)
 	 :map org-mode-map
 	 ("C-M-i"   . completion-at-pont))
-  :config
-  (org-roam-setup))
-;  :hook ('org-roam-buffer-postrender-functions
-;	 . (lambda () (org--latex-preview-region (point-min) (point-max)))))
+  :config (org-roam-db-autosync-mode)
+  :hook ('org-roam-buffer-postrender-functions
+	 . (lambda () (org--latex-preview-region (point-min) (point-max)))))
 
 ;;PDF tools 
 (use-package pdf-tools)
