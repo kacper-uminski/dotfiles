@@ -30,7 +30,7 @@
       LC_NUMERIC = "sv_SE.UTF-8";
       LC_PAPER = "sv_SE.UTF-8";
       LC_TELEPHONE = "sv_SE.UTF-8";
-      LC_TIME = "sv_SE.UTF-8";
+      LC_TIME = "en_US.UTF-8";
     };
   };
 
@@ -46,11 +46,10 @@
       home = {
         username = "kacper";
         homeDirectory = "/home/kacper";
-        stateVersion = "22.11";
+        stateVersion = "23.05";
       };
       programs = {
 
-        # Enable emacs daemon.
         emacs.enable = true;
 
         git = {
@@ -68,10 +67,6 @@
           };
         };
 
-        nushell = {
-          enable = true;
-        };
-
         starship = {
           enable = true;
           settings = {
@@ -82,6 +77,32 @@
               "$character"
             ];
           };
+        };
+
+        zsh = {
+          enable = true;
+          enableAutosuggestions = true;
+          enableCompletion = true;
+          enableSyntaxHighlighting = true;
+          dotDir = ".config/zsh";
+          history.path = "$ZDOTDIR/.zsh_history";
+          loginExtra = "if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then startx; fi";
+          shellAliases = {
+            cat = "bat";
+            dotfiles = "git --git-dir=$HOME/software/dotfiles --work-tree=$HOME";
+            emc = "emacsclient -nw";
+            ls = "exa -al";
+            mupdf = "mupdf-x11";
+            sacd_extract = "$HOME/software/sacd_extract/result/bin/sacd_extract";
+          };
+        };
+      };
+
+      services = {
+        emacs = {
+          # Enable emacs daemon.
+          enable = true;
+          defaultEditor = true;
         };
       };
     };
@@ -138,7 +159,7 @@
   users.users.kacper = {
     description = "Kacper Uminski";
     isNormalUser = true;
-    shell = pkgs.nushell;
+    shell = pkgs.zsh;
   };
 
   # Set system fonts.
@@ -167,6 +188,8 @@
 
   environment = {
 
+    pathsToLink = [ "/share/zsh" ];
+
 #    variables = {
 #      QT_STYLE_OVERRIDE="kvantum";
 #    };
@@ -183,6 +206,7 @@
         python-with-my-packages = python3.withPackages my-python-packages;
       in
         python-with-my-packages)
+      adw-gtk3
       appimage-run
       bat
       cargo
@@ -202,11 +226,12 @@
       file
       firefox
       flatpak
-      gcc12
+      gcc13
       ghc
       git
       gnuapl
       gnumake
+      gradience
       haskell-language-server
       htop
       imagemagick
@@ -215,7 +240,7 @@
       leiningen
       libGL
       libsForQt5.qtstyleplugin-kvantum
-      llvmPackages_15.bintools
+      llvmPackages_16.bintools
       neofetch
       nushell
       nvc
@@ -229,7 +254,7 @@
       speedtest-cli
       swiProlog
       tdesktop
-      #texlive.combined.scheme-full
+      texlive.combined.scheme-full
       unzip
       usbutils
       uutils-coreutils
@@ -243,26 +268,12 @@
   }; # End Environment
 
   programs = {
-
     adb.enable = false;
-
-    zsh = {
-      enable = true;
-
-      shellAliases = {
-        dotfiles = "git --git-dir=$HOME/software/dotfiles --work-tree=$HOME";
-        emc = "emacsclient -nw";
-        ls = "exa -al";
-        mupdf = "mupdf-x11";
-        sacd_extract = "$HOME/software/sacd_extract/result/bin/sacd_extract";
-      };
-    };
+    zsh.enable = true;
   };
 
   # List of services that you want to enable.
   services = {
-   
-
     # Enable Gnome Keyring
     gnome.gnome-keyring.enable = true;
 
@@ -278,7 +289,6 @@
 
   }; # End Services
 
-  
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -289,4 +299,12 @@
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
   # system.copySystemConfiguration = true;
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "23.05"; # Did you read the comment?
 }
