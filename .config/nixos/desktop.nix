@@ -18,8 +18,6 @@
 
   services.xserver = {
     enable = true;
-#    displayManager.gdm.enable = true;
-#    desktopManager.gnome.enable = true;
     
     # Set drivers and enable "TearFree"
     videoDrivers = [ "intel" ];

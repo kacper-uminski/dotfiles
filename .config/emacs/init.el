@@ -134,6 +134,18 @@
          ("C-r" . 'counsel-minibuffer-history))
   :config (setq ivy-initial-inputs-alist nil)) ;; Don't start searches with "^"
 
+;; Dashboard
+(use-package dashboard
+  :ensure t
+  :init
+  (setq dashboard-icon-type 'all-the-icons
+	dashboard-items '((recents . 5))
+	dashboard-set-file-icons t
+	dashboard-set-heading-icons t
+	dashboard-startup-banner 'logo)
+  :config
+  (dashboard-setup-startup-hook))
+
 ;; Doom modeline
 (use-package doom-modeline
   :init (doom-modeline-mode 1))

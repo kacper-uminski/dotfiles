@@ -33,7 +33,7 @@
 
   # Excluded packages from gnome.
   environment.gnome.excludePackages = (with pkgs; [
-      baobab
+      baobab # Disk usage viewer.
       gnome-connections
       gnome-photos
       gnome-text-editor
@@ -56,7 +56,6 @@
       gnome-music
       gnome-screenshot
       gnome-system-monitor
-      #gnome-terminal
       gnome-weather
       simple-scan
       #totem # video player

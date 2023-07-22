@@ -35,27 +35,68 @@
   };
 
   console = {
-    font = "Lat2-Terminus16";
     keyMap = "dvorak";
   };
 
   # Home Manager
   home-manager = {
+
     useGlobalPkgs = true;
+
     users.kacper = {pkgs, ...}: {
       home = {
         username = "kacper";
         homeDirectory = "/home/kacper";
         stateVersion = "23.05";
+        shellAliases = {
+          cat = "bat";
+          dotfiles = "git --git-dir=$HOME/software/dotfiles --work-tree=$HOME";
+          emc = "emacsclient -nw";
+          mupdf = "mupdf-x11";
+          sacd_extract = "$HOME/software/sacd_extract/result/bin/sacd_extract";
+          vim = "nvim";
+        };
       };
+
       programs = {
 
-        emacs.enable = true;
+        bash = {
+          enable = true;
+          enableCompletion = true;
+          historyFile = ".config/bash/bash_history";
+        };
+
+        bat = {
+          enable = true;
+        };
+
+        btop = {
+          enable = true;
+        };
+
+        emacs = {
+          enable = true;
+        };
+
+        exa = {
+          enable = true;
+          enableAliases = true;
+          git = true;
+          icons = true;
+        };
+
+        feh = {
+          enable = true;
+        };
 
         git = {
           enable = true;
           userName = "kacper-uminski";
           userEmail = "kacperum@gmail.com";
+        };
+
+        htop = {
+          enable = true;
         };
 
         mpv = {
@@ -65,6 +106,18 @@
             vo = "gpu";
             profile = "gpu-hq";
           };
+        };
+
+        neovim = {
+          enable = true;
+        };
+
+        nushell = {
+          enable = true;
+        };
+
+        ripgrep = {
+          enable = true;
         };
 
         starship = {
@@ -85,16 +138,8 @@
           enableCompletion = true;
           enableSyntaxHighlighting = true;
           dotDir = ".config/zsh";
-          history.path = "$ZDOTDIR/.zsh_history";
+          history.path = "$ZDOTDIR/zsh_history";
           loginExtra = "if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then startx; fi";
-          shellAliases = {
-            cat = "bat";
-            dotfiles = "git --git-dir=$HOME/software/dotfiles --work-tree=$HOME";
-            emc = "emacsclient -nw";
-            ls = "exa -al";
-            mupdf = "mupdf-x11";
-            sacd_extract = "$HOME/software/sacd_extract/result/bin/sacd_extract";
-          };
         };
       };
 
@@ -164,15 +209,12 @@
 
   # Set system fonts.
   fonts.fonts = with pkgs; [
-    _3270font
     fira
     fira-code
     font-awesome
     ibm-plex
-    iosevka
     jetbrains-mono
-    julia-mono
-    victor-mono
+    nerdfonts
   ];
 
   # Allow non-free packages.
@@ -188,7 +230,10 @@
 
   environment = {
 
-    pathsToLink = [ "/share/zsh" ];
+    pathsToLink = [
+      "/share/bash-completion"
+      "/share/zsh"
+    ];
 
 #    variables = {
 #      QT_STYLE_OVERRIDE="kvantum";
@@ -219,8 +264,6 @@
       du-dust
       elixir
       erlang
-      erlang-ls
-      exa
       exercism
       ffmpeg
       file
@@ -228,12 +271,10 @@
       flatpak
       gcc13
       ghc
-      git
       gnuapl
       gnumake
       gradience
       haskell-language-server
-      htop
       imagemagick
       jdk
       jetbrains.idea-community
@@ -241,25 +282,25 @@
       libGL
       libsForQt5.qtstyleplugin-kvantum
       llvmPackages_16.bintools
+      material-symbols
       neofetch
-      nushell
       nvc
+      obsidian
       p7zip
       qt6.full
       qtcreator
       rar
-      ripgrep
       rustc
       rustfmt
       speedtest-cli
       swiProlog
       tdesktop
+      teams
       texlive.combined.scheme-full
       unzip
       usbutils
       uutils-coreutils
       vifm
-      vim
       wget
       wiki-tui
       xmrig
