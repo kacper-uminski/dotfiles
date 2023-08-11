@@ -170,8 +170,8 @@ command! reload :write | restart
 " You can also add %CLEAR if you want to clear screen before running FUSE
 " program.
 
-" Pdf
-filextype *.pdf sh -c 'mupdf-x11 %c',
+" Pdf, Epub
+filextype *.epub,*.pdf mupdf-x11 %c,
 fileviewer *.pdf pdftotext -nopgbrk %c -
 
 " PostScript

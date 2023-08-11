@@ -136,7 +136,7 @@
           enable = true;
           enableAutosuggestions = true;
           enableCompletion = true;
-          enableSyntaxHighlighting = true;
+          syntaxHighlighting.enable = true;
           dotDir = ".config/zsh";
           history.path = "$ZDOTDIR/zsh_history";
           loginExtra = "if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then startx; fi";
@@ -208,7 +208,7 @@
   };
 
   # Set system fonts.
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     fira
     fira-code
     font-awesome
