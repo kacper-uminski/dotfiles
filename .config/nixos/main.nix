@@ -287,7 +287,7 @@
       nvc
       obsidian
       p7zip
-      qt6.full
+      #qt6.full
       qtcreator
       rar
       rustc
