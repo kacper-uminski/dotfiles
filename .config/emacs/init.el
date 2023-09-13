@@ -105,6 +105,18 @@
 (use-package cider
   :ensure t)
 
+;; Clang-format
+(use-package clang-format
+  :bind
+  ("C-c f b" . 'clang-format-buffer)
+  ("C-c f r" . 'clang-format-region)
+  :custom
+  (clang-format-style "google"))
+
+;; Clang-format+ - Hooks to format buffer on save.
+(use-package clang-format+
+  :hook (c-mode-common . clang-format+-mode))
+
 ;; Clojure Mode
 (use-package clojure-mode)
 
