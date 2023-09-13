@@ -239,11 +239,14 @@
   (setq lsp-keymap-prefix "C-c l"
 	lsp-ui-doc-position 'bottom)
   :bind-keymap ("C-c l" . lsp-command-map)
-  :hook ((clojure-mode
+  :hook ((c-mode
+	  c++-mode
+	  clojure-mode
 	  elixir-mode
 	  python-mode
 	  haskell-mode
-	  java-mode) . lsp)
+	  java-mode
+	  rust-mode) . lsp)
   :config
   (lsp-enable-which-key-integration t))
 

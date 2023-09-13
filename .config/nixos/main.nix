@@ -78,7 +78,7 @@
           enable = true;
         };
 
-        exa = {
+        eza = {
           enable = true;
           enableAliases = true;
           git = true;
@@ -254,11 +254,9 @@
       adw-gtk3
       appimage-run
       bat
-      cargo
       cbqn
       chromium
       cifs-utils
-      clang_16
       clojure-lsp
       darktable
       du-dust
@@ -272,26 +270,23 @@
       gcc13
       ghc
       gnuapl
+      gnuplot
       gnumake
       gradience
       haskell-language-server
       imagemagick
       jdk
       jetbrains.idea-community
-      leiningen
-      libGL
       libsForQt5.qtstyleplugin-kvantum
-      llvmPackages_16.bintools
+      clang-tools_16
       material-symbols
       neofetch
       nvc
       obsidian
       p7zip
-      #qt6.full
-      qtcreator
+      qt6.qtbase
       rar
-      rustc
-      rustfmt
+      rustup
       speedtest-cli
       swiProlog
       tdesktop
