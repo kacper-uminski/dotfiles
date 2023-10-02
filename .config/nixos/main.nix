@@ -76,6 +76,7 @@
 
         emacs = {
           enable = true;
+          package = pkgs.emacs29;
         };
 
         eza = {
@@ -283,18 +284,20 @@
       neofetch
       nvc
       obsidian
+      octaveFull
       p7zip
       qt6.qtbase
+      qt6.qt5compat
       rar
       rustup
       speedtest-cli
       swiProlog
       tdesktop
-      teams
       texlive.combined.scheme-full
       unzip
       usbutils
       uutils-coreutils
+      valgrind
       vifm
       wget
       wiki-tui

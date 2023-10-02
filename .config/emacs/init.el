@@ -26,19 +26,6 @@
 ;; Don't pop up UI dialogs when prompting
 (setq use-dialog-box nil)
 
-;; Set theme
-(setq modus-themes-bold-constructs t
-      modus-themes-completions 'opinionated
-      modus-themes-headings '((1 . (rainbow bold 1.4))
-			      (2 . (rainbow semibold 1.3))
-			      (3 . (rainbow 1.2))
-			      (t . (semilight 1.1)))
-      modus-themes-italic-constructs t
-      modus-themes-mode-line 'borderless
-      modus-themes-paren-match '(bold intense)
-      modus-themes-region '(bg-only))
-(load-theme 'modus-vivendi t)
-
 ;; Set font
 (set-face-attribute 'default nil :font "IBM Plex Mono" :height 120)
 ;;(set-frame-font "Iosevka Extended" nil t)
@@ -80,10 +67,7 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-;; Initialize use-package on non-linux platforms
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-
+;; Initialize use-package
 (require 'use-package)
 (setq use-package-always-ensure t)
 
@@ -98,12 +82,10 @@
   :hook (dired-mode . all-the-icons-dired-mode))
 
 ;; BQN - https://github.com/museoa/bqn-mode
-;;(add-to-list 'load-path "~/.config/emacs/bqn-mode")
 (use-package bqn-mode)
 
 ;; Cider - Clojure Interactive Development Environment that Rocks
-(use-package cider
-  :ensure t)
+(use-package cider)
 
 ;; Clang-format
 (use-package clang-format
@@ -111,7 +93,7 @@
   ("C-c f b" . 'clang-format-buffer)
   ("C-c f r" . 'clang-format-region)
   :custom
-  (clang-format-style "google"))
+  (clang-format-style "file"))
 
 ;; Clang-format+ - Hooks to format buffer on save.
 (use-package clang-format+
@@ -144,17 +126,16 @@
          ("C-x C-f" . counsel-find-file)
          :map minibuffer-local-map
          ("C-r" . 'counsel-minibuffer-history))
-  :config (setq ivy-initial-inputs-alist nil)) ;; Don't start searches with "^"
+  :custom (ivy-initial-inputs-alist nil)) ;; Don't start searches with "^"
 
 ;; Dashboard
 (use-package dashboard
-  :ensure t
-  :init
-  (setq dashboard-icon-type 'all-the-icons
-	dashboard-items '((recents . 5))
-	dashboard-set-file-icons t
-	dashboard-set-heading-icons t
-	dashboard-startup-banner 'logo)
+  :custom
+  (dashboard-icon-type 'all-the-icons)
+  (dashboard-items '((recents . 5)))
+  (dashboard-set-file-icons t)
+  (dashboard-set-heading-icons t)
+  (dashboard-startup-banner 'logo)
   :config
   (dashboard-setup-startup-hook))
 
@@ -167,11 +148,12 @@
 
 ;; Evil mode
 (use-package evil
-  :init
-  (setq evil-want-C-i-jump nil
-	evil-want-C-u-scroll t
-	evil-want-integration t
-	evil-want-keybinding nil)
+  :custom
+  (evil-undo-system 'undo-redo)
+  (evil-want-C-i-jump nil)
+  (evil-want-C-u-scroll t)
+  (evil-want-integration t)
+  (evil-want-keybinding nil)
   :config
   (evil-mode 1)
   (define-key evil-visual-state-map (kbd "C-g") 'evil-normal-state)
@@ -182,6 +164,7 @@
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
+
   ;; Prevent Cua from conflicting with org mode
   (evil-define-key 'emacs org-mode-map (kbd "<C-return>") 'org-insert-heading-respect-content)
   (evil-define-key 'insert org-mode-map (kbd "<C-return>") 'org-insert-heading-respect-content)
@@ -197,12 +180,13 @@
 
 ;; Flycheck (auto complete)
 (use-package flycheck
-  :ensure t
   :init (global-flycheck-mode))
 
 ;; APL
-(use-package gnu-apl-mode
-  :ensure t)
+(use-package gnu-apl-mode)
+
+;; Gnu Plot - Plotting library
+(use-package gnuplot)
 
 ;; Haskell mode
 (use-package haskell-mode)
@@ -215,13 +199,13 @@
   :bind
   ([remap describe-command] . helpful-command)
   ([remap describe-function] . counsel-describe-function)
-  ([remap describe-key] . helpful-key)        
+  ([remap describe-key] . helpful-key)
   ([remap describe-variable] . counsel-describe-variable))
                                               
 ;; Impatient mode - Web development via local http server
 ;;(use-package impatient-mode)
                                               
-;; Ivy                                        
+;; Ivy
 (use-package ivy
   :diminish
   :bind (("C-s" . swiper)
@@ -246,10 +230,10 @@
 ;; Language Server Protocol
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :init
+  :custom
   ;; Set prefix for lsp-command-keycap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l"
-	lsp-ui-doc-position 'bottom)
+  (lsp-keymap-prefix "C-c l")
+  (lsp-ui-doc-position 'bottom)
   :bind-keymap ("C-c l" . lsp-command-map)
   :hook ((c-mode
 	  c++-mode
@@ -274,20 +258,33 @@
 ;; Install for Java
 (use-package lsp-java)
 
+(use-package modus-themes
+  :custom
+  (modus-themes-bold-constructs t)
+  ;(modus-themes-common-palette-overrides modus-themes-preset-overrides-intense)
+  (modus-themes-completions '((matches . (extrabold))
+ 			      (selection . (semibold italic textalso))))
+  (modus-themes-disable-other-themes t)
+  (modus-themes-headings '((1 . (rainbow bold 1.4))
+ 			   (2 . (rainbow semibold 1.3))
+ 			   (3 . (rainbow 1.2))
+ 			   (t . (semilight 1.1))))
+  (modus-themes-italic-constructs t)
+  :config
+  (load-theme 'modus-vivendi))
+
 ;; LaTeX
 ;; AUCTeX
 (use-package tex
-  :ensure auctex)
+  :ensure auctex
+  :custom
+  (LaTeX-electric-left-right-brace t))
 
 ;; Latex Preview Pane
 (use-package latex-preview-pane)
 
-;; Enable Auto-complete
-(setq LaTeX-electric-left-right-brace t)
-
 ;; Magit
-(use-package magit
-  :ensure t)
+(use-package magit)
 
 ;; Nix Mode
 (use-package nix-mode)
@@ -295,6 +292,13 @@
 ;; Org
 (use-package org
   :init (require 'org-indent)
+  :custom
+  (org-ellipsis " ▾")
+  (org-hide-emphasis-markers t)
+
+  ;; Set Org LaTeX margins to 2cm.
+  (org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
+
   :hook (org-mode . (lambda () (org-indent-mode)
                                (variable-pitch-mode 1)
                                (auto-fill-mode 0)
@@ -302,14 +306,9 @@
                                (setq evil-auto-indent nil)))
   :config
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
+
   (eval-after-load "preview"
     '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
-  (setq org-ellipsis " ▾"
-        org-hide-emphasis-markers t
-
-	;; Set Org LaTeX margins to 2cm
-	org-latex-packages-alist '(("margin=2cm" "geometry" nil))
-	org-format-latex-options (plist-put org-format-latex-options :scale 3))
   (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.1)
                   (org-level-3 . 1.05)
@@ -327,7 +326,10 @@
   (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-table nil :inherit 'fixed-pitch))
+  (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+
+  ;; Scale LaTeX diagrams by 3.
+  (plist-put org-format-latex-options :scale 3))
 
 (use-package org-bullets
   :after org
@@ -342,7 +344,6 @@
 
 ;; Org Roam
 (use-package org-roam
-  :ensure t
   :custom
   (org-roam-directory "/home/kacper/documents/wiki")
   (org-roam-completions-everywhere t)
@@ -376,14 +377,13 @@
 (use-package which-key
   :init (which-key-mode 1)
   :diminish which-key-mode
-  :config (setq which-key-idle-delay 1))
+  :custom (which-key-idle-delay 1))
 
 ;; Yasnippet - Function templates
 (use-package yasnippet
-  :ensure t
-  :hook ((java-mode) . yas-minor-mode-on)
-  :init (setq yas-snippet-dir (concat user-emacs-directory "snippets"))
-  :bind ("M-z" . yas-expand))
+  :custom (yas-snippet-dir (concat user-emacs-directory "snippets"))
+  :bind ("M-z" . yas-expand)
+  :hook ((java-mode) . yas-minor-mode-on))
 
 (use-package yasnippet-snippets)
 
