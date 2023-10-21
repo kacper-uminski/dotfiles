@@ -253,14 +253,11 @@
       in
         python-with-my-packages)
       adw-gtk3
-      appimage-run
       bat
       cbqn
       chromium
       cifs-utils
-      clojure-lsp
       darktable
-      du-dust
       elixir
       erlang
       exercism
@@ -278,12 +275,10 @@
       imagemagick
       jdk
       jetbrains.idea-community
-      libsForQt5.qtstyleplugin-kvantum
+      julia-bin
       clang-tools_16
-      material-symbols
       neofetch
       nvc
-      obsidian
       octaveFull
       p7zip
       qt6.qtbase
@@ -291,9 +286,9 @@
       rar
       rustup
       speedtest-cli
-      swiProlog
       tdesktop
       texlive.combined.scheme-full
+      uiua
       unzip
       usbutils
       uutils-coreutils

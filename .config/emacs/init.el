@@ -227,6 +227,11 @@
 (use-package ivy-rich
   :init (ivy-rich-mode 1))
 
+;; Julia Mode
+(use-package julia-mode)
+
+(use-package lsp-julia)
+
 ;; Language Server Protocol
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
@@ -242,6 +247,7 @@
 	  python-mode
 	  haskell-mode
 	  java-mode
+	  julia-mode
 	  rust-mode) . lsp)
   :config
   (lsp-enable-which-key-integration t))
