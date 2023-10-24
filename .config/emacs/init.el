@@ -362,7 +362,7 @@
   :hook ('org-roam-buffer-postrender-functions
 	 . (lambda () (org--latex-preview-region (point-min) (point-max)))))
 
-;;PDF tools 
+;; PDF tools
 (use-package pdf-tools)
 
 ;; Rainbow mode (visualize color codes.)
@@ -373,8 +373,8 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;; Rust
-(use-package rust-mode)
+;; Rustic - Rust editing mode.
+(use-package rustic)
 
 ;; Swiper
 (use-package swiper)

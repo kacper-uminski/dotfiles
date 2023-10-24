@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
+  nix.settings.experimental-features = [ "flakes" "nix-command" ];
   boot = {
     # Enable splash-screen
     plymouth.enable = true;
@@ -254,9 +255,11 @@
         python-with-my-packages)
       adw-gtk3
       bat
+      cargo # Rust toolchain
       cbqn
       chromium
       cifs-utils
+      clippy # Rust linter
       darktable
       elixir
       erlang
@@ -284,7 +287,9 @@
       qt6.qtbase
       qt6.qt5compat
       rar
-      rustup
+      rust-analyzer
+      rustc
+      rustfmt
       speedtest-cli
       tdesktop
       texlive.combined.scheme-full
