@@ -46,6 +46,7 @@
 		comint-mode-hook
 		inferior-python-mode-hook
                 org-mode-hook
+		pdf-view-mode-hook
                 shell-mode-hook
                 term-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
@@ -146,6 +147,9 @@
 ;; Elixir
 (use-package elixir-mode)
 
+;; Erlang mode
+(use-package erlang)
+
 ;; Evil mode
 (use-package evil
   :custom
@@ -244,6 +248,7 @@
 	  c++-mode
 	  clojure-mode
 	  elixir-mode
+	  erlang-mode
 	  python-mode
 	  haskell-mode
 	  java-mode

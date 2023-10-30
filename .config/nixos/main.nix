@@ -263,6 +263,7 @@
       darktable
       elixir
       erlang
+      erlang-ls
       exercism
       ffmpeg
       file
