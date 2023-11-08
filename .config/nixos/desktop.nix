@@ -53,7 +53,7 @@
       puddletag
       pulsemixer
       qbittorrent
-      retroarchFull
+      #retroarchFull
       shntool
       skypeforlinux
       slack

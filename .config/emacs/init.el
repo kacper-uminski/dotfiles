@@ -75,30 +75,35 @@
 ;; Packages
 
 ;; Alchemist - Tooling integration for elixir
-(use-package alchemist)
+(use-package alchemist
+  :defer t)
 
 ;; All The Icons - For Doom Modeline and Dired
 (use-package all-the-icons)
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
 
-;; BQN - https://github.com/museoa/bqn-mode
-(use-package bqn-mode)
+;; BQN
+(use-package bqn-mode
+  :defer t)
 
 ;; Cider - Clojure Interactive Development Environment that Rocks
-(use-package cider)
+(use-package cider
+  :defer t)
 
 ;; Clang-format
 (use-package clang-format
-  :bind
-  ("C-c f b" . 'clang-format-buffer)
-  ("C-c f r" . 'clang-format-region)
+  :defer t
   :custom
   (clang-format-style "file"))
 
 ;; Clang-format+ - Hooks to format buffer on save.
 (use-package clang-format+
-  :hook (c-mode-common . clang-format+-mode))
+  :defer t
+  :hook (c-mode-common . clang-format+-mode)
+  :bind
+  (:map c-mode-base-map
+	("C-c f b" . clang-format-buffer)))
 
 ;; Clojure Mode
 (use-package clojure-mode)
@@ -145,10 +150,12 @@
   :init (doom-modeline-mode 1))
 
 ;; Elixir
-(use-package elixir-mode)
+(use-package elixir-mode
+  :defer t)
 
 ;; Erlang mode
-(use-package erlang)
+(use-package erlang
+  :defer t)
 
 ;; Evil mode
 (use-package evil
@@ -187,13 +194,15 @@
   :init (global-flycheck-mode))
 
 ;; APL
-(use-package gnu-apl-mode)
+(use-package gnu-apl-mode
+  :defer t)
 
 ;; Gnu Plot - Plotting library
 (use-package gnuplot)
 
 ;; Haskell mode
-(use-package haskell-mode)
+(use-package haskell-mode
+  :defer t)
 
 ;; Helpful (better help menus)
 (use-package helpful
@@ -232,12 +241,12 @@
   :init (ivy-rich-mode 1))
 
 ;; Julia Mode
-(use-package julia-mode)
-
-(use-package lsp-julia)
+(use-package julia-mode
+  :defer t)
 
 ;; Language Server Protocol
 (use-package lsp-mode
+  :defer t
   :commands (lsp lsp-deferred)
   :custom
   ;; Set prefix for lsp-command-keycap (few alternatives - "C-l", "C-c l")
@@ -258,16 +267,22 @@
   (lsp-enable-which-key-integration t))
 
 (use-package lsp-ui
+  :defer t
   :commands lsp-ui-mode)
 
-;; Install for Haskell
-(use-package lsp-haskell)
+;; Install for languages
+(use-package lsp-haskell
+  :defer t)
 
-;; Install for Ivy
-(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+(use-package lsp-ivy
+  :defer t
+  :commands lsp-ivy-workspace-symbol)
 
-;; Install for Java
-(use-package lsp-java)
+(use-package lsp-julia
+  :defer t)
+
+(use-package lsp-java
+  :defer t)
 
 (use-package modus-themes
   :custom
@@ -287,21 +302,26 @@
 ;; LaTeX
 ;; AUCTeX
 (use-package tex
+  :defer t
   :ensure auctex
   :custom
   (LaTeX-electric-left-right-brace t))
 
 ;; Latex Preview Pane
-(use-package latex-preview-pane)
+(use-package latex-preview-pane
+  :defer t)
 
 ;; Magit
-(use-package magit)
+(use-package magit
+  :defer t)
 
 ;; Nix Mode
-(use-package nix-mode)
+(use-package nix-mode
+  :defer t)
 
 ;; Org
 (use-package org
+  :defer t
   :init (require 'org-indent)
   :custom
   (org-ellipsis " ▾")
@@ -343,15 +363,17 @@
   (plist-put org-format-latex-options :scale 3))
 
 (use-package org-bullets
+  :defer t
   :after org
   :hook (org-mode . org-bullets-mode)
   :custom
-  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
-
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●"))
+  :init
 ;; Replace list hyphen with dot
-(font-lock-add-keywords 'org-mode
-                        '(("^ *\\([-]\\) "
-                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•")))))))
+
 
 ;; Org Roam
 (use-package org-roam
@@ -368,10 +390,12 @@
 	 . (lambda () (org--latex-preview-region (point-min) (point-max)))))
 
 ;; PDF tools
-(use-package pdf-tools)
+(use-package pdf-tools
+  :defer t)
 
 ;; Rainbow mode (visualize color codes.)
 (use-package rainbow-mode
+  :defer t
   :hook (prog-mode . rainbow-mode))
 
 ;; Rainbow delimiters (parentheses highlighting)
@@ -379,7 +403,8 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; Rustic - Rust editing mode.
-(use-package rustic)
+(use-package rustic
+  :defer t)
 
 ;; Swiper
 (use-package swiper)
@@ -394,7 +419,7 @@
 (use-package yasnippet
   :custom (yas-snippet-dir (concat user-emacs-directory "snippets"))
   :bind ("M-z" . yas-expand)
-  :hook ((java-mode) . yas-minor-mode-on))
+  :hook ((prog-mode) . yas-minor-mode-on))
 
 (use-package yasnippet-snippets)
 
