@@ -255,6 +255,7 @@
         python-with-my-packages)
       adw-gtk3
       bat
+      #bear # Allows LSP to find #include files in Qt projects.
       cargo # Rust toolchain
       cbqn
       chromium
@@ -262,6 +263,7 @@
       clippy # Rust linter
       darktable
       elixir
+      elixir-ls
       erlang
       erlang-ls
       exercism

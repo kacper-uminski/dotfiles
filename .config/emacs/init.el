@@ -52,12 +52,47 @@
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;; Cua
-(setq cua-enable-cua-keys nil)
-(cua-mode 1)
+;;(setq cua-enable-cua-keys nil)
+;;(cua-mode 1)
 
 ;; Electric pair mode (completes parentheses, quotes, etc.)
 (electric-pair-mode 1)
 (add-hook 'vhdl-mode-hook (lambda () (electric-pair-mode -1)))
+
+;; Treesitter
+(setq treesit-language-source-alist
+   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+     (c "https://github.com/tree-sitter/tree-sitter-c")
+     (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+     (cmake "https://github.com/uyha/tree-sitter-cmake")
+     (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+     (erlang "https://github.com/WhatsApp/tree-sitter-erlang")
+     (haskell "https://github.com/tree-sitter/tree-sitter-haskell")
+     (java "https://github.com/tree-sitter/tree-sitter-java")
+     (json "https://github.com/tree-sitter/tree-sitter-json")
+     (julia "https://github.com/tree-sitter/tree-sitter-julia")
+     (make "https://github.com/alemuller/tree-sitter-make")
+     (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+     (nix "https://github.com/nix-community/tree-sitter-nix")
+     (python "https://github.com/tree-sitter/tree-sitter-python")
+     (rust "https://github.com/tree-sitter/tree-sitter-rust")
+     (toml "https://github.com/tree-sitter/tree-sitter-toml")
+     (vhdl "https://github.com/alemuller/tree-sitter-vhdl")
+     (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+
+;; Evaluate the expression below to compile the treesitter grammars.
+;; (mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
+
+(setq major-mode-remap-alist
+      '((bash-mode . bash-ts-mode)
+	(c-mode . c-ts-mode)
+	(cmake-mode . cmake-ts-mode)
+	(java-mode . java-ts-mode)
+	(json-mode . json-ts-mode)
+	(python-mode . python-ts-mode)
+	(rust-mode . rust-ts-mode)
+	(toml-mode . toml-ts-mode)
+	(yaml-mode . yaml-ts-mode)))
  
 ;; Initialize package sources
 (require 'package)
