@@ -340,7 +340,8 @@
   :defer t
   :ensure auctex
   :custom
-  (LaTeX-electric-left-right-brace t))
+  (LaTeX-electric-left-right-brace t)
+  (TeX-command-extra-options " -shell-escape"))
 
 ;; Latex Preview Pane
 (use-package latex-preview-pane
