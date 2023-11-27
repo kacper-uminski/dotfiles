@@ -3,6 +3,8 @@
 {
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
   boot = {
+    kernelModules = [ "msr" ];
+
     # Enable splash-screen
     plymouth.enable = true;
 
@@ -51,11 +53,12 @@
         stateVersion = "23.05";
         shellAliases = {
           cat = "bat";
-          dotfiles = "git --git-dir=$HOME/software/dotfiles --work-tree=$HOME";
+          dotfiles = "git --git-dir=$HOME/Software/dotfiles --work-tree=$HOME";
           emc = "emacsclient -nw";
           mupdf = "mupdf-x11";
-          sacd_extract = "$HOME/software/sacd_extract/result/bin/sacd_extract";
+          sacd_extract = "$HOME/Software/sacd_extract/result/bin/sacd_extract";
           vim = "nvim";
+          xmrig = "sudo xmrig -c $HOME/.config/xmrig.json";
         };
       };
 
@@ -171,9 +174,6 @@
     packageOverrides = pkgs: {
       vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
     };
-    permittedInsecurePackages = [
-      "openssl-1.1.1u"
-    ];
   };
 
   hardware.opengl = {
@@ -260,6 +260,7 @@
       cbqn
       chromium
       cifs-utils
+      clang-tools_16
       clippy # Rust linter
       darktable
       elixir
@@ -282,7 +283,7 @@
       jdk
       jetbrains.idea-community
       julia-bin
-      clang-tools_16
+      msr # used by xmrig tool
       neofetch
       nvc
       octaveFull

@@ -1,33 +1,28 @@
 { config, pkgs, lib, ... }:
 
 {
+  boot.initrd.kernelModules = [ "amdgpu" ];
   networking = {
     hostName = "nixos";
     defaultGateway = "192.168.50.1";
     nameservers = ["192.168.50.200"];
-    interfaces.eno2.ipv4.addresses = [{
+    interfaces.enp11s0.ipv4.addresses = [{
       address = "192.168.50.250";
       prefixLength = 24;
     }];
   };
 
-  fileSystems."/home/kacper/media" = {
+  fileSystems."/home/kacper/Media" = {
     device = "192.168.50.200:/mnt/Tank/Media";
     fsType = "nfs";
   };
 
   services.xserver = {
     enable = true;
-    
-    # Set drivers and enable "TearFree"
-    videoDrivers = [ "intel" ];
-    #useGlamor = true;
-    deviceSection = ''
-      Option "AccelMethod" "sna"
-      Option "TearFree" "true"
-      Option "DRI" "2"
-    ''; 
 
+    videoDrivers = [ "amdgpu" ];
+    deviceSection = ''Option "TearFree" "true"'';
+    
     # Enable XMonad.
     displayManager.startx.enable = true;
     windowManager.xmonad = {
@@ -39,8 +34,10 @@
 
 
 
-  # Enable SANE to scan documents.
-  hardware.sane.enable = true;
+  hardware = {
+    # Enable SANE to scan documents.
+    sane.enable = false;
+  };
 
   users.users.kacper = {
     extraGroups = [ "networkmanager" "wheel" ];
@@ -53,12 +50,14 @@
       puddletag
       pulsemixer
       qbittorrent
-      #retroarchFull
+      retroarchFull
+      ryujinx
       shntool
       skypeforlinux
       slack
       unclutter
       xorg.xinit
+      yuzu-mainline
     ];
   };
 
@@ -155,14 +154,19 @@
   };
 
   services = {
-
     # Enable Gnome Keyring
     gnome.gnome-keyring.enable = true;
 
     # Enable Roon Server
     roon-server = {
-      enable = true;
+      enable = false;
       user = "kacper";
+    };
+
+    udev = {
+      packages = with pkgs; [
+        game-devices-udev-rules
+      ];
     };
 
   }; # End Services.
@@ -171,11 +175,12 @@
   virtualisation = {
     anbox.enable = false;
     libvirtd.enable = false;
-    spiceUSBRedirection.enable = false;
+    spiceUSBRedirection.enable = false; # For livbirdt usb passthrough.
   };
 
   programs = {
     steam.enable = true;
     dconf.enable = true;
   };
+
 }

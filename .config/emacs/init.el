@@ -2,6 +2,9 @@
 (setq custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
 
+;; Suppress compilation warnings
+(setq warning-minimum-level :error)
+
 ;; Set backup directory
 (setq backup-directory-alist
           `(("." . ,(concat user-emacs-directory "backups"))))
