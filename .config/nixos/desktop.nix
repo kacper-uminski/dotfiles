@@ -57,7 +57,7 @@
       slack
       unclutter
       xorg.xinit
-      yuzu-mainline
+      yuzu-early-access
     ];
   };
 
