@@ -417,7 +417,7 @@
 ;; Org Roam
 (use-package org-roam
   :custom
-  (org-roam-directory "/home/kacper/documents/wiki")
+  (org-roam-directory "/home/kacper/Documents/wiki")
   (org-roam-completions-everywhere t)
   :bind (("C-c n l" . org-roam-buffer-toggle)
 	 ("C-c n f" . org-roam-node-find)

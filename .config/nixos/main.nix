@@ -125,6 +125,12 @@
           enable = true;
         };
 
+        rofi = {
+          enable = true;
+          package = pkgs.rofi-wayland;
+          terminal = "${pkgs.alacritty}/bin/alacritty";
+        };
+
         starship = {
           enable = true;
           settings = {
@@ -154,6 +160,75 @@
           enable = true;
           defaultEditor = true;
         };
+      };
+
+      wayland.windowManager.hyprland = {
+        enable = true;
+        settings = {
+          "$term" = "alacritty";
+          "$mod" = "SUPER";
+          bind = [
+            # Go to workspace #n
+            "$mod, 1, workspace, 1" 
+	          "$mod, 2, workspace, 2" 
+	          "$mod, 3, workspace, 3"
+            "$mod, 4, workspace, 4"
+            "$mod, 5, workspace, 5"
+            "$mod, 6, workspace, 6"
+            "$mod, 7, workspace, 7"
+            "$mod, 8, workspace, 8"
+            "$mod, 9, workspace, 9"
+            "$mod, 0, workspace, 10"
+
+            # Move to workspace #n
+            "$mod SHIFT, 1, movetoworkspace, 1"
+            "$mod SHIFT, 2, movetoworkspace, 2"
+            "$mod SHIFT, 3, movetoworkspace, 3"
+            "$mod SHIFT, 4, movetoworkspace, 4"
+            "$mod SHIFT, 5, movetoworkspace, 5"
+            "$mod SHIFT, 6, movetoworkspace, 6"
+            "$mod SHIFT, 7, movetoworkspace, 7"
+            "$mod SHIFT, 8, movetoworkspace, 8"
+            "$mod SHIFT, 9, movetoworkspace, 9"
+            "$mod SHIFT, 0, movetoworkspace, 10"
+
+            # Window Cycling and Moving
+            "$mod, J, cyclenext"
+            "$mod, K, cyclenext, prev"
+            "$mod SHIFT, J, swapnext"
+            "$mod SHIFT, K, swapnext, prev"
+
+            # Fullscreen
+            "$mod, F, fullscreen"
+
+            # Start Programs
+            "$mod, R, exec, rofi -show drun -show-icons"
+            "$mod, T, exec, $term"
+            "$mod, B, exec, firefox"
+
+            # Kill Current Window
+            "$mod, W, killactive"
+
+            # Exit
+            "$mod SHIFT, Q, exit"
+          ];
+
+          exec-once = [
+            "swww init &"
+            "swww img $HOME/Pictures/Wallpapers/black.jpg &"
+            "$term"
+            "firefox"
+            "skype"
+            "telegram-desktop"
+          ];
+
+          input = {
+            kb_layout = "us, se, pl";
+            kb_variant = "dvorak,,";
+            kb_options = "caps:ctrl_modifier";
+          };
+        };
+        xwayland.enable = true;
       };
     };
   };
@@ -255,7 +330,7 @@
         python-with-my-packages)
       adw-gtk3
       bat
-      #bear # Allows LSP to find #include files in Qt projects.
+      bear # Allows LSP to find #include non-std files and headers.
       cargo # Rust toolchain
       cbqn
       chromium
@@ -283,7 +358,7 @@
       jdk
       jetbrains.idea-community
       julia-bin
-      msr # used by xmrig tool
+      msr # Used by xmrig.
       neofetch
       nvc
       octaveFull
@@ -295,6 +370,7 @@
       rustc
       rustfmt
       speedtest-cli
+      swww # Wallpaper daemon for wayland.
       tdesktop
       texlive.combined.scheme-full
       uiua
@@ -312,6 +388,12 @@
 
   programs = {
     adb.enable = false;
+
+    hyprland = {
+      enable = true;
+      xwayland.enable = true;
+    };
+
     zsh.enable = true;
   };
 
