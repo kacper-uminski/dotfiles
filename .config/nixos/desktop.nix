@@ -61,6 +61,85 @@
     ];
   };
 
+  home-manager = {
+    users.kacper = {pkgs, ...}: {
+      programs = {
+        alacritty = {
+          settings = {
+            colors = {
+              primary = {
+                background = "#000000";
+                foreground = "#d8dee9";
+                dim_foreground = "#a5abb6";
+              };
+              cursor = {
+                text = "#2e3440";
+                background = "#d8dee9";
+              };
+              selection = {
+                text = "#000000";
+                background = "#d8dee9";
+              };
+              search = {
+                matches = {
+                  text = "#000000";
+                  background = "#d8dee9";
+                };
+                footer_bar = {
+                  foreground = "#d8dee9";
+                  background = "#434c5e";
+                };
+              };
+              normal = {
+                black = "#000000";
+                red = "#bf616a";
+                green = "#a3be8c";
+                yellow = "#ebcb8b";
+                blue = "#81a1c1";
+                magenta = "#b48ead";
+                cyan = "#88c0d0";
+                white = "#e5e9f0";
+              };
+              bright = {
+                black = "#4c566a";
+                red = "#bf616a";
+                green = "#a3be8c";
+                yellow = "#ebcb8b";
+                blue = "#81a1c1";
+                magenta = "#b48ead";
+                cyan = "#88c0d0";
+                white = "#e5e9f0";
+              };
+              dim = {
+                black = "#000000";
+                red = "#94545d";
+                green = "#809575";
+                yellow = "#b29e75";
+                blue = "#68809a";
+                magenta = "#8c738c";
+                cyan = "#6d96a5";
+                white = "#aeb3bb";
+              };
+            };
+          };
+        };
+      };
+
+      wayland.windowManager.hyprland = {
+        settings = {
+          exec-once = [
+            "swww init &"
+            "swww img $HOME/Pictures/Wallpapers/black.jpg &"
+            "$term"
+            "firefox"
+            "skype"
+            "telegram-desktop"
+          ];
+        };
+      };
+    };
+  };
+
   services = {
     # Enable Roon Server
     roon-server = {

@@ -67,61 +67,6 @@
         alacritty = {
           enable = true;
           settings = {
-            colors = {
-              primary = {
-                background = "#000000";
-                foreground = "#d8dee9";
-                dim_foreground = "#a5abb6";
-              };
-              cursor = {
-                text = "#2e3440";
-                background = "#d8dee9";
-              };
-              selection = {
-                text = "#000000";
-                background = "#d8dee9";
-              };
-              search = {
-                matches = {
-                  text = "#000000";
-                  background = "#d8dee9";
-                };
-                footer_bar = {
-                  foreground = "#d8dee9";
-                  background = "#434c5e";
-                };
-              };
-              normal = {
-                black = "#000000";
-                red = "#bf616a";
-                green = "#a3be8c";
-                yellow = "#ebcb8b";
-                blue = "#81a1c1";
-                magenta = "#b48ead";
-                cyan = "#88c0d0";
-                white = "#e5e9f0";
-              };
-              bright = {
-                black = "#4c566a";
-                red = "#bf616a";
-                green = "#a3be8c";
-                yellow = "#ebcb8b";
-                blue = "#81a1c1";
-                magenta = "#b48ead";
-                cyan = "#88c0d0";
-                white = "#e5e9f0";
-              };
-              dim = {
-                black = "#000000";
-                red = "#94545d";
-                green = "#809575";
-                yellow = "#b29e75";
-                blue = "#68809a";
-                magenta = "#8c738c";
-                cyan = "#6d96a5";
-                white = "#aeb3bb";
-              };
-            };
             font = {
               normal.family = "IBM Plex Mono";
               glyphs.family = "Font Awesome";
@@ -150,7 +95,7 @@
 
         emacs = {
           enable = true;
-          package = pkgs.emacs29;
+          package = pkgs.emacs29-pgtk;
         };
 
         eza = {
@@ -225,6 +170,10 @@
       };
 
       services = {
+        dunst = {
+          enable = true;
+        };
+
         emacs = {
           # Enable emacs daemon.
           enable = true;
@@ -273,8 +222,9 @@
 
             # Start Programs
             "$mod, R, exec, rofi -show drun -show-icons"
-            "$mod, T, exec, $term"
+            "$mod, E, exec, emacs"
             "$mod, B, exec, firefox"
+            "$mod, T, exec, $term"
 
             # Kill Current Window
             "$mod, W, killactive"
@@ -283,22 +233,17 @@
             "$mod SHIFT, Q, exit"
           ];
 
-          exec-once = [
-            "swww init &"
-            "swww img $HOME/Pictures/Wallpapers/black.jpg &"
-            "$term"
-            "firefox"
-            "skype"
-            "telegram-desktop"
-          ];
-
           input = {
             kb_layout = "us, se, pl";
             kb_variant = "dvorak,,";
             kb_options = "caps:ctrl_modifier";
           };
+
+          misc = {
+            disable_hyprland_logo = true;
+            disable_splash_rendering = true;
+          };
         };
-        xwayland.enable = true;
       };
     };
   };
@@ -394,6 +339,15 @@
         python-with-my-packages = python3.withPackages my-python-packages;
       in
         python-with-my-packages)
+
+      # Haskell packages
+      (let myGhc = pkgs.haskellPackages.ghcWithPackages (hpkgs: with hpkgs; [
+            list-filter
+            split
+          ]);
+      in
+        myGhc)
+
       adw-gtk3
       bat
       bear # Allows LSP to find #include non-std files and headers.
@@ -414,14 +368,12 @@
       firefox
       flatpak
       gcc13
-      ghc
       gnuapl
       gnuplot
       gnumake
       gradience
       haskell-language-server
       imagemagick
-      jdk
       jetbrains.idea-community
       julia-bin
       msr # Used by xmrig.

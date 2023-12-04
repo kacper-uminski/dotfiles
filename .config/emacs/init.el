@@ -34,8 +34,8 @@
 ;;(set-frame-font "Iosevka Extended" nil t)
 
 ;; Enable transparency
-(set-frame-parameter (selected-frame) 'alpha '(85 85))
-(add-to-list 'default-frame-alist '(alpha 85 85))
+;;(set-frame-parameter (selected-frame) 'alpha '(85 85))
+;;(add-to-list 'default-frame-alist '(alpha 85 85))
 
 ;; Enable line numbers
 (column-number-mode)

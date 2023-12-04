@@ -13,6 +13,8 @@
     packages = with pkgs; [
       gnome.gnome-tweaks
       gnomeExtensions.blur-my-shell
+      light
+      networkmanagerapplet
     ];
   };
 
@@ -67,4 +69,119 @@
       iagno # go game
       tali # poker game
     ]);
+
+  home-manager = {
+    users.kacper = {pkgs, ...}: {
+      programs = {
+        alacritty = {
+          settings = {
+            colors = {
+              primary = {
+                background = "#1b182c";
+                foreground = "#cbe3e7";
+              };
+              normal = {
+                black = "#100e23";
+                red = "#ff8080";
+                green = "#95ffa4";
+                yellow = "#ffe9aa";
+                blue = "#91ddff";
+                magenta = "#c991e1";
+                cyan = "#aaffe4";
+                white = "#cbe3e7";
+              };
+              bright = {
+                black = "#565575";
+                red = "#ff5458";
+                green = "#62d196";
+                yellow = "#ffb378";
+                blue = "#65b2ff";
+                magenta = "#906cff";
+                cyan = "#63f2f1";
+                white = "#a6b3cc";
+              };
+            };
+          };
+        };
+
+        waybar = {
+          enable = true;
+          settings = {
+            mainBar = {
+              height = 30;
+              layer = "top";
+              modules-left = [ "hyprland/workspaces" ];
+              modules-right = [ "network" "battery" "tray" ];
+              output = [ "eDP-1" ];
+              position = "top";
+              spacing = 4;
+
+              battery = {
+                adapter = "ADP1";
+                bat = "BAT1";
+                format = "{icon}  {capacity}%";
+                format-icons = ["" "" "" "" ""];
+                states = {
+                  critical = 15;
+                  warning = 30;
+                };
+              };
+
+              "hyprland/workspaces" = {
+                format = "{icon}";
+                on-scroll-up = "hyprctl dispatch workspace e+1";
+                on-scroll-down = "hyprctl dispatch workspace e-1";
+              };
+
+              network = {
+                format-disconnected = "";
+                format-wifi = "";
+                interface = "wlp0s20f3";
+              };
+
+              tray = {
+                icon-size = 21;
+                spacing = 10;
+              };
+            };
+          };
+          style = ''
+          * {
+            border: none;
+            border-radius: 0;
+            font-family: Plex Mono;
+          }
+          window#waybar {
+            background: #1b182c;
+            color: #cbe3e7;
+          }
+          #network.wifi {
+            margin: 0 10px;
+          }
+          '';
+        };
+      };
+
+      wayland.windowManager.hyprland = {
+        settings = {
+          exec-once = [
+            "swww init &"
+            "swww img $HOME/Pictures/Wallpapers/nixos.png &"
+            "waybar &"
+            "$term &"
+            "firefox &"
+          ];
+          gestures = {
+            workspace_swipe = true;
+            workspace_swipe_invert = false;
+          };
+          input = {
+            touchpad = {
+              middle_button_emulation = true;
+            };
+          };
+        };
+      };
+    };
+  };
 }
