@@ -55,7 +55,6 @@
           cat = "bat";
           dotfiles = "git --git-dir=$HOME/Software/dotfiles --work-tree=$HOME";
           emc = "emacsclient -nw";
-          mupdf = "mupdf-x11";
           sacd_extract = "$HOME/Software/sacd_extract/result/bin/sacd_extract";
           vim = "nvim";
           xmrig = "sudo xmrig -c $HOME/.config/xmrig.json";
@@ -158,6 +157,14 @@
           };
         };
 
+        zathura = {
+          enable = true;
+          options = {
+            default-bg = "#000000";
+            default-fg = "#FFFFFF";
+          };
+        };
+
         zsh = {
           enable = true;
           enableAutosuggestions = true;
@@ -165,7 +172,7 @@
           syntaxHighlighting.enable = true;
           dotDir = ".config/zsh";
           history.path = "$ZDOTDIR/zsh_history";
-          loginExtra = "if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then startx; fi";
+          loginExtra = "if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then Hyprland; fi";
         };
       };
 
@@ -179,6 +186,8 @@
           enable = true;
           defaultEditor = true;
         };
+
+        gnome-keyring.enable = true;
       };
 
       wayland.windowManager.hyprland = {
@@ -233,9 +242,15 @@
             "$mod SHIFT, Q, exit"
           ];
 
+          bindm = [
+            # Moving windows by mouse
+            "$mod, mouse:272, movewindow"
+            "$mod, mouse:273, resizewindow"
+          ];
+
           input = {
             kb_layout = "us, se, pl";
-            kb_variant = "dvorak,,";
+            kb_variant = "dvorak, dvorak, dvorak";
             kb_options = "caps:ctrl_modifier";
           };
 
@@ -251,7 +266,7 @@
   # X11
   services.xserver = {
     # Enable the X11 windowing system
-    enable = true;
+    enable = false;
   
     # Configure keymap in X11
     layout = "us";

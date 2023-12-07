@@ -18,16 +18,14 @@
   };
 
   services.xserver = {
-    enable = true;
-
     videoDrivers = [ "amdgpu" ];
     deviceSection = ''Option "TearFree" "true"'';
     
     # Enable XMonad.
-    displayManager.startx.enable = true;
+    displayManager.startx.enable = false;
     windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
+      enable = false;
+      enableContribAndExtras = false;
     };
   
   };
@@ -46,7 +44,6 @@
       flameshot
       lxappearance
       minecraft
-      mupdf
       puddletag
       pulsemixer
       qbittorrent
@@ -56,7 +53,7 @@
       skypeforlinux
       slack
       unclutter
-      xorg.xinit
+      xorg.xset
       yuzu-early-access
     ];
   };
@@ -127,13 +124,20 @@
 
       wayland.windowManager.hyprland = {
         settings = {
+          bind = [
+            # Keyboard layout switching
+            "$mod ALT, D, exec, hyprctl switchxkblayout tom-wong-cornall/ellipse/wcass/purdea-andrei-modelfkeyboards.com-brand-new-f62/f77-model-f-keyboard-by-model-f-labs 0"
+            "$mod ALT, S, exec, hyprctl switchxkblayout tom-wong-cornall/ellipse/wcass/purdea-andrei-modelfkeyboards.com-brand-new-f62/f77-model-f-keyboard-by-model-f-labs 1"
+            "$mod ALT, P, exec, hyprctl switchxkblayout tom-wong-cornall/ellipse/wcass/purdea-andrei-modelfkeyboards.com-brand-new-f62/f77-model-f-keyboard-by-model-f-labs 2"
+          ];
           exec-once = [
             "swww init &"
             "swww img $HOME/Pictures/Wallpapers/black.jpg &"
-            "$term"
-            "firefox"
-            "skype"
-            "telegram-desktop"
+            "$term &"
+            "firefox &"
+            "skypeforlinux &"
+            "telegram-desktop &"
+            "xset s off &"
           ];
         };
       };
