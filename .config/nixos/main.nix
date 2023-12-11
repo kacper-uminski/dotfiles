@@ -356,8 +356,9 @@
 
       # Haskell packages
       (let myGhc = pkgs.haskellPackages.ghcWithPackages (hpkgs: with hpkgs; [
-            list-filter
-            split
+             lists
+             split
+             Unique
           ]);
       in
         myGhc)

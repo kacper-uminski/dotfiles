@@ -17,18 +17,18 @@
     fsType = "nfs";
   };
 
-  services.xserver = {
-    videoDrivers = [ "amdgpu" ];
-    deviceSection = ''Option "TearFree" "true"'';
-    
-    # Enable XMonad.
-    displayManager.startx.enable = false;
-    windowManager.xmonad = {
-      enable = false;
-      enableContribAndExtras = false;
-    };
-  
-  };
+  #services.xserver = {
+  #  videoDrivers = [ "amdgpu" ];
+  #  deviceSection = ''Option "TearFree" "true"'';
+  #  
+  #  # Enable XMonad.
+  #  displayManager.startx.enable = false;
+  #  windowManager.xmonad = {
+  #    enable = false;
+  #    enableContribAndExtras = false;
+  #  };
+  #
+  #};
 
 
 
