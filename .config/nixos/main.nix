@@ -256,6 +256,8 @@
           misc = {
             disable_hyprland_logo = true;
             disable_splash_rendering = true;
+            enable_swallow = true;
+            swallow_regex = "^(Alacritty)$";
           };
         };
       };
@@ -274,21 +276,21 @@
   };
 
   # Hardware video acceleration
-  nixpkgs.config = { 
-    packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-    };
-  };
+  #nixpkgs.config = { 
+  #  packageOverrides = pkgs: {
+  #    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  #  };
+  #};
 
-  hardware.opengl = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
+  #hardware.opengl = {
+  #  enable = true;
+  #  extraPackages = with pkgs; [
+  #    intel-media-driver
+  #    vaapiVdpau
+  #    libvdpau-va-gl
+  #  ];
 
-  };
+  #};
     
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
@@ -414,6 +416,7 @@
       vifm
       wget
       wiki-tui
+      wlr-randr
       xmrig
       xorg.xkill
     ];
