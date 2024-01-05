@@ -9,75 +9,32 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kacper = {
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "video" "wheel" ];
     packages = with pkgs; [
-      gnome.gnome-tweaks
-      gnomeExtensions.blur-my-shell
       light
       networkmanagerapplet
+      wireplumber
     ];
+  };
+
+  programs = {
+    light.enable = true;
   };
 
   services = {
     # Flatpak
-    flatpak.enable = true;
-
-    # X11
-    xserver = {
-      # Enable the GNOME Desktop Environment.
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
-
-      # Enable touchpad support (enabled default in most desktopManager).
-      libinput.enable = true;
-    };
+    flatpak.enable = false;
   };
-
-  # Excluded packages from gnome.
-  environment.gnome.excludePackages = (with pkgs; [
-      baobab # Disk usage viewer.
-      gnome-connections
-      gnome-photos
-      gnome-text-editor
-      gnome-tour
-    ]) ++ (with pkgs.gnome; [
-      cheese # webcam tool
-      epiphany # web browser
-      #evince # document viewer
-      geary # email reader
-      gedit # text editor
-      #gnome-calculator
-      gnome-calendar
-      gnome-characters
-      gnome-clocks
-      gnome-contacts
-      gnome-disk-utility
-      gnome-font-viewer
-      gnome-logs
-      gnome-maps
-      gnome-music
-      gnome-screenshot
-      gnome-system-monitor
-      gnome-weather
-      simple-scan
-      #totem # video player
-      yelp # help viewer
-
-      # Games
-      atomix # puzzle game
-      hitori # sudoku game
-      iagno # go game
-      tali # poker game
-    ]);
 
   home-manager = {
     users.kacper = {pkgs, ...}: {
 	    home = {
-        stateVersion = "23.11";
+        stateVersion = "23.05";
 	    };
       programs = {
         alacritty = {
           settings = {
+            alpha = 0.9;
             colors = {
               primary = {
                 background = "#1b182c";
@@ -167,12 +124,18 @@
 
       wayland.windowManager.hyprland = {
         settings = {
+          binde = [
+            ", XF86MonBrightnessUp, exec, light -A 10"
+            ", XF86MonBrightnessDown, exec, light -U 10"
+            ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
+            ", XF86AudioLowerVolume, exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-"
+            ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ];
           exec-once = [
+            "light -N 1"
             "swww init &"
             "swww img $HOME/Pictures/Wallpapers/nixos.png &"
             "waybar &"
-            "$term &"
-            "firefox &"
           ];
           gestures = {
             workspace_swipe = true;
@@ -183,6 +146,16 @@
               middle_button_emulation = true;
             };
           };
+          windowrule = [
+            "workspace 1, Alacritty"
+            "workspace 2, Emacs"
+            "workspace 3, Firefox"
+          ];
+          workspace = [
+            "1, on-created-empty:$term, default:true"
+            "2, on-created-empty:emacs"
+            "3, on-created-empty:firefox"
+          ];
         };
       };
     };

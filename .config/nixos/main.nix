@@ -253,6 +253,10 @@
             kb_options = "caps:ctrl_modifier";
           };
 
+          dwindle = {
+            no_gaps_when_only = 1;
+          };
+
           misc = {
             disable_hyprland_logo = true;
             disable_splash_rendering = true;
@@ -345,26 +349,30 @@
 
     # List packages installed in system profile.
     systemPackages = with pkgs; [
-      (let
-        my-python-packages = python-packages: with python-packages; [
-          flake8
-          mypy
-          pylsp-mypy
-          python-lsp-server
-        ];
-        python-with-my-packages = python3.withPackages my-python-packages;
-      in
-        python-with-my-packages)
+      # Python packages
+      (let my-python-packages = python-packages: with python-packages; [
 
+             flake8
+             mypy
+             pylsp-mypy
+             python-lsp-server
+           ];
+           python-with-my-packages = python3.withPackages my-python-packages;
+       in
+         python-with-my-packages)
+      
       # Haskell packages
       (let myGhc = pkgs.haskellPackages.ghcWithPackages (hpkgs: with hpkgs; [
+             haskell-language-server
+             implicit-hie
              lists
              split
+             stack
              Unique
-          ]);
-      in
-        myGhc)
-
+           ]);
+       in
+         myGhc)
+      
       adw-gtk3
       bat
       bear # Allows LSP to find #include non-std files and headers.
@@ -389,7 +397,6 @@
       gnuplot
       gnumake
       gradience
-      haskell-language-server
       imagemagick
       jetbrains.idea-community
       julia-bin
@@ -401,6 +408,7 @@
       qt6.qtbase
       qt6.qt5compat
       rar
+      rebar3 # Erlang build system.
       rust-analyzer
       rustc
       rustfmt
