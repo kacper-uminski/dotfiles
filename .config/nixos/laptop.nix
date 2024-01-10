@@ -124,6 +124,12 @@
 
       wayland.windowManager.hyprland = {
         settings = {
+          bind = [
+            # Keyboard layout switching
+            "$mod ALT, D, exec, hyprctl switchxkblayout microsoft-surface-type-cover-keyboard 0"
+            "$mod ALT, S, exec, hyprctl switchxkblayout microsoft-surface-type-cover-keyboard 1"
+            "$mod ALT, P, exec, hyprctl switchxkblayout microsoft-surface-type-cover-keyboard 2"
+          ];
           binde = [
             ", XF86MonBrightnessUp, exec, light -A 10"
             ", XF86MonBrightnessDown, exec, light -U 10"
