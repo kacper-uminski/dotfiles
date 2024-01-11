@@ -3,8 +3,6 @@
 {
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
   boot = {
-    kernelModules = [ "msr" ];
-
     # Enable splash-screen
     plymouth.enable = true;
 
@@ -67,7 +65,6 @@
           settings = {
             font = {
               normal.family = "IBM Plex Mono";
-              glyphs.family = "Font Awesome";
               size = 12;
             };
             window.padding = {

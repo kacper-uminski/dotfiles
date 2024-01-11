@@ -1,12 +1,15 @@
 { config, pkgs, lib, ... }:
 
 {
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot = {
+    initrd.kernelModules = [ "amdgpu" ];
+    kernelModules = [ "msr" "i2c-dev" "i2c-piix4" ];
+  };
   networking = {
     hostName = "nixos";
     defaultGateway = "192.168.50.1";
     nameservers = ["192.168.50.200"];
-    interfaces.enp11s0.ipv4.addresses = [{
+    interfaces.enp14s0.ipv4.addresses = [{
       address = "192.168.50.250";
       prefixLength = 24;
     }];
@@ -33,6 +36,9 @@
 
 
   hardware = {
+    opengl.extraPackages = with pkgs; [
+      rocmPackages.clr.icd
+    ];
     # Enable SANE to scan documents.
     sane.enable = false;
   };
@@ -40,9 +46,9 @@
   users.users.kacper = {
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
+      clinfo
       feh
       flameshot
-      lxappearance
       minecraft
       puddletag
       pulsemixer
@@ -73,21 +79,14 @@
                 dim_foreground = "#a5abb6";
               };
               cursor = {
-                text = "#2e3440";
                 background = "#d8dee9";
               };
               selection = {
-                text = "#000000";
                 background = "#d8dee9";
               };
               search = {
                 matches = {
-                  text = "#000000";
                   background = "#d8dee9";
-                };
-                footer_bar = {
-                  foreground = "#d8dee9";
-                  background = "#434c5e";
                 };
               };
               normal = {
@@ -148,6 +147,11 @@
   };
 
   services = {
+    hardware.openrgb = {
+      enable = true;
+      package = pkgs.openrgb-with-all-plugins;
+    };
+
     # Enable Roon Server
     roon-server = {
       enable = false;
