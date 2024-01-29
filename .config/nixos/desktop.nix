@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }:
 
-{
+let
+  stable = import <nixos-stable> { config = { allowUnfree = true; }; };
+in {
   boot = {
     initrd.kernelModules = [ "amdgpu" ];
     kernelModules = [ "msr" "i2c-dev" "i2c-piix4" ];
@@ -20,21 +22,6 @@
     fsType = "nfs";
   };
 
-  #services.xserver = {
-  #  videoDrivers = [ "amdgpu" ];
-  #  deviceSection = ''Option "TearFree" "true"'';
-  #  
-  #  # Enable XMonad.
-  #  displayManager.startx.enable = false;
-  #  windowManager.xmonad = {
-  #    enable = false;
-  #    enableContribAndExtras = false;
-  #  };
-  #
-  #};
-
-
-
   hardware = {
     opengl.extraPackages = with pkgs; [
       rocmPackages.clr.icd
@@ -53,8 +40,8 @@
       puddletag
       pulsemixer
       qbittorrent
-      retroarchFull
-      ryujinx
+      stable.retroarchFull
+      screen
       shntool
       skypeforlinux
       slack
