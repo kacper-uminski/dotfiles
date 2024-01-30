@@ -34,7 +34,6 @@
       programs = {
         alacritty = {
           settings = {
-            alpha = 0.9;
             colors = {
               primary = {
                 background = "#1b182c";

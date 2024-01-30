@@ -80,6 +80,7 @@
      (python "https://github.com/tree-sitter/tree-sitter-python")
      (rust "https://github.com/tree-sitter/tree-sitter-rust")
      (toml "https://github.com/tree-sitter/tree-sitter-toml")
+     (uiua "https://github.com/tree-sitter/tree-sitter-uiua")
      (vhdl "https://github.com/alemuller/tree-sitter-vhdl")
      (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 
@@ -138,10 +139,11 @@
 ;; Clang-format+ - Hooks to format buffer on save.
 (use-package clang-format+
   :defer t
-  :hook (c-mode-common . clang-format+-mode)
+  :hook ((c-ts-mode
+	  c++-mode) . clang-format+-mode)
   :bind
-  (:map c-mode-base-map
-	("C-c f b" . clang-format-buffer)))
+  (:map c-mode-base-map ("C-c f b" . clang-format-buffer))
+  (:map c-ts-mode-map ("C-c f b" . clang-format-buffer)))
 
 ;; Clojure Mode
 (use-package clojure-mode)
@@ -291,7 +293,7 @@
   (lsp-keymap-prefix "C-c l")
   (lsp-ui-doc-position 'bottom)
   :bind-keymap ("C-c l" . lsp-command-map)
-  :hook ((c-mode
+  :hook ((c-ts-mode
 	  c++-mode
 	  clojure-mode
 	  elixir-mode
@@ -363,6 +365,7 @@
   :defer t
   :init (require 'org-indent)
   :custom
+  (org-latex-create-formula-image-program 'dvisvgm)
   (org-ellipsis " ▾")
   (org-hide-emphasis-markers t)
 
@@ -398,8 +401,8 @@
   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
 
-  ;; Scale LaTeX diagrams by 3.
-  (plist-put org-format-latex-options :scale 3))
+  ;; Scale LaTeX diagrams.
+  (plist-put org-format-latex-options :scale 0.5))
 
 (use-package org-bullets
   :defer t
@@ -447,6 +450,10 @@
 
 ;; Swiper
 (use-package swiper)
+
+;; Uiua
+(use-package uiua-ts-mode
+  :mode "\\.ua\\'")
 
 ;; Which key (keychord help)
 (use-package which-key

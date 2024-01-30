@@ -128,7 +128,7 @@
         };
 
         nushell = {
-          enable = true;
+          enable = false;
         };
 
         ripgrep = {
@@ -276,23 +276,6 @@
     xkbOptions = "ctrl:swapcaps";
   };
 
-  # Hardware video acceleration
-  #nixpkgs.config = { 
-  #  packageOverrides = pkgs: {
-  #    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  #  };
-  #};
-
-  #hardware.opengl = {
-  #  enable = true;
-  #  extraPackages = with pkgs; [
-  #    intel-media-driver
-  #    vaapiVdpau
-  #    libvdpau-va-gl
-  #  ];
-
-  #};
-    
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
@@ -318,16 +301,20 @@
 
   # Set system fonts.
   fonts.packages = with pkgs; [
-    fira
-    fira-code
+    # fira
+    # fira-code
     font-awesome
     ibm-plex
-    jetbrains-mono
-    nerdfonts
+    # jetbrains-mono
+    # nerdfonts
   ];
 
   # Allow non-free packages.
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true; 
+    packageOverrides = {
+    };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -347,16 +334,15 @@
     # List packages installed in system profile.
     systemPackages = with pkgs; [
       # Python packages
-      (let my-python-packages = python-packages: with python-packages; [
-
-             flake8
-             mypy
-             pylsp-mypy
-             python-lsp-server
-           ];
-           python-with-my-packages = python3.withPackages my-python-packages;
-       in
-         python-with-my-packages)
+      #(let my-python-packages = python-packages: with python-packages; [
+      #       flake8
+      #       mypy
+      #       pylsp-mypy
+      #       python-lsp-server
+      #     ];
+      #     python-with-my-packages = python3.withPackages my-python-packages;
+      # in
+      #   python-with-my-packages)
       
       # Haskell packages
       (let myGhc = pkgs.haskellPackages.ghcWithPackages (hpkgs: with hpkgs; [
@@ -373,57 +359,53 @@
       adw-gtk3
       bat
       bear # Allows LSP to find #include non-std files and headers.
-      cargo # Rust toolchain
-      cbqn
-      chromium
-      cifs-utils
+      cargo-binutils
+      # cbqn
+      # chromium
+      # cifs-utils
       clang-tools_16
       clippy # Rust linter
-      darktable
-      elixir
-      elixir-ls
+      # darktable
+      # elixir
+      # elixir-ls
       erlang
       erlang-ls
       exercism
       ffmpeg
       file
       firefox
-      flatpak
+      # flatpak
       gcc13
-      gnuapl
-      gnuplot
+      # gnuapl
+      # gnuplot
       gnumake
-      gradience
+      # gradience
       imagemagick
-      jetbrains.idea-community
-      julia-bin
+      # jetbrains.idea-community
+      # julia-bin
       msr # Used by xmrig.
       neofetch
       nvc
-      octaveFull
-      p7zip
-      qt6.qtbase
-      qt6.qt5compat
-      rar
+      # octaveFull
+      # p7zip
+      qemu
+      # rar
       rebar3 # Erlang build system.
       rust-analyzer
-      rustc
-      rustfmt
-      speedtest-cli
+      rustup
       swww # Wallpaper daemon for wayland.
       tdesktop
-      texlive.combined.scheme-full
-      uiua
+      texlive.combined.scheme-small
+      # uiua
       unzip
-      usbutils
-      uutils-coreutils
+      # usbutils
+      # uutils-coreutils
       valgrind # Memory profiler for C/C++
       vifm
       wget
-      wiki-tui
+      # wiki-tui
       wlr-randr
       xmrig
-      xorg.xkill
     ];
   }; # End Environment
 
@@ -445,14 +427,6 @@
 
     # Enable the OpenSSH daemon.
     openssh.enable = true;
-
-
-    # Enable Unclutter
-    unclutter = {
-      enable = true;
-      timeout = 3;
-    };
-
   }; # End Services
 
   # Open ports in the firewall.
