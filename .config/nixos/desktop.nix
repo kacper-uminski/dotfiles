@@ -34,6 +34,7 @@ in {
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       clinfo
+      darktable
       feh
       flameshot
       minecraft
@@ -45,7 +46,7 @@ in {
       shntool
       skypeforlinux
       slack
-      unclutter
+      xmrig
       xorg.xset
       yuzu-early-access
     ];

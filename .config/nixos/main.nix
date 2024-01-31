@@ -306,7 +306,7 @@
     font-awesome
     ibm-plex
     # jetbrains-mono
-    # nerdfonts
+    nerdfonts
   ];
 
   # Allow non-free packages.
@@ -364,8 +364,6 @@
       # chromium
       # cifs-utils
       clang-tools_16
-      clippy # Rust linter
-      # darktable
       # elixir
       # elixir-ls
       erlang
@@ -374,7 +372,6 @@
       ffmpeg
       file
       firefox
-      # flatpak
       gcc13
       # gnuapl
       # gnuplot
@@ -387,9 +384,7 @@
       neofetch
       nvc
       # octaveFull
-      # p7zip
       qemu
-      # rar
       rebar3 # Erlang build system.
       rust-analyzer
       rustup
@@ -399,13 +394,11 @@
       # uiua
       unzip
       # usbutils
-      # uutils-coreutils
       valgrind # Memory profiler for C/C++
       vifm
       wget
       # wiki-tui
       wlr-randr
-      xmrig
     ];
   }; # End Environment
 
