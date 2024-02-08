@@ -11,6 +11,7 @@
   users.users.kacper = {
     extraGroups = [ "networkmanager" "video" "wheel" ];
     packages = with pkgs; [
+      evince
       light
       networkmanagerapplet
       wireplumber

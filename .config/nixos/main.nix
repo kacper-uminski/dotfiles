@@ -4,7 +4,7 @@
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
   boot = {
     # Enable splash-screen
-    plymouth.enable = true;
+    plymouth.enable = false;
 
     # Use the systemd-boot EFI boot loader
     loader = {
@@ -86,6 +86,16 @@
 
         btop = {
           enable = true;
+        };
+
+        chromium = {
+          enable = true;
+          commandLineArgs = [
+            "--ozone-platform-hint=auto"
+            "--gtk-version=4"
+            "--enable-features=TouchpadOverscrollHistoryNavigation"
+          ];
+          package = pkgs.chromium;
         };
 
         emacs = {
@@ -352,7 +362,6 @@
       bear # Allows LSP to find #include non-std files and headers.
       cargo-binutils
       # cbqn
-      # chromium
       # cifs-utils
       clang-tools_16
       # elixir
@@ -377,7 +386,6 @@
       # octaveFull
       qemu
       rebar3 # Erlang build system.
-      rust-analyzer
       rustup
       swww # Wallpaper daemon for wayland.
       tdesktop

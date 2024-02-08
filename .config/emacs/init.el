@@ -340,13 +340,17 @@
   (load-theme 'modus-vivendi))
 
 ;; LaTeX
-;; AUCTeX
-(use-package tex
+(use-package latex
   :defer t
+  :mode
+  ("\\.tex\\'" . latex-mode)
   :ensure auctex
+  :hook
+  (LaTeX-mode . turn-on-reftex)
   :custom
   (LaTeX-electric-left-right-brace t)
-  (TeX-command-extra-options " -shell-escape"))
+  (TeX-command-extra-options " -shell-escape")
+  (reftex-plug-into-AUCTeX t))
 
 ;; Latex Preview Pane
 (use-package latex-preview-pane
