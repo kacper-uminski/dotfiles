@@ -158,6 +158,8 @@
           options = {
             default-bg = "#000000";
             default-fg = "#FFFFFF";
+            guioptions = "none";
+            recolor = true;
           };
         };
 
@@ -263,17 +265,6 @@
         };
       };
     };
-  };
-
-  # X11
-  services.xserver = {
-    # Enable the X11 windowing system
-    enable = false;
-  
-    # Configure keymap in X11
-    layout = "us";
-    xkbVariant = "dvorak";
-    xkbOptions = "ctrl:swapcaps";
   };
 
   # Enable Bluetooth
