@@ -335,24 +335,24 @@
     # List packages installed in system profile.
     systemPackages = with pkgs; [
       # Python packages
-      #(let my-python-packages = python-packages: with python-packages; [
+      (let my-python-packages = python-packages: with python-packages; [
       #       flake8
       #       mypy
       #       pylsp-mypy
       #       python-lsp-server
-      #     ];
-      #     python-with-my-packages = python3.withPackages my-python-packages;
-      # in
-      #   python-with-my-packages)
+           ];
+           python-with-my-packages = python3.withPackages my-python-packages;
+       in
+         python-with-my-packages)
       
       # Haskell packages
       (let myGhc = pkgs.haskellPackages.ghcWithPackages (hpkgs: with hpkgs; [
              haskell-language-server
-             implicit-hie
-             lists
-             split
-             stack
-             Unique
+             #implicit-hie
+             #lists
+             #split
+             #stack
+             #Unique
            ]);
        in
          myGhc)

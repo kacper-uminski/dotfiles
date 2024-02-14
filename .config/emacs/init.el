@@ -336,8 +336,13 @@
  			   (3 . (rainbow 1.2))
  			   (t . (semilight 1.1))))
   (modus-themes-italic-constructs t)
+  (modus-themes-common-palette-overrides
+   '(;(bg-main "#000000")
+     ;(bg-line-number-inactive "#000000")
+     (border-mode-line-active bg-mode-line-active)
+     (border-mode-line-inactive bg-mode-line-inactive)))
   :config
-  (load-theme 'modus-vivendi))
+  (load-theme 'modus-vivendi-tinted))
 
 ;; LaTeX
 (use-package latex
