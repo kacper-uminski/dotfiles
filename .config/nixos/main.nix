@@ -173,6 +173,13 @@
           };
         };
 
+        zoxide = {
+          enable = true;
+          options = [
+            "--cmd cd"
+          ];
+        };
+
         zsh = {
           enable = true;
           enableAutosuggestions = true;
