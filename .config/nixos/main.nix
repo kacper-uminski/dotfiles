@@ -379,7 +379,6 @@
       ffmpeg
       file
       firefox
-      gcc13
       # gnuapl
       # gnuplot
       gnumake
@@ -401,6 +400,7 @@
       unzip
       # usbutils
       valgrind # Memory profiler for C/C++
+      vhdl-ls
       vifm
       wget
       # wiki-tui

@@ -302,7 +302,8 @@
 	  haskell-mode
 	  java-mode
 	  julia-mode
-	  rust-mode) . lsp)
+	  rust-mode
+	  vhdl-mode) . lsp)
   :config
   (lsp-enable-which-key-integration t))
 
@@ -463,6 +464,11 @@
 ;; Uiua
 (use-package uiua-ts-mode
   :mode "\\.ua\\'")
+
+;; VHDL
+(use-package vhdl-ext
+  :init (vhdl-ext-mode-setup)
+  (vhdl-ext-lsp-set-server 've-rust-hdl))
 
 ;; Which key (keychord help)
 (use-package which-key
