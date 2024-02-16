@@ -151,6 +151,44 @@
           terminal = "${pkgs.alacritty}/bin/alacritty";
         };
 
+        ssh = {
+          enable = true;
+          matchBlocks = {
+            liu = {
+              forwardX11 = true;
+              forwardX11Trusted = true;
+              hostname = "ssh.edu.liu.se";
+              proxyJump = "kacper@shipon.lysator.liu.se";
+              setEnv = {
+                TERM = "xterm-256color";
+              };
+              user = "kacum383";
+            };
+
+            mux = {
+              forwardX11 = true;
+              forwardX11Trusted = true;
+              hostname = "muxen1-108.ad.liu.se";
+              proxyJump = "kacper@shipon.lysator.liu.se";
+              setEnv = {
+                TERM = "xterm-256color";
+              };
+              user = "kacum383";
+            };
+
+            lysator = {
+              forwardX11 = true;
+              forwardX11Trusted = true;
+              hostname = "shipon.lysator.liu.se";
+              proxyJump = "kacper@shipon.lysator.liu.se";
+              setEnv = {
+                TERM = "xterm-256color";
+              };
+              user = "kacper";
+            };
+          };
+        };
+
         starship = {
           enable = true;
           settings = {
