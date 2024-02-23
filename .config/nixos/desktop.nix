@@ -46,9 +46,10 @@ in {
       shntool
       skypeforlinux
       slack
+      tdesktop
       xmrig
       xorg.xset
-      yuzu-early-access
+      yuzu
     ];
   };
 

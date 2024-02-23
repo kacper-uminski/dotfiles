@@ -89,7 +89,7 @@
         };
 
         chromium = {
-          enable = true;
+          enable = false;
           commandLineArgs = [
             "--ozone-platform-hint=auto"
             "--gtk-version=4"
@@ -117,7 +117,7 @@
         git = {
           enable = true;
           userName = "kacper-uminski";
-          userEmail = "kacperum@gmail.com";
+          userEmail = "kacperuminski@protonmail.com";
         };
 
         htop = {
@@ -301,6 +301,10 @@
             "$mod, mouse:273, resizewindow"
           ];
 
+          general = {
+            cursor_inactive_timeout = 5;
+          };
+
           input = {
             kb_layout = "us, se, pl";
             kb_variant = "dvorak, dvorak, dvorak";
@@ -328,7 +332,6 @@
 
   # Pipewire
   sound.enable = true;
-  hardware.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -358,8 +361,6 @@
   # Allow non-free packages.
   nixpkgs.config = {
     allowUnfree = true; 
-    packageOverrides = {
-    };
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -393,51 +394,49 @@
       # Haskell packages
       (let myGhc = pkgs.haskellPackages.ghcWithPackages (hpkgs: with hpkgs; [
              haskell-language-server
-             #implicit-hie
-             #lists
-             #split
-             #stack
-             #Unique
+             # implicit-hie
+             # lists
+             # split
+             # stack
+             # Unique
            ]);
        in
          myGhc)
-      
       adw-gtk3
+      aspell
+      aspellDicts.sv
       bat
       bear # Allows LSP to find #include non-std files and headers.
       cargo-binutils
-      # cbqn
+      cbqn
       # cifs-utils
       clang-tools_16
-      # elixir
-      # elixir-ls
+      elixir
+      elixir-ls
       erlang
       erlang-ls
+      evince
       exercism
       ffmpeg
       file
       firefox
+      ghdl
       # gnuapl
       # gnuplot
-      gnumake
       # gradience
-      imagemagick
-      # jetbrains.idea-community
-      # julia-bin
+      home-manager
+      jetbrains.idea-community
+      julia-bin
       msr # Used by xmrig.
-      neofetch
-      nvc
-      # octaveFull
-      qemu
+      octaveFull
       rebar3 # Erlang build system.
       rustup
       swww # Wallpaper daemon for wayland.
-      tdesktop
-      texlive.combined.scheme-small
-      # uiua
+      texlive.combined.scheme-full
+      uiua
       unzip
-      # usbutils
-      valgrind # Memory profiler for C/C++
+      usbutils
+      # valgrind # Memory profiler for C/C++
       vhdl-ls
       vifm
       wget

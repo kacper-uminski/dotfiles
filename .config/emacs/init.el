@@ -60,7 +60,6 @@
 
 ;; Electric pair mode (completes parentheses, quotes, etc.)
 (electric-pair-mode 1)
-(add-hook 'vhdl-mode-hook (lambda () (electric-pair-mode -1)))
 
 ;; Treesitter
 (setq treesit-language-source-alist
@@ -97,6 +96,10 @@
 	(rust-mode . rust-ts-mode)
 	(toml-mode . toml-ts-mode)
 	(yaml-mode . yaml-ts-mode)))
+
+;; Spell checking
+(setq ispell-program-name "aspell")
+(setq ispell-extra-args '("--sug-mode=ultra" "--lang=sv_SE"))
  
 ;; Initialize package sources
 (require 'package)
@@ -467,8 +470,13 @@
 
 ;; VHDL
 (use-package vhdl-ext
-  :init (vhdl-ext-mode-setup)
-  (vhdl-ext-lsp-set-server 've-rust-hdl))
+  :custom
+  (vhdl-ext-lsp-server-ids . '(ve-rust-hdl))
+  :init
+  (vhdl-ext-mode-setup)
+  :hook
+  (vhdl-mode . (lambda () (electric-pair-mode -1)) )
+  (vhdl-mode . vhdl-ext-mode))
 
 ;; Which key (keychord help)
 (use-package which-key
