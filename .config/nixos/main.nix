@@ -440,7 +440,7 @@
       vhdl-ls
       vifm
       wget
-      # wiki-tui
+      wiki-tui
       wlr-randr
     ];
   }; # End Environment
