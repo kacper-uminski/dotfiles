@@ -89,10 +89,9 @@
         };
 
         chromium = {
-          enable = false;
+          enable = true;
           commandLineArgs = [
             "--ozone-platform-hint=auto"
-            "--gtk-version=4"
             "--enable-features=TouchpadOverscrollHistoryNavigation"
           ];
           package = pkgs.chromium;
@@ -378,6 +377,10 @@
       "/share/zsh"
     ];
 
+    sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+    };
+
     # List packages installed in system profile.
     systemPackages = with pkgs; [
       # Python packages
@@ -428,6 +431,7 @@
       jetbrains.idea-community
       julia-bin
       msr # Used by xmrig.
+      obsidian
       octaveFull
       rebar3 # Erlang build system.
       rustup

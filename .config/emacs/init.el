@@ -149,8 +149,8 @@
   (:map c-ts-mode-map ("C-c f b" . clang-format-buffer)))
 
 ;; Clojure Mode
-(use-package clojure-mode)
-
+(use-package clojure-mode
+  :defer t)
 
 ;; Company - For autocomplete
 (use-package company
@@ -241,7 +241,8 @@
   :defer t)
 
 ;; Gnu Plot - Plotting library
-(use-package gnuplot)
+(use-package gnuplot
+  :defer t)
 
 ;; Haskell mode
 (use-package haskell-mode
@@ -362,8 +363,8 @@
   (reftex-plug-into-AUCTeX t))
 
 ;; Latex Preview Pane
-(use-package latex-preview-pane
-  :defer t)
+;(use-package latex-preview-pane
+;  :defer t)
 
 ;; Magit
 (use-package magit
@@ -432,6 +433,7 @@
 
 ;; Org Roam
 (use-package org-roam
+  :defer t
   :custom
   (org-roam-directory "/home/kacper/Documents/wiki")
   (org-roam-completions-everywhere t)
@@ -466,10 +468,12 @@
 
 ;; Uiua
 (use-package uiua-ts-mode
+  :defer t
   :mode "\\.ua\\'")
 
 ;; VHDL
 (use-package vhdl-ext
+  :defer t
   :custom
   (vhdl-ext-lsp-server-ids . '(ve-rust-hdl))
   :init
