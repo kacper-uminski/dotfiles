@@ -123,6 +123,10 @@
           enable = true;
         };
 
+        lf = {
+          enable = true;
+        };
+
         mpv = {
           enable = true;
           config = {
@@ -427,16 +431,19 @@
       # gnuapl
       # gnuplot
       # gradience
+      gradience
       home-manager
       jetbrains.idea-community
       julia-bin
       msr # Used by xmrig.
-      obsidian
       octaveFull
       rebar3 # Erlang build system.
       rustup
       swww # Wallpaper daemon for wayland.
       texlive.combined.scheme-full
+      typst
+      typstfmt
+      typst-lsp
       uiua
       unzip
       usbutils

@@ -61,31 +61,8 @@
 ;; Electric pair mode (completes parentheses, quotes, etc.)
 (electric-pair-mode 1)
 
+
 ;; Treesitter
-(setq treesit-language-source-alist
-   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-     (c "https://github.com/tree-sitter/tree-sitter-c")
-     (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
-     (cmake "https://github.com/uyha/tree-sitter-cmake")
-     (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-     (erlang "https://github.com/WhatsApp/tree-sitter-erlang")
-     (haskell "https://github.com/tree-sitter/tree-sitter-haskell")
-     (java "https://github.com/tree-sitter/tree-sitter-java")
-     (json "https://github.com/tree-sitter/tree-sitter-json")
-     (julia "https://github.com/tree-sitter/tree-sitter-julia")
-     (make "https://github.com/alemuller/tree-sitter-make")
-     (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-     (nix "https://github.com/nix-community/tree-sitter-nix")
-     (python "https://github.com/tree-sitter/tree-sitter-python")
-     (rust "https://github.com/tree-sitter/tree-sitter-rust")
-     (toml "https://github.com/tree-sitter/tree-sitter-toml")
-     (uiua "https://github.com/tree-sitter/tree-sitter-uiua")
-     (vhdl "https://github.com/alemuller/tree-sitter-vhdl")
-     (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
-
-;; Evaluate the expression below to compile the treesitter grammars.
-;; (mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
-
 (setq major-mode-remap-alist
       '((bash-mode . bash-ts-mode)
 	(c-mode . c-ts-mode)
@@ -100,19 +77,31 @@
 ;; Spell checking
 (setq ispell-program-name "aspell")
 (setq ispell-extra-args '("--sug-mode=ultra" "--lang=sv_SE"))
+
+;; Initialize Straight
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+(setq package-enable-at-startup nil)
+(setq straight-use-package-by-default t)
+
+(straight-use-package 'use-package)
  
-;; Initialize package sources
-(require 'package)
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
 
 ;; Initialize use-package
 (require 'use-package)
-(setq use-package-always-ensure t)
 
 ;; Packages
 
@@ -297,27 +286,26 @@
   (lsp-keymap-prefix "C-c l")
   (lsp-ui-doc-position 'bottom)
   :bind-keymap ("C-c l" . lsp-command-map)
-  :hook ((c-ts-mode
-	  c++-mode
-	  clojure-mode
-	  elixir-mode
-	  erlang-mode
-	  python-mode
-	  haskell-mode
-	  java-mode
-	  julia-mode
-	  rust-mode
-	  vhdl-mode) . lsp)
-  :config
-  (lsp-enable-which-key-integration t))
+  :hook
+  ((c-ts-mode
+    c++-mode
+    clojure-mode
+    elixir-mode
+    erlang-mode
+    python-mode
+    haskell-mode
+    java-mode
+    julia-mode
+    rust-mode
+    vhdl-mode) . lsp)
+  (lsp-mode . #'lsp-enable-which-key-integration))
 
 (use-package lsp-ui
   :defer t
   :commands lsp-ui-mode)
 
 ;; Install for languages
-(use-package lsp-haskell
-  :defer t)
+(use-package lsp-haskell)
 
 (use-package lsp-ivy
   :defer t
@@ -351,6 +339,7 @@
 
 ;; LaTeX
 (use-package latex
+  :straight nil
   :defer t
   :mode
   ("\\.tex\\'" . latex-mode)
@@ -452,7 +441,6 @@
 
 ;; Rainbow mode (visualize color codes.)
 (use-package rainbow-mode
-  :defer t
   :hook (prog-mode . rainbow-mode))
 
 ;; Rainbow delimiters (parentheses highlighting)
@@ -465,6 +453,19 @@
 
 ;; Swiper
 (use-package swiper)
+
+;; Treesitter
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+
+;; Typst
+;;(use-package typst-ts-mode
+;;  :custom
+;;  (typst-ts-mode-watch-options "--open"))
 
 ;; Uiua
 (use-package uiua-ts-mode

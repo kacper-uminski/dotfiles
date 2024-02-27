@@ -124,11 +124,21 @@ in {
           exec-once = [
             "swww init &"
             "swww img $HOME/Pictures/Wallpapers/black.jpg &"
-            "$term &"
-            "firefox &"
-            "skypeforlinux &"
-            "telegram-desktop &"
             "xset s off &"
+          ];
+          windowrule = [
+            "workspace 1, Alacritty"
+            "workspace 1, Emacs"
+            "workspace 2, Firefox"
+            "workspace 3, Skype"
+            "workspace 3, TelegramDesktop"
+          ];
+          workspace = [
+            "1, on-created-empty:$term, default:true"
+            "2, on-created-empty:firefox"
+            "3, on-created-empty:telegram-desktop & skypeforlinux"
+            "4, on-created-empty:steam"
+            "5, on-created-empty:darktable"
           ];
         };
       };
