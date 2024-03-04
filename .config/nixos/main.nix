@@ -67,9 +67,12 @@
               normal.family = "IBM Plex Mono";
               size = 12;
             };
-            window.padding = {
-              x = 20;
-              y = 20;
+            window = {
+              opacity = 0.8;
+              padding = {
+                x = 20;
+                y = 20;
+              };
             };
           };
         };

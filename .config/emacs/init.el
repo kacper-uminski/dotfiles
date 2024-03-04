@@ -34,13 +34,15 @@
 ;;(set-frame-font "Iosevka Extended" nil t)
 
 ;; Enable transparency
-;;(set-frame-parameter (selected-frame) 'alpha '(85 85))
-;;(add-to-list 'default-frame-alist '(alpha 85 85))
+(set-frame-parameter (selected-frame) 'alpha-background 80)
+(add-to-list 'default-frame-alist '(alpha-background . 80))
 
 ;; Enable line numbers
 (column-number-mode)
 (global-display-line-numbers-mode t)
 ;(setq display-line-numbers-type 'relative)
+;; Visual lines
+(global-visual-line-mode 1)
 
 ;; Disable line numbers for some modes
 (dolist (mode '(dired-mode-hook
@@ -53,10 +55,6 @@
                 shell-mode-hook
                 term-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-;; Cua
-;;(setq cua-enable-cua-keys nil)
-;;(cua-mode 1)
 
 ;; Electric pair mode (completes parentheses, quotes, etc.)
 (electric-pair-mode 1)
@@ -191,30 +189,35 @@
 
 ;; Evil mode
 (use-package evil
+  :after
+  dired
   :custom
   (evil-undo-system 'undo-redo)
   (evil-want-C-i-jump nil)
   (evil-want-C-u-scroll t)
   (evil-want-integration t)
   (evil-want-keybinding nil)
+  :bind
+  (:map evil-insert-state-map
+   ;; Return to normal mode
+   ("C-g" . 'evil-normal-state)
+   ;; Delete backwards
+   ("C-h" . 'evil-delete-backward-char-and-join)
+   ;; Output Swedish letters
+   ("M-'" . (lambda () (interactive) (insert "å")))
+   ("M-," . (lambda () (interactive) (insert "ä")))
+   ("M-." . (lambda () (interactive) (insert "ö")))
+   ("M-\"" . (lambda () (interactive) (insert "Å")))
+   ("M-<" . (lambda () (interactive) (insert "Ä")))
+   ("M->" . (lambda () (interactive) (insert "Ö")))
+   
+   :map evil-visual-state-map
+   ("C-g" . 'evil-normal-state)
+   )
+  :custom
+  (evil-respect-visual-line-mode 1)
   :config
-  (evil-mode 1)
-  (define-key evil-visual-state-map (kbd "C-g") 'evil-normal-state)
-  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
-  ;; Use visual line motions even outside of visual line mode buffers
-  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-  (evil-set-initial-state 'messages-buffer-mode 'normal)
-  (evil-set-initial-state 'dashboard-mode 'normal))
-
-  ;; Prevent Cua from conflicting with org mode
-  (evil-define-key 'emacs org-mode-map (kbd "<C-return>") 'org-insert-heading-respect-content)
-  (evil-define-key 'insert org-mode-map (kbd "<C-return>") 'org-insert-heading-respect-content)
-  ;; Set "b" as up-directory in Dired in emacs mode
-  (require 'dired) ;; Needed to make the define work on startup
-  (evil-define-key 'emacs dired-mode-map (kbd "b") 'dired-up-directory)
-  (evil-define-key 'emacs dired-mode-map (kbd "C-b") 'dired-up-directory)
+  (evil-mode 1))
 
 ;; Evil collection (various keybindings)
 (use-package evil-collection
@@ -465,6 +468,8 @@
 ;; Typst
 (use-package typst-ts-mode
   :straight (:type git :host sourcehut :repo "meow_king/typst-ts-mode")
+  :config
+  ;; Set ',."<> to output åäöÅÄÖ in insert mode
   :custom
   (typst-ts-mode-watch-options "--open"))
 
