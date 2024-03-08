@@ -80,6 +80,7 @@
                 bat = "BAT1";
                 format = "{icon}  {capacity}%";
                 format-icons = ["" "" "" "" ""];
+                format-charging = " {capacity}%";
                 states = {
                   critical = 15;
                   warning = 30;

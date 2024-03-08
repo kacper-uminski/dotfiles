@@ -186,7 +186,6 @@
               forwardX11 = true;
               forwardX11Trusted = true;
               hostname = "shipon.lysator.liu.se";
-              proxyJump = "kacper@shipon.lysator.liu.se";
               setEnv = {
                 TERM = "xterm-256color";
               };
@@ -420,7 +419,7 @@
       cargo-binutils
       cbqn
       # cifs-utils
-      clang-tools_16
+      clang-tools_17
       elixir
       elixir-ls
       erlang
@@ -443,7 +442,6 @@
       rebar3 # Erlang build system.
       rustup
       swww # Wallpaper daemon for wayland.
-      texlive.combined.scheme-full
       typst
       typstfmt
       typst-lsp

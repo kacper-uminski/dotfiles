@@ -35,7 +35,6 @@ in {
     packages = with pkgs; [
       clinfo
       darktable
-      feh
       flameshot
       minecraft
       puddletag
@@ -49,7 +48,7 @@ in {
       tdesktop
       xmrig
       xorg.xset
-      yuzu
+      ryujinx
     ];
   };
 
