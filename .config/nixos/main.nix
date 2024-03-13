@@ -107,7 +107,6 @@
 
         eza = {
           enable = true;
-          enableAliases = true;
           git = true;
           icons = true;
         };
@@ -355,9 +354,11 @@
 
   # Set system fonts.
   fonts.packages = with pkgs; [
+    barlow
     # fira
     # fira-code
     font-awesome
+    garamond-libre
     ibm-plex
     # jetbrains-mono
     nerdfonts
