@@ -36,7 +36,7 @@ in {
       clinfo
       darktable
       flameshot
-      minecraft
+      prismlauncher
       puddletag
       pulsemixer
       qbittorrent

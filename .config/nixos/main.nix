@@ -58,6 +58,15 @@
         };
       };
 
+      gtk = {
+        enable = true;
+        cursorTheme.name = "Breeze";
+        theme = {
+          package = pkgs.adw-gtk3;
+          name = "adw-gtk3-dark";
+        };
+      };
+
       programs = {
 
         alacritty = {
@@ -231,6 +240,11 @@
           history.path = "$ZDOTDIR/zsh_history";
           loginExtra = "if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then Hyprland; fi";
         };
+      };
+
+      qt = {
+        enable = true;
+        platformTheme = "gtk3";
       };
 
       services = {
@@ -412,7 +426,6 @@
            ]);
        in
          myGhc)
-      adw-gtk3
       aspell
       aspellDicts.sv
       bat
