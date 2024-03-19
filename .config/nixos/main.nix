@@ -406,10 +406,12 @@
     systemPackages = with pkgs; [
       # Python packages
       (let my-python-packages = python-packages: with python-packages; [
-      #       flake8
-      #       mypy
-      #       pylsp-mypy
-      #       python-lsp-server
+             flake8
+             matplotlib
+             mypy
+             pylsp-mypy
+             python-lsp-server
+             sympy
            ];
            python-with-my-packages = python3.withPackages my-python-packages;
        in
