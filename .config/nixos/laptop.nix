@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
-{
+let
+  stable = import <nixos-stable> { config = { allowUnfree = true; }; };
+in {
   # Configure networking.
   networking = {
     hostName = "nixos";
@@ -65,6 +67,7 @@
 
         waybar = {
           enable = true;
+          package = stable.waybar;
           settings = {
             mainBar = {
               height = 30;

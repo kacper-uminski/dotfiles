@@ -168,36 +168,41 @@
         ssh = {
           enable = true;
           matchBlocks = {
+
             liu = {
               forwardX11 = true;
               forwardX11Trusted = true;
               hostname = "ssh.edu.liu.se";
-              proxyJump = "kacper@shipon.lysator.liu.se";
               setEnv = {
                 TERM = "xterm-256color";
               };
               user = "kacum383";
             };
 
-            mux = {
+            "muxen?-???" = {
               forwardX11 = true;
               forwardX11Trusted = true;
-              hostname = "muxen1-108.ad.liu.se";
-              proxyJump = "kacper@shipon.lysator.liu.se";
+              hostname = "%h.ad.liu.se";
+              proxyJump = "liu";
               setEnv = {
                 TERM = "xterm-256color";
               };
               user = "kacum383";
             };
 
-            lysator = {
+            "shipon totoro viridian" = {
               forwardX11 = true;
               forwardX11Trusted = true;
-              hostname = "shipon.lysator.liu.se";
+              hostname = "%h.lysator.liu.se";
               setEnv = {
                 TERM = "xterm-256color";
               };
               user = "kacper";
+            };
+
+            "ssh.edu.liu.se" = {
+              match = ''host ssh.edu.liu.se !exec "nc -zw1 %h 22"'';
+              proxyJump = "viridian";
             };
           };
         };
@@ -233,7 +238,7 @@
 
         zsh = {
           enable = true;
-          enableAutosuggestions = true;
+          autosuggestion.enable = true;
           enableCompletion = true;
           syntaxHighlighting.enable = true;
           dotDir = ".config/zsh";
