@@ -52,8 +52,8 @@
           cat = "bat";
           dotfiles = "git --git-dir=$HOME/Software/dotfiles --work-tree=$HOME";
           emc = "emacsclient -nw";
-          sacd_extract = "$HOME/Software/sacd_extract/result/bin/sacd_extract";
           vim = "nvim";
+          week = "date +%V";
           xmrig = "sudo xmrig -c $HOME/.config/xmrig.json";
         };
       };
