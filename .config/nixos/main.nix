@@ -462,6 +462,7 @@
       octaveFull
       rebar3 # Erlang build system.
       rustup
+      sshfs
       swww # Wallpaper daemon for wayland.
       typst
       typstfmt

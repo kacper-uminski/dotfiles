@@ -67,7 +67,6 @@ in {
 
         waybar = {
           enable = true;
-          package = stable.waybar;
           settings = {
             mainBar = {
               height = 30;
