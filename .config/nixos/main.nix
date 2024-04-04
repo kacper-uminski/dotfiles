@@ -122,12 +122,15 @@
           userEmail = "kacperuminski@protonmail.com";
         };
 
+        gitui.enable = true;
+
         helix = {
           enable = true;
           settings = {
             theme = "modus_vivendi_tinted";
             editor = {
               lsp.display-messages = true;
+              cursor-shape.insert = "bar";
             };
           };
         };
