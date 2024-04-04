@@ -121,7 +121,7 @@ in {
             "$mod ALT, P, exec, hyprctl switchxkblayout tom-wong-cornall/ellipse/wcass/purdea-andrei-modelfkeyboards.com-brand-new-f62/f77-model-f-keyboard-by-model-f-labs 2"
           ];
           exec-once = [
-            "swww init &"
+            "swww-daemon &"
             "swww img $HOME/Pictures/Wallpapers/black.jpg &"
             "xset s off &"
           ];

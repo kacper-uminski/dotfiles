@@ -141,7 +141,7 @@ in {
           ];
           exec-once = [
             "light -N 1"
-            "swww init &"
+            "swww-daemon &"
             "swww img $HOME/Pictures/Wallpapers/nixos.png &"
             "waybar &"
           ];
