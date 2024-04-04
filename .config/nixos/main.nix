@@ -78,10 +78,6 @@
             };
             window = {
               opacity = 0.8;
-              padding = {
-                x = 20;
-                y = 20;
-              };
             };
           };
         };
@@ -127,7 +123,7 @@
         helix = {
           enable = true;
           settings = {
-            theme = "modus_vivendi_tinted";
+            theme = "base16_transparent";
             editor = {
               lsp.display-messages = true;
               cursor-shape.insert = "bar";
