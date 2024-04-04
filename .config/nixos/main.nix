@@ -373,11 +373,11 @@
 
   # Set system fonts.
   fonts.packages = with pkgs; [
-    barlow
+    #barlow
     # fira
     # fira-code
     font-awesome
-    garamond-libre
+    #garamond-libre
     ibm-plex
     # jetbrains-mono
     nerdfonts

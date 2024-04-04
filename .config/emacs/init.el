@@ -179,6 +179,10 @@
 (use-package doom-modeline
   :init (doom-modeline-mode 1))
 
+(use-package editorconfig
+  :config
+  (editorconfig-mode 1))
+
 ;; Elixir
 (use-package elixir-mode
   :defer t)
