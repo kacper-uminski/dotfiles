@@ -108,6 +108,11 @@ in {
                 white = "#aeb3bb";
               };
             };
+
+            window.padding = {
+              x = 20;
+              y = 20;
+            };
           };
         };
       };
