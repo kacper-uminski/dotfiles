@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
@@ -92,16 +92,10 @@
           historyFile = ".config/bash/bash_history";
         };
 
-        bat = {
-          enable = true;
-        };
-
-        btop = {
-          enable = true;
-        };
+        bat.enable = true;
 
         chromium = {
-          enable = true;
+          enable = false;
           commandLineArgs = [
             "--ozone-platform-hint=auto"
             "--enable-features=TouchpadOverscrollHistoryNavigation"
@@ -120,9 +114,7 @@
           icons = true;
         };
 
-        feh = {
-          enable = true;
-        };
+        feh.enable = true;
 
         git = {
           enable = true;
@@ -130,13 +122,17 @@
           userEmail = "kacperuminski@protonmail.com";
         };
 
-        htop = {
+        helix = {
           enable = true;
+          settings = {
+            theme = "modus_vivendi_tinted";
+            editor = {
+              lsp.display-messages = true;
+            };
+          };
         };
 
-        lf = {
-          enable = true;
-        };
+        htop.enable = true;
 
         mpv = {
           enable = true;
@@ -147,17 +143,9 @@
           };
         };
 
-        neovim = {
-          enable = true;
-        };
+        neovim.enable = true;
 
-        nushell = {
-          enable = false;
-        };
-
-        ripgrep = {
-          enable = true;
-        };
+        ripgrep.enable = true;
 
         rofi = {
           enable = true;
@@ -253,9 +241,7 @@
       };
 
       services = {
-        dunst = {
-          enable = true;
-        };
+        dunst.enable = true;
 
         emacs = {
           # Enable emacs daemon.
@@ -459,6 +445,7 @@
       jetbrains.idea-community
       julia-bin
       msr # Used by xmrig.
+      nil
       octaveFull
       rebar3 # Erlang build system.
       rustup

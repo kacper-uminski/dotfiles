@@ -59,7 +59,6 @@
 ;; Electric pair mode (completes parentheses, quotes, etc.)
 (electric-pair-mode 1)
 
-
 ;; Treesitter
 (setq major-mode-remap-alist
       '((bash-mode . bash-ts-mode)
